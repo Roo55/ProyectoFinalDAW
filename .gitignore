@@ -1,100 +1,38 @@
-##############################
-## Java
-##############################
-.mtj.tmp/
-*.class
-*.jar
-*.war
-*.ear
-*.nar
-hs_err_pid*
-
-##############################
-## Maven
-##############################
+# Java build artifacts
 target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-pom.xml.bak
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
-
-##############################
-## Gradle
-##############################
-bin/
 build/
-.gradle
-.gradletasknamecache
-gradle-app.setting
-!gradle-wrapper.jar
 
-##############################
-## IntelliJ
-##############################
-out/
+# Maven build artifacts
+mvn*
+
+# IntelliJ IDEA files
+*.iml
 .idea/
 .idea_modules/
-*.iml
-*.ipr
-*.iws
+out/
 
-##############################
-## Eclipse
-##############################
-.settings/
-*/bin/
-tmp/
-.metadata
-.classpath
+# Eclipse files
+*.class
 .project
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.loadpath
-.factorypath
-
-######################
-# Parte de eclipse para colocar en la raíz del workspace
-#######################
-*/.settings/
-*/bin/
-*/tmp/
-*/.classpath
-*/.project
-*/*.tmp
-*/*.bak
-*/*.swp
-*/*~.nib
-*/local.properties
-*/.loadpath
-*/.factorypath
-
-##############################
-## NetBeans
-##############################
-nbproject/private/
+.settings/
+bin/
 build/
-nbbuild/
+
+# Vue build artifacts
+node_modules/
 dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
+.build/
+cache/
+public/hashes.json
+.yarn/
+.yarn-integrity
+yarn-error.log
 
-##############################
-## Visual Studio Code
-##############################
-.vscode/
-.code-workspace
+# Logs
+*.log
+log/
+logs/
 
-##############################
-## OS X
-##############################
+# Other
 .DS_Store
+Thumbs.db
