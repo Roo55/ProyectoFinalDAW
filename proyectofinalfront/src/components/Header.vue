@@ -9,17 +9,18 @@
         </a>
             
         <div class="collapse navbar-collapse" id="menu">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+              <a class="nav-link active" aria-current="page"><router-link to="/">Inicio</router-link></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Precios</a>
+              <a class="nav-link"><router-link to="/tarifas">Tarifas</router-link></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Servicios
-              </a>
+              <a class="nav-link"  id="navbarDropdown" ><router-link to="/galeria">Nuestro gimnasio</router-link></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  id="navbarDropdown" ><router-link to="/inscripcion">Inscripción</router-link></a>
             </li>
           </ul>
 
@@ -44,6 +45,10 @@ export default {
 </script>
 
 <style>
+ul li a{
+  color: white;
+  text-decoration: none;
+}
 .text-warning img{
   max-height: 50px;
 
