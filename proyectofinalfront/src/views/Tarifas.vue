@@ -1,4 +1,6 @@
 <template>
+            <h1>Nuestras tarifas</h1>
+        <span class="linea"></span>
     <div id="body">
 <main>
 <div class="contenedor-tarifas">
@@ -93,7 +95,13 @@
     box-sizing: border-box;
     
 }
-
+.linea{
+    background: #550b51;
+    height: 5px;
+    width: 100%;
+    display: block;
+    margin-bottom: 2rem;
+}
 #body{
     background:white ;
     font-family: 'open sans';
@@ -104,7 +112,7 @@
     width: 90%;
     max-width: 900px;
     margin: auto;
-    height: 100vh;
+    height: 68vh;
     display: flex;
     justify-content: center;
     align-items: center;

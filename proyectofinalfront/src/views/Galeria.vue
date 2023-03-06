@@ -1,198 +1,126 @@
 <template>
-    <div>
-      <h1>Te presentamos nuestro gimnasio</h1>
-      <span class="linea"></span>
-      <section class="galeria">
-        <a v-for="(image, index) in images" :key="index" @click.prevent="showModal(index)">
-          <img :src="require('@/assets/img/' + image.filename)" :alt="image.title" />
-        </a>
-      </section>
-      <div v-if="show">
-        <div class="modal">
-          <span class="cerrar" @click="closeModal">&times;</span>
-          <div class="modal-content">
-            <span class="prev" @click="prevImage">&lt;</span>
-            <img :src="require('@/assets/img/' + currentImage.filename)" :alt="currentImage.title" />
-            <span class="next" @click="nextImage">&gt;</span>
-          </div>
-        </div>
+        <h1>Te presentamos nuestro gimnasio</h1>
+        <span class="linea"></span>
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym1.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>1</h5>
+        <p>Vestuarios femenino y masculino completamente equipados</p>
       </div>
     </div>
-  </template>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym2.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>2</h5>
+        <p>Taquillas con llave personal</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym3.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>3</h5>
+        <p>Máquinas de última generación</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym4.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>4</h5>
+        <p>Sala de musculación</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym5.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>5</h5>
+        <p>Salas de Spinning</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym6.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>6</h5>
+        <p>Zonas de ejercicio cardiovascular</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym7.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>7</h5>
+        <p>Zona de peso libre</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+        <img class="d-block w-100" :src="require('@/assets/img/Imagengym8.jpg')" alt="Eighth slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>8</h5>
+        <p>Zona de ejercicio cardiovascular</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        images: [
-          {
-            filename: "Imagengym1.jpg",
-            title: "Imagen 1",
-          },
-          {
-            filename: "Imagengym2.jpg",
-            title: "Imagen 2",
-          },
-          {
-            filename: "Imagengym3.jpg",
-            title: "Imagen 3",
-          },
-          {
-            filename: "Imagengym4.jpg",
-            title: "Imagen 4",
-          },
-          {
-            filename: "Imagengym5.jpg",
-            title: "Imagen 5",
-          },
-          {
-            filename: "Imagengym6.jpg",
-            title: "Imagen 6",
-          },
-          {
-            filename: "Imagengym7.jpg",
-            title: "Imagen 7",
-          },
-          {
-            filename: "Imagengym8.jpg",
-            title: "Imagen 8",
-          },
-        ],
-        currentImageIndex: 0,
-        show: false,
-      };
-    },
-    computed: {
-      currentImage() {
-        return this.images[this.currentImageIndex];
-      },
-    },
-    methods: {
-      showModal(index) {
-        this.currentImageIndex = index;
-        this.show = true;
-      },
-      closeModal() {
-        this.show = false;
-      },
-      nextImage() {
-        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-      },
-      prevImage() {
-        this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
-      },
-    },
-  };
-  </script>
-  <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+<style>
+.carousel {
+  max-width:1400px; /* ajusta el valor para el ancho deseado */
+  max-height: 600px;
+  margin: 0 auto; /* centra el carrusel horizontalmente */
 }
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
+.carousel-inner {
+  margin: 20px; /* ajusta el valor para el margen deseado */
 }
 
 h1 {
-  text-align: center;
-  margin: 30px 0;
+    text-align: center;
+    margin-top: 50px;
 }
 
-.linea {
-  display: block;
-  height: 3px;
-  width: 100%;
-  background-color: #333;
-  margin: 30px 0;
+
+hr {
+    border-top: 2px solid #999;
 }
 
-/* Estilos para la galería */
-.galeria {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+
+.carousel-item {
+    height: 600px;
 }
 
-.galeria a {
-  margin: 20px;
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
 }
-
-.galeria img {
-  width: 250px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease-in-out;
+.linea{
+    background: #550b51;
+    height: 5px;
+    width: 100%;
+    display: block;
+    margin-bottom: 2rem;
 }
-
-.galeria img:hover {
-  transform: scale(1.1);
-}
-
-/* Estilos para el modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.modal-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.cerrar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #fff;
-  font-size: 30px;
-  font-weight: bold;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.prev,
-.next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 50px;
-  font-weight: bold;
-  padding: 10px;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.prev {
-  left: 0;
-}
-
-.next {
-  right: 0;
-}
-
-.modal img {
-  width: 70%;
-  height: 70%;
-  object-fit: contain;
-  border-radius: 10px;
-  border: 5px solid #fff;
+.carousel-caption p{
+    color: white;
+    background-color: blue;
+    display: inline-block;
 }
 </style>
+  
