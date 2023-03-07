@@ -28,7 +28,7 @@
 
 
           <form class="d-flex">
-            <button class="btn btn-outline-warning d-none d-md-inline-block " type="submit">Informacion</button>
+            <button class="btn btn-outline-warning d-none d-md-inline-block " id="botonLogin" type="submit"><router-link to="/login">Login</router-link></button>
           </form>
           
           
@@ -45,6 +45,11 @@ export default {
 </script>
 
 <style>
+form a{
+  text-decoration: none;
+  color: white;
+  
+}
 ul li a{
   color: white;
   text-decoration: none;
