@@ -16,8 +16,16 @@ public class ComprasDTO {
 	        this.idCliente = idCliente;
 	        this.idSuscripcion = idSuscripcion;
 	    }
+	    
 
-	    public Integer getId() {
+	    public ComprasDTO(String fechaCompra, Integer idCliente, Integer idSuscripcion) {
+			super();
+			this.fechaCompra = fechaCompra;
+			this.idCliente = idCliente;
+			this.idSuscripcion = idSuscripcion;
+		}
+
+		public Integer getId() {
 	        return id;
 	    }
 

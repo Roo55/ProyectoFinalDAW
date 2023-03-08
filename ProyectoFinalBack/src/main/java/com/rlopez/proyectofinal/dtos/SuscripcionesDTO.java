@@ -15,8 +15,17 @@ public class SuscripcionesDTO {
         this.precio = precio;
         this.duracion = duracion;
     }
+    
+    
 
-    public Integer getId() {
+    public SuscripcionesDTO(String tipoSuscripcion, Double precio, Integer duracion) {
+		super();
+		this.tipoSuscripcion = tipoSuscripcion;
+		this.precio = precio;
+		this.duracion = duracion;
+	}
+
+	public Integer getId() {
         return id;
     }
 

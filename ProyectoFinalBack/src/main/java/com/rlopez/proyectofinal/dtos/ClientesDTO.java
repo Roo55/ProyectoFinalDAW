@@ -27,8 +27,21 @@ public class ClientesDTO {
 	        this.numeroTelefono = numeroTelefono;
 	        this.contrasena = contrasena;
 	    }
+	    
+	    
+	    public ClientesDTO(String nombre, String apellido, String fechaNacimiento, String direccion,
+				String correoElectronico, String numeroTelefono, String contrasena) {
+			super();
+			this.nombre = nombre;
+			this.apellido = apellido;
+			this.fechaNacimiento = fechaNacimiento;
+			this.direccion = direccion;
+			this.correoElectronico = correoElectronico;
+			this.numeroTelefono = numeroTelefono;
+			this.contrasena = contrasena;
+		}
 
-	    public Integer getId() {
+		public Integer getId() {
 	        return id;
 	    }
 
