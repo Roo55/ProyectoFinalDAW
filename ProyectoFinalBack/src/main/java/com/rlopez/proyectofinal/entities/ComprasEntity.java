@@ -15,18 +15,18 @@ public class ComprasEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_compra")
     private Integer id;
 
     @Column(name = "fecha_compra")
     private String fechaCompra;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     private ClientesEntity cliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_subscripcion", referencedColumnName = "id")
+    @JoinColumn(name = "id_suscripcion", referencedColumnName = "id_suscripcion")
     private SuscripcionesEntity subscripcion;
 
 	public ComprasEntity() {

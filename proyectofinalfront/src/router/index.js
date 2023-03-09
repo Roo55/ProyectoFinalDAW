@@ -3,6 +3,7 @@ import principal from '../views/PaginaPrincipal.vue'
 import tarifas from '../views/Tarifas.vue'
 import galeria from '../views/Galeria.vue'
 import inscripcion from '../views/Inscripcion.vue'
+import login from '../views/Login.vue'
 const routes = [
   {
     path: '/',
@@ -23,6 +24,11 @@ const routes = [
     path:'/inscripcion',
     name:'inscripcion',
     component:inscripcion
+  },
+  {
+    path:'/login',
+    name:'login',
+    component:login
   }
 ]
 

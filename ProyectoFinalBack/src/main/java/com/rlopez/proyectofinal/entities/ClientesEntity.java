@@ -18,7 +18,7 @@ public class ClientesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_cliente")
     private Integer id;
 
     @Column(name = "nombre")
@@ -52,7 +52,7 @@ public class ClientesEntity {
 	}
 
 	public ClientesEntity(Integer id, String nombre, String apellido, String fechaNacimiento, String direccion,
-			String correoElectronico, String numeroTelefono, String contrasena, List<ComprasEntity> compras) {
+			String correoElectronico, String numeroTelefono, String contrasena) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -62,7 +62,7 @@ public class ClientesEntity {
 		this.correoElectronico = correoElectronico;
 		this.numeroTelefono = numeroTelefono;
 		this.contrasena = contrasena;
-		this.compras = compras;
+		
 	}
 
 	public Integer getId() {

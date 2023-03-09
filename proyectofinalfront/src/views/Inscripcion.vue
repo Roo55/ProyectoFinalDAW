@@ -2,7 +2,7 @@
     <main id="mainInscripcion">
         <section class="registro">
             <h4>Formulario de Registro en DreamGym Salamanca</h4>
-            <form action="#">
+            <form action="/gym/clientesinsert">
                 <input class="control-input" type="text" name="Nombre" id="nombreform" placeholder="Ingrese su Nombre">
                 <input class="control-input" type="text" name="Apellidos" id="apellidosform"
                     placeholder="Ingrese sus Apellidos">
@@ -35,8 +35,7 @@
                     <option value="Salir de fiesta"></option>
                     <option value="Montar en moto"></option>
                 </datalist>
-
-                <a href="../src/PaginaPrincipal.html"><input class="control-botones" type="button" value="Enviar"></a>
+                <button type="submit" value="Enviar" class="control-botones">Enviar</button>
                 <input class="control-botones" type="reset" value="Borrar información">
             </form>
         </section>

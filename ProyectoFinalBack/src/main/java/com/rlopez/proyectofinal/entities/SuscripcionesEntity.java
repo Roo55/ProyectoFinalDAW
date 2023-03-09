@@ -18,7 +18,7 @@ public class SuscripcionesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_suscripcion")
     private Integer id;
 
     @Column(name = "tipo_suscripcion")
@@ -30,8 +30,9 @@ public class SuscripcionesEntity {
     @Column(name = "duracion")
     private Integer duracion;
 
-    @OneToMany(mappedBy = "suscripcion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "subscripcion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ComprasEntity> compras;
+
 
 	public SuscripcionesEntity() {
 		super();
