@@ -2,29 +2,15 @@
     <main id="mainInscripcion">
         <section class="registro">
             <h4>Formulario de Registro en DreamGym Salamanca</h4>
-            <form action="/gym/clientesinsert">
-                <input class="control-input" type="text" name="Nombre" id="nombreform" placeholder="Ingrese su Nombre">
-                <input class="control-input" type="text" name="Apellidos" id="apellidosform"
-                    placeholder="Ingrese sus Apellidos">
-                <input class="control-input" type="text" name="Dni" id="dniform"
-                    pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i" placeholder="Introduzca su DNI"
-                    title="El DNI debe tener ocho dígitos y una letra">
-                <input class="control-input" type="text" name="Calle" id="calleform" placeholder="Introduzca su dirección"
-                    pattern="C/\w{1,}Nº\d{1,}P[A-Z]" title="El formato debe ser C/NombreCalle Nºnum P letraPuerta">
-                <input class="control-input" type="text" name="Ciudad" id="ciudadform"
-                    placeholder="Introduzca su ciudad de residencia">
-                <input class="control-input" type="text" name="CP" id="postalform" pattern="[0-9]{5}"
-                    title="El código postal debe tener 5 dígitos" placeholder="Introduzca su código postal">
-                <input class="control-input" type="text" name="País" id="paisform" placeholder="Introduzca su país">
-                <input class="control-input" type="date" name="Fechanac" id="fechanacform"
-                    placeholder="Fecha de nacimiento">
-                <input class="control-input" type="email" name="Email" id="emailform" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"
-                    title="El email debe tener el formato tunombre@email.com"
-                    placeholder="Introduzca su dirección de correo">
-                <input class="control-input" type="password" name="Contraseña" id="passwordform"
-                    pattern="_([a-zA-Z]){0,7}_([a-zA-Z]|\d){5}&\d{2}" placeholder="Introduzca una contraseña"
-                    title="El formato debe ser _Max7letras_5letrasonum&2num">
-                <label for="">Sexo:</label> <br>
+            <form action="http://localhost:8081/gym/gymc/clientesinsert" method="post">
+                <input class="control-input" type="text" name="nombre" id="nombreform" placeholder="Ingrese su Nombre">
+    <input class="control-input" type="text" name="apellidos" id="apellidosform" placeholder="Ingrese sus Apellidos">
+    <input class="control-input" type="date" name="fechanac" id="fechanacform" placeholder="Fecha de nacimiento">
+    <input class="control-input" type="text" name="calle" id="calleform" placeholder="Introduzca su dirección" title="El formato debe ser C/NombreCalle Nºnum P letraPuerta">
+    <input class="control-input" type="email" name="email" id="emailform" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" title="El email debe tener el formato tunombre@email.com" placeholder="Introduzca su dirección de correo">    <input class="control-input" type="text" name="numerotelef" id="numerotelef" pattern="[0-9]{9}" title="El número de teléfono debe tener 9 dígitos" placeholder="Introduzca su número de teléfono">   
+    <input class="control-input" type="password" name="contraseña" id="passwordform" pattern="^(?=.*[A-Z])(?=.*\d.*\d)[A-Za-z\d]{8,}$" placeholder="Introduzca una contraseña" title="El formato debe ser _Max">
+                
+    <label for="">Sexo:</label> <br>
                 <label for="Hombre">Hombre</label> <input class="control-input" type="radio" name="sexo" value="h">
                 <label for="Mujer">Mujer</label><input class="control-input" type="radio" name="sexo" value="m">
                 <br>
