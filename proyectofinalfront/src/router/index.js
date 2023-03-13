@@ -21,7 +21,7 @@ const routes = [
     component: galeria
   },
   {
-    path:'/inscripcion',
+    path:'/register',
     name:'inscripcion',
     component:inscripcion
   },
