@@ -12,3 +12,9 @@ createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)
   .mount("#app");
 
+  import axios from 'axios';
+
+  axios.interceptors.request.use(config => {
+    config.headers['Origin'] = 'http://localhost:8080'; // reemplaza con la URL de tu frontend
+    return config;
+  });

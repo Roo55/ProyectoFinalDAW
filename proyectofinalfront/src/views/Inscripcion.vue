@@ -1,30 +1,51 @@
 <template>
     <main id="mainInscripcion">
-        <section class="registro">
-            <h4>Formulario de Registro en DreamGym Salamanca</h4>
-            <form action="http://localhost:8081/gym/gymc/clientesinsert" method="post">
-                <input class="control-input" type="text" name="nombre" id="nombreform" placeholder="Ingrese su Nombre">
-    <input class="control-input" type="text" name="apellidos" id="apellidosform" placeholder="Ingrese sus Apellidos">
-    <input class="control-input" type="date" name="fechanac" id="fechanacform" placeholder="Fecha de nacimiento">
-    <input class="control-input" type="text" name="calle" id="calleform" placeholder="Introduzca su dirección" title="El formato debe ser C/NombreCalle Nºnum P letraPuerta">
-    <input class="control-input" type="email" name="email" id="emailform" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" title="El email debe tener el formato tunombre@email.com" placeholder="Introduzca su dirección de correo">    <input class="control-input" type="text" name="numerotelef" id="numerotelef" pattern="[0-9]{9}" title="El número de teléfono debe tener 9 dígitos" placeholder="Introduzca su número de teléfono">   
-    <input class="control-input" type="password" name="contraseña" id="passwordform" pattern="^(?=.*[A-Z])(?=.*\d.*\d)[A-Za-z\d]{8,}$" placeholder="Introduzca una contraseña" title="El formato debe ser _Max">
-                
-    <label for="">Sexo:</label> <br>
-                <label for="Hombre">Hombre</label> <input class="control-input" type="radio" name="sexo" value="h">
-                <label for="Mujer">Mujer</label><input class="control-input" type="radio" name="sexo" value="m">
-                <br>
-                <p id="terminoscond">Estoy de acuerdo con los <a href="#">Términos y condiciones</a> </p> <br>
-                <datalist id="Aficiones">
-                    <option value="Dibujar"></option>
-                    <option value="Bailar"></option>
-                    <option value="Salir de fiesta"></option>
-                    <option value="Montar en moto"></option>
-                </datalist>
-                <button type="submit" value="Enviar" class="control-botones">Enviar</button>
-                <input class="control-botones" type="reset" value="Borrar información">
-            </form>
-        </section>
+        <div class="col-md-12">
+    <div class="card card-container">
+      <img
+        id="profile-img"
+        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        class="profile-img-card"
+      />
+      <Form @submit="handleRegister" :validation-schema="schema">
+        <div v-if="!successful">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <Field name="username" type="text" class="form-control" />
+            <ErrorMessage name="username" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <Field name="email" type="email" class="form-control" />
+            <ErrorMessage name="email" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <Field name="password" type="password" class="form-control" />
+            <ErrorMessage name="password" class="error-feedback" />
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" :disabled="loading">
+              <span
+                v-show="loading"
+                class="spinner-border spinner-border-sm"
+              ></span>
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </Form>
+
+      <div
+        v-if="message"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ message }}
+      </div>
+    </div>
+  </div>
     </main>
     <footer>
         <div class="contenedor-footerall">
@@ -85,85 +106,189 @@
     </footer>
 </template>
 <script>
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
+
+export default {
+    name: 'Register',
+    components: {
+        Form,
+        Field,
+        ErrorMessage,
+    },
+    data() {
+        const schema = yup.object().shape({
+            username: yup
+                .string()
+                .required("Username is required!")
+                .min(3, "Must be at least 3 characters!")
+                .max(20, "Must be maximum 20 characters!"),
+            email: yup
+                .string()
+                .required("Email is required!")
+                .email("Email is invalid!")
+                .max(50, "Must be maximum 50 characters!"),
+            password: yup
+                .string()
+                .required("Password is required!")
+                .min(6, "Must be at least 6 characters!")
+                .max(40, "Must be maximum 40 characters!"),
+        });
+
+        return{
+            successful:false,
+            loading:false,
+            message:"",
+            schema,
+        };
+
+    },
+    computed:{
+        loggedIn(){
+            return this.$store.state.auth.status.loggedIn;
+        },
+    },
+    methods:{
+        handleRegister(user){
+            this.message = "",
+            this.successful = false,
+            this.loading = true;
+
+            this.$store.dispatch("auth/register",user).then(
+                (data) => {
+                    this.message = data.message;
+                    this.successful = true;
+                    this.loading = false;
+                },
+                (error) => {
+                    this.message = 
+                    (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+                    this.successful = false;
+                    this.loading = false;
+
+                }
+            );
+        },
+    },
+};
 
 </script>
 <style>
 * {
-  text-align: center;
-margin: 0;
-padding: 0;
-  box-sizing: border-box;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-  #mainInscripcion{
-      background-image: url(../assets/img/Evening\ Sunshine.jpg);
-      margin: 0;
-  font-family: "open sans";
-font-size: 15px;
-  }
-  .registro{
+#mainInscripcion {
+    background-image: url(../assets/img/Evening\ Sunshine.jpg);
+    margin: 0;
+    font-family: "open sans";
+    font-size: 15px;
+}
+
+.registro {
     width: 400px;
-    background:#24303c ;
+    background: #24303c;
     padding-right: 50px;
     padding-left: 50px;
     margin: auto;
-  border-radius: 4px;
-  font-family: 'calibri';
-  color: white;
-  padding-top: 10px;
-  box-sizing: 7px 13px 37px #000;
-  
-  }
-  .registro h4{
+    border-radius: 4px;
+    font-family: 'calibri';
+    color: white;
+    padding-top: 10px;
+    box-sizing: 7px 13px 37px #000;
+
+}
+
+.registro h4 {
     font-size: 22px;
     margin-bottom: 20px;
-  }
-  .registro p{
+}
+
+.registro p {
     height: 40px;
     text-align: center;
     font-size: 18px;
     line-height: 40px;
-  }
-  .registro a{
+}
+
+.registro a {
     color: white;
     text-decoration: none;
-  }
-  .registro a:hover{
+}
+
+.registro a:hover {
     color: white;
     text-decoration: underline;
-  }
-  .registro .control-botones{
-      width: 100%;
-      background:#1f53c5;
-      border:none;
-      padding: 12px;
-      color: white;
-      margin: 16px 0;
-      font-size: 16px;
-  }
-  .control-input{
-  width:100% ;
-  background: #24303c;
-  padding:10px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  border: 1px solid  #1f53c5;
-  font-family: 'calibri';
-  font-size: 18px;
-  }
-  /* INPUTS */
-input:invalid{
-  border-color: red;
-  color: red;
-  background: #fffafa;
-  
+}
 
-  }
-  .input[data-error]::after{
-content: attr(data-error);
-}  
-  
-  
-  
-      /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+.registro .control-botones {
+    width: 100%;
+    background: #1f53c5;
+    border: none;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+}
+
+.control-input {
+    width: 100%;
+    background: #24303c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #1f53c5;
+    font-family: 'calibri';
+    font-size: 18px;
+}
+
+/* INPUTS */
+input:invalid {
+    border-color: red;
+    color: red;
+    background: #fffafa;
+
+
+}
+
+.input[data-error]::after {
+    content: attr(data-error);
+}
+
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+.card-container.card {
+  max-width: 350px !important;
+  padding: 40px 40px;
+}
+.card {
+  background-color: #f7f7f7;
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  margin-top: 50px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.error-feedback {
+  color: red;
+}
 </style>

@@ -13,3 +13,16 @@ module.exports = {
     },
   },
 };
+module.exports = {
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081/api/auth/', 
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  }
+}
