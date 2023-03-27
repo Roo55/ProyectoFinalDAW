@@ -1,9 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
 
-module.exports = {
+module.exports = defineConfig({
+  transpileDependencies: true,
   publicPath: '/',
   css: {
     loaderOptions: {
@@ -12,17 +10,13 @@ module.exports = {
       },
     },
   },
-};
-module.exports = {
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:8081/api/auth/', 
+      '^/api': {
+        target: 'http://localhost:8081',
         changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
+        pathRewrite: {'^/api': '/api'}
+      },
     }
   }
-}
+})

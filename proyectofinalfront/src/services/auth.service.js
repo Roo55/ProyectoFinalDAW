@@ -27,8 +27,13 @@ class AuthService {
       username: user.username,
       email: user.email,
       password: user.password
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
   }
+  
 }
 
 export default new AuthService();

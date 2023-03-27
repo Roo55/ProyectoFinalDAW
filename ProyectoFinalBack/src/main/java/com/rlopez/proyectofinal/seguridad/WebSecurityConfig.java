@@ -64,20 +64,35 @@ public class WebSecurityConfig {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-  
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+      CorsConfiguration configuration = new CorsConfiguration();
+      configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+      configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+      configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+      source.registerCorsConfiguration("/**", configuration);
+
+      return source;
+  }
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.cors().and().csrf().disable()
-        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-        .antMatchers("/api/test/**").permitAll()
-        .anyRequest().authenticated();
-    
-    http.authenticationProvider(authenticationProvider());
+	  http.cors().and().csrf().disable()
+      .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+      .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+      .antMatchers("/api/test/**").permitAll()
+      .anyRequest().authenticated();
+  
+  http.authenticationProvider(authenticationProvider());
 
-    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    
-    return http.build();
+  http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+  // Agrega la siguiente línea para configurar la política CORS
+  http.cors().configurationSource(corsConfigurationSource());
+
+  return http.build();
   }
 }

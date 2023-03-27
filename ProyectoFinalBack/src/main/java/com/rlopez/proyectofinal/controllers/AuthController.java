@@ -32,7 +32,7 @@ import com.rlopez.proyectofinal.repositorios.UserRepository;
 import com.rlopez.proyectofinal.seguridad.jwt.JwtUtils;
 import com.rlopez.proyectofinal.seguridad.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
