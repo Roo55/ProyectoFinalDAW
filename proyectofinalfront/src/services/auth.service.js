@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost:8081/gym/api';
+axios.defaults.headers.common['Origin'] = 'http://localhost:8080';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 const API_URL = 'http://localhost:8081/api/auth/';
 
 class AuthService {
@@ -29,7 +33,8 @@ class AuthService {
       password: user.password
     }, {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     });
   }
