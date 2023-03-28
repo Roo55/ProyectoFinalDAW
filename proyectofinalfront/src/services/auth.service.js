@@ -4,7 +4,7 @@ axios.defaults.baseURL = 'http://localhost:8081/gym/api';
 axios.defaults.headers.common['Origin'] = 'http://localhost:8080';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-const API_URL = 'http://localhost:8081/api/auth/';
+const API_URL = 'http://localhost:8081/gym/api/auth/';
 
 class AuthService {
   login(user) {
