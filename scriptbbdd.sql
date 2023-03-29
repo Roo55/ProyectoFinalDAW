@@ -47,7 +47,7 @@ ADD COLUMN username VARCHAR(50) NOT NULL;
 ALTER TABLE Clientes
 CHANGE COLUMN contrasena password VARCHAR(255) NOT NULL;
 
-
+ALTER TABLE clientes DROP COLUMN id, DROP COLUMN email;
 
 
 -- Renombrar la columna id en la tabla Clientes
