@@ -33,10 +33,12 @@ public class User {
 	@NotBlank
     private String apellido;
 	@NotBlank
+	@Column(name="fecha_nacimiento")
     private String fechaNacimiento;
 	@NotBlank
     private String direccion;
 	@NotBlank
+	@Column(name="numero_telefono")
     private String numeroTelefono;
 
 	@ManyToMany(fetch = FetchType.LAZY)

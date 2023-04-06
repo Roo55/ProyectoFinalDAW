@@ -12,7 +12,7 @@ public class SignupRequestDTO {
 	@Size(max = 50)
 	@Email
 	private String email;
-
+	
     private String nombre;
     private String apellido;
     private String fechaNacimiento;
