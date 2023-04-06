@@ -47,7 +47,7 @@ ADD COLUMN username VARCHAR(50) NOT NULL;
 ALTER TABLE Clientes
 CHANGE COLUMN contrasena password VARCHAR(255) NOT NULL;
 
-ALTER TABLE clientes DROP COLUMN id, DROP COLUMN email;
+ALTER TABLE lientes DROP COLUMN id, DROP COLUMN email;
 
 
 -- Renombrar la columna id en la tabla Clientes
@@ -63,4 +63,7 @@ INSERT INTO clientes (nombre, apellido, fecha_nacimiento, direccion, correo_elec
 VALUES ('Nombre1', 'Apellido1', '2000-01-01', 'Dirección1', 'correo1@example.com', '123456789', 'contraseña1', 'usuario1'),
        ('Nombre2', 'Apellido2', '2001-02-02', 'Dirección2', 'correo2@example.com', '234567890', 'contraseña2', 'usuario2'),
        ('Nombre3', 'Apellido3', '2002-03-03', 'Dirección3', 'correo3@example.com', '345678901', 'contraseña3', 'usuario3');
+ALTER TABLE Clientes ADD email VARCHAR(255);
 
+ALTER TABLE Clientes DROP COLUMN correo_electronico;
+ALTER TABLE Clientes DROP COLUMN contrasena;
