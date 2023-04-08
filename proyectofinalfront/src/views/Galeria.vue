@@ -79,6 +79,62 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<footer>
+        <div class="contenedor-footerall">
+            <div class="contenedor-body">
+                <div class="columna1">
+                    <h1>Más información de la compañía</h1>
+                    <p>
+                        DreamGym Salamanca es un proyecto dedicado a las personas
+                        residentes en Salamanca o alrededores las cuales quieran dar un
+                        cambio radical en su vida, para aquellos que quieran sentirse
+                        realmente bien consigo mismos y a la par quieran mantener un
+                        estilo de vida saludable.
+                    </p>
+                </div>
+                <div class="columna2">
+                    <h1>Síguenos en redes para no perderte nada</h1>
+                    <div class="fila1">
+                        <img src="../assets/img/facebook.png" alt="" />
+                        <label> <a href=""> Síguenos en Facebook</a></label>
+                    </div>
+                    <div class="fila1">
+                        <img src="../assets/img/twitter.png" alt="" />
+                        <label> <a href=""> Síguenos en Twitter</a></label>
+                    </div>
+                    <div class="fila1">
+                        <img src="../assets/img/instagram.png" alt="" />
+                        <label> <a href=""> Síguenos en Instagram</a></label>
+                    </div>
+                    <div class="fila1">
+                        <img src="../assets/img/google-plus.png" alt="" />
+                        <label> <a href=""> Síguenos en Google Plus</a></label>
+                    </div>
+                    <div class="fila1">
+                        <img src="../assets/img/pinterest.png" alt="" />
+                        <label> <a href=""> Síguenos en Pinterest</a></label>
+                    </div>
+                </div>
+                <div class="columna3">
+                    <h1>Contacto</h1>
+                    <div class="fila2">
+                        <img src="../assets/img/house.png" />
+                        <label>Salamanca, Calle Los Agradecidos 9 37002, España </label>
+                    </div>
+                    <div class="fila2">
+                        <img src="../assets/img/smartphone.png" />
+                        <label>923608327</label>
+                    </div>
+                    <div class="fila2">
+                        <img src="../assets/img/contact.png" />
+                        <label>
+                            <a href="mailto:dreamgymslmnc@dreamgymbussiness.com">Nuestro correo</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </template>
   
 <style>

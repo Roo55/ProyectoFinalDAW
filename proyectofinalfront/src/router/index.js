@@ -4,6 +4,7 @@ import tarifas from '../views/Tarifas.vue'
 import galeria from '../views/Galeria.vue'
 import inscripcion from '../views/Inscripcion.vue'
 import login from '../views/Login.vue'
+import sugerencias from '../views/SugerenciasEjercicios.vue'
 const routes = [
   {
     path: '/',
@@ -29,7 +30,13 @@ const routes = [
     path:'/login',
     name:'login',
     component:login
+  },
+  {
+    path:'/sugerencias',
+    name:'sugerencias',
+    component:sugerencias
   }
+ 
 ]
 
 const router = createRouter({

@@ -24,6 +24,9 @@
           <li class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/inscripcion">Inscripción</router-link></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="navbarDropdown"><router-link to="/sugerencias">Sugerencias</router-link></a>
+          </li>
 
           <div v-if="!currentUser" class="navbar-nav ml-auto">
             <li class="nav-item">
