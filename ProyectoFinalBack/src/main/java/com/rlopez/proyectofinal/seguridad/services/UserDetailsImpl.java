@@ -15,7 +15,7 @@ import com.rlopez.proyectofinal.entities.models.User;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Integer id;
 
 	private String username;
 
@@ -36,7 +36,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
+	public UserDetailsImpl(Integer id, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
@@ -45,7 +45,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 	
-	public UserDetailsImpl(Long id, String username, String email, String nombre, String apellido,
+	public UserDetailsImpl(Integer id, String username, String email, String nombre, String apellido,
 			String fechaNacimiento, String direccion, String numeroTelefono, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		super();
@@ -117,7 +117,7 @@ public class UserDetailsImpl implements UserDetails {
 		return serialVersionUID;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -137,7 +137,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 

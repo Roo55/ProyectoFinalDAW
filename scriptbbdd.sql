@@ -1,16 +1,18 @@
+DROP DATABASE IF EXISTS Gym;
 CREATE DATABASE Gym;
 
 USE Gym;
 
 CREATE TABLE Clientes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_cliente INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   nombre VARCHAR(50) NOT NULL,
   apellido VARCHAR(50) NOT NULL,
-  fecha_nacimiento DATE NOT NULL,
+  fecha_nacimiento VARCHAR(25) NOT NULL,
   direccion VARCHAR(100) NOT NULL,
-  correo_electronico VARCHAR(100) NOT NULL,
   numero_telefono VARCHAR(15) NOT NULL,
-  contrasena VARCHAR(255) NOT NULL
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(15) NOT NULL,
+  username VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE roles (
@@ -21,49 +23,38 @@ CREATE TABLE roles (
 CREATE TABLE user_roles (
   user_id INT NOT NULL,
   role_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES Clientes(id),
+  FOREIGN KEY (user_id) REFERENCES Clientes(id_cliente),
   FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
 CREATE TABLE Suscripciones (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_suscripcion INT AUTO_INCREMENT PRIMARY KEY,
   tipo_suscripcion VARCHAR(50) NOT NULL,
   precio DECIMAL(10,2) NOT NULL,
   duracion INT NOT NULL
 );
 
 CREATE TABLE Compras (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id_compras INT AUTO_INCREMENT PRIMARY KEY,
   id_cliente INT NOT NULL,
   id_suscripcion INT NOT NULL,
   fecha_compra DATE NOT NULL,
-  FOREIGN KEY (id_cliente) REFERENCES Clientes(id),
-  FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id)
+  FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
+  FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion)
 );
-USE Gym;
-ALTER TABLE Clientes
-ADD COLUMN username VARCHAR(50) NOT NULL;
+-- Generar datos para probar(clientes)
+-- Insertar datos en la tabla clientes
+INSERT INTO Clientes (nombre, apellido, fecha_nacimiento, direccion, numero_telefono, email, password, username) 
+VALUES 
+('Sofía', 'García', '1985-07-12', 'Calle 123', '555-1234', 'sofia.garcia@example.com', '123456', 'sofiagarcia'),
+('Pedro', 'López', '1990-03-22', 'Avenida 456', '555-5678', 'pedro.lopez@example.com', 'password', 'pedrol'),
+('Ana', 'Martínez', '1988-11-05', 'Calle 789', '555-9012', 'ana.martinez@example.com', 'abc123', 'anamartinez');
+-- Generar datos para probar(roles)
+-- Insertar datos en la tabla roles
+INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
+INSERT INTO roles (name) VALUES ('ROLE_USER');
 
-ALTER TABLE Clientes
-CHANGE COLUMN contrasena password VARCHAR(255) NOT NULL;
-
-ALTER TABLE lientes DROP COLUMN id, DROP COLUMN email;
-
-
--- Renombrar la columna id en la tabla Clientes
-ALTER TABLE Clientes RENAME COLUMN id TO id_cliente;
-
--- Renombrar la columna id en la tabla Suscripciones
-ALTER TABLE Suscripciones RENAME COLUMN id TO id_suscripcion;
-
--- Renombrar la columna id en la tabla Compras
-ALTER TABLE Compras RENAME COLUMN id TO id_compra;
-
-INSERT INTO clientes (nombre, apellido, fecha_nacimiento, direccion, correo_electronico, numero_telefono, password, username)
-VALUES ('Nombre1', 'Apellido1', '2000-01-01', 'Dirección1', 'correo1@example.com', '123456789', 'contraseña1', 'usuario1'),
-       ('Nombre2', 'Apellido2', '2001-02-02', 'Dirección2', 'correo2@example.com', '234567890', 'contraseña2', 'usuario2'),
-       ('Nombre3', 'Apellido3', '2002-03-03', 'Dirección3', 'correo3@example.com', '345678901', 'contraseña3', 'usuario3');
-ALTER TABLE Clientes ADD email VARCHAR(255);
-
-ALTER TABLE Clientes DROP COLUMN correo_electronico;
-ALTER TABLE Clientes DROP COLUMN contrasena;
+-- Insertar datos en la tabla user_roles
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 1); -- Asignar el rol 'ROLE_ADMIN' al usuario con id = 1
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 2); -- Asignar el rol 'ROLE_USER' al usuario con id = 1
+INSERT INTO user_roles (user_id, role_id) VALUES (2, 2); -- Asignar el rol 'ROLE_USER' al usuario con id = 2

@@ -15,10 +15,11 @@ public class ClientesServiceImpl implements IClientesService{
 	ClientesRepository clientesRepository;
 	
 	@Override
-	public Integer insertarCliente(Integer id, String nombre, String apellido, String fechaNacimiento, String direccion,
-			String correoElectronico, String numeroTelefono, String contrasena) {
+	public Integer insertarCliente(String nombre, String apellido, String fechaNacimiento, String direccion, String email,
+			String numeroTelefono, String password, String username) {
 		// TODO Auto-generated method stub
-		return clientes.insertarCliente(id, nombre, apellido, fechaNacimiento, direccion, correoElectronico, numeroTelefono, contrasena);
+		return clientes.insertarCliente(nombre, apellido, fechaNacimiento, direccion, email,
+				numeroTelefono, password, username);
 	}
 
 }

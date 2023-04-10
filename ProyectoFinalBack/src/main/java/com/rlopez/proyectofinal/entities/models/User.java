@@ -9,37 +9,46 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "clientes", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
-		@UniqueConstraint(columnNames = "email") })
+@Table(name = "clientes", uniqueConstraints = { @UniqueConstraint(columnNames = "username") })
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "id_cliente")
+	private Integer id;
 
 	@NotBlank
 	@Size(max = 20)
+	@Column(name = "username")
 	private String username;
 
 	@NotBlank
-	@Size(max = 50)
-	@Email
+	@Column(name = "email")
 	private String email;
 
 	@NotBlank
 	@Size(max = 120)
+	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "nombre")
 	@NotBlank
-    private String nombre;
+	private String nombre;
+	
+	@Column(name="apellido")
 	@NotBlank
-    private String apellido;
+	private String apellido;
+	
 	@NotBlank
-	@Column(name="fecha_nacimiento")
-    private String fechaNacimiento;
+	@Column(name = "fecha_nacimiento")
+	private String fechaNacimiento;
+	
+	@Column(name="direccion")
 	@NotBlank
-    private String direccion;
+	private String direccion;
+	
 	@NotBlank
-	@Column(name="numero_telefono")
-    private String numeroTelefono;
+	@Column(name = "numero_telefono")
+	private String numeroTelefono;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -58,9 +67,8 @@ public class User {
 		return nombre;
 	}
 
-	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
-			@NotBlank @Size(max = 120) String password, @NotBlank String nombre, @NotBlank String apellido,
-			@NotBlank String fechaNacimiento, @NotBlank String direccion, @NotBlank String numeroTelefono) {
+	public User(String nombre, String apellido, String fechaNacimiento, String direccion, String email,
+			String numeroTelefono, String password, String username) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -108,11 +116,11 @@ public class User {
 		this.numeroTelefono = numeroTelefono;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.rlopez.proyectofinal.daos.ClientesDAO;
 import com.rlopez.proyectofinal.dtos.ClientesDTO;
-import com.rlopez.proyectofinal.entities.ClientesEntity;
+import com.rlopez.proyectofinal.entities.models.User;
 import com.rlopez.proyectofinal.repositorios.ClientesRepository;
 @Component
 public class ClientesDAOImpl implements ClientesDAO{
@@ -24,10 +24,11 @@ public class ClientesDAOImpl implements ClientesDAO{
 	}
 
 	@Override
-	public Integer insertarCliente(Integer id,String nombre, String apellido, String fechaNacimiento, String direccion,
-			String correoElectronico, String numeroTelefono, String contrasena) {
+	public Integer insertarCliente(String nombre, String apellido, String fechaNacimiento, String direccion, String email,
+			String numeroTelefono, String password, String username) {
 		
-		ClientesEntity cliente = new ClientesEntity(id,nombre,apellido,fechaNacimiento,direccion,correoElectronico,numeroTelefono,contrasena);
+		User cliente = new User( nombre,  apellido,  fechaNacimiento,  direccion,  email,
+				 numeroTelefono,  password,  username);
 		
 		clientesRepository.save(cliente);
 		
