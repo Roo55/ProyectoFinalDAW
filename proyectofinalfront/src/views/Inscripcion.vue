@@ -1,58 +1,52 @@
 <template>
     <main id="mainInscripcion">
-        <div class="col-md-12">
-            <div class="card card-container">
-                <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
-                <form @submit.prevent="enviarRegistro()">
-                    <div v-if="!successful">
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" v-model="nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" id="apellido" v-model="apellido">
-                        </div>
-                        <div class="form-group">
-                            <label for="fechaNacimiento">Fecha de nacimiento:</label>
-                            <input type="text" id="fechaNacimiento" v-model="fechaNacimiento">
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion">Direccion:</label>
-                            <input type="text" id="direccion" v-model="direccion">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="text" id="email" v-model="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="numeroTelefono">Número de telefono:</label>
-                            <input type="text" id="numeroTelefono" v-model="numeroTelefono">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Contraseña:</label>
-                            <input type="password" id="password" v-model="password">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Nombre de usuario:</label>
-                            <input type="text" id="username" v-model="username">
-                        </div>
-
-
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" :disabled="loading">
-                                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
-                </Form>
-
-                <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-                    {{ message }}
-                </div>
+        <form @submit.prevent="enviarRegistro()">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" v-model="nombre">
             </div>
-        </div>
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" v-model="apellido">
+            </div>
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha de nacimiento:</label>
+                <input type="text" id="fechaNacimiento" v-model="fechaNacimiento" @input="validarFechaNacimiento">
+                <div v-if="fechaNacimientoError" class="error-message">{{ fechaNacimientoErrorMessage }}</div>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Direccion:</label>
+                <input type="text" id="direccion" v-model="direccion">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" v-model="email" @input="validarEmail">
+                <div v-if="emailError" class="error-message">{{ emailErrorMessage }}</div>
+            </div>
+            <div class="form-group">
+                <label for="numeroTelefono">Número de telefono:</label>
+                <input type="text" id="numeroTelefono" v-model="numeroTelefono" @input="validarNumeroTelefono">
+                <div v-if="numeroTelefonoError" class="error-message">{{ numeroTelefonoErrorMessage }}</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" v-model="password" @input="validarPassword">
+                <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+            </div>
+            <div class="form-group">
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" v-model="username" @input="validarUsername">
+                <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
+            </div>
+            <!-- ... más campos de formulario ... -->
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" :disabled="loading">
+                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                    Sign Up
+                </button>
+            </div>
+        </form>
+        <!-- ... tu código de mensaje de éxito/error ... -->
     </main>
     <footer>
         <div class="contenedor-footerall">
@@ -121,11 +115,21 @@ export default {
             nombre: '',
             apellido: '',
             fechaNacimiento: '',
+            fechaNacimientoError: false,
+            fechaNacimientoErrorMessage: '',
             direccion: '',
             email: '',
+            emailError: false,
+            emailErrorMessage: '',
             numeroTelefono: '',
+            numeroTelefonoError: false,
+            numeroTelefonoErrorMessage: '',
             password: '',
-            username: ''
+            passwordError: false,
+            passwordErrorMessage: '',
+            username: '',
+            usernameError: false,
+            usernameErrorMessage: '',
         }
     },
     methods: {
@@ -140,10 +144,62 @@ export default {
                 password: this.password,
                 username: this.username,
 
-            }).then((response)=> {
+            }).then((response) => {
                 console.log(response.data);
             })
-        }
+        },
+        validarFechaNacimiento() {
+
+            if (!this.fechaNacimiento.match(/^(\d{2}\/){2}\d{4}$/)) {
+                this.fechaNacimientoError = true;
+                this.fechaNacimientoErrorMessage = 'Por favor, ingrese una fecha de nacimiento válida en el formato DD-MM-YYYY';
+            } else {
+                this.fechaNacimientoError = false;
+                this.fechaNacimientoErrorMessage = '';
+            }
+        },
+        validarEmail() {
+
+            if (!this.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+                this.emailError = true;
+                this.emailErrorMessage = 'Por favor, ingrese un email válido';
+            } else {
+                this.emailError = false;
+                this.emailErrorMessage = '';
+            }
+        },
+        validarNumeroTelefono() {
+
+            if (!this.numeroTelefono.match(/^\d{9}$/)) {
+                this.numeroTelefonoError = true;
+                this.numeroTelefonoErrorMessage = 'Por favor, ingrese un número de teléfono válido de 9 dígitos';
+            } else {
+                this.numeroTelefonoError = false;
+                this.numeroTelefonoErrorMessage = '';
+            }
+        },
+        validarPassword() {
+
+            if (this.password.length < 8 || !/[A-Z]/.test(this.password) || !/\d.*\d/.test(this.password)) {
+                this.passwordError = true;
+                this.passwordErrorMessage = 'La contraseña debe tener al menos 8 caracteres, una mayúscula y dos números';
+            } else {
+                this.passwordError = false;
+                this.passwordErrorMessage = '';
+            }
+        },
+
+        validarUsername() {
+            const regex = /^(?=.*\d)[a-zA-Z\d]{5,}$/;
+            if (!regex.test(this.username)) {
+                this.usernameError = true;
+                this.usernameErrorMessage = 'El nombre de usuario debe tener al menos 5 caracteres y al menos 1 número';
+            } else {
+                this.usernameError = false;
+                this.usernameErrorMessage = '';
+            }
+        },
+
     }
 }
 </script>
