@@ -5,6 +5,8 @@ import galeria from '../views/Galeria.vue'
 import inscripcion from '../views/Inscripcion.vue'
 import login from '../views/Login.vue'
 import sugerencias from '../views/SugerenciasEjercicios.vue'
+import calendario from '../views/Calendario.vue'
+
 const routes = [
   {
     path: '/',
@@ -35,7 +37,13 @@ const routes = [
     path:'/sugerencias',
     name:'sugerencias',
     component:sugerencias
+  },
+  {
+    path:'/calendario',
+    name:'calendario',
+    component:calendario
   }
+  
  
 ]
 

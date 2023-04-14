@@ -1,26 +1,34 @@
 <template>
   <main id="mainInscripcion">
-    <form @submit.prevent="enviarLogin()">
-      <div class="form-group">
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" v-model="username" @input="validarUsername">
-        <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
-      </div>
-      <div class="form-group">
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" v-model="password" @input="validarPassword">
-        <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
-      </div>
+    <div class="col-md-12">
+      <div class="card card-container">
+        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+        <form @submit.prevent="enviarRegistro()">
+          <div class="form-group">
+              <label for="username">Nombre de usuario:</label>
+              <input type="text" id="username" v-model="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña:</label>
+              <input type="password" id="password" v-model="password">
+            </div>
+           
 
-      <!-- ... más campos de formulario ... -->
-      <div class="form-group">
-        <button class="btn btn-primary btn-block" >
-          <span  ></span>
-          Sign U
-        </button>
+
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" :disabled="loading">
+                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                Sign Up
+              </button>
+            </div>
+         
+        </Form>
+
+        <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
+          {{ message }}
+        </div>
       </div>
-    </form>
-    <!-- ... tu código de mensaje de éxito/error ... -->
+    </div>
   </main>
   <footer>
     <div class="contenedor-footerall">
@@ -87,48 +95,21 @@ export default {
   data() {
     return {
       username: '',
-      usernameError: false,
-      usernameErrorMessage: '',
-      password: '',
-      passwordError: false,
-      passwordErrorMessage: '',
+      password: ''
 
     }
   },
   methods: {
-    enviarLogin() {
+    enviarRegistro() {
       axios.post('http://localhost:8081/gym/api/auth/signin', {
         username: this.username,
-        password: this.password,
-        
+        password: this.password
+
 
       }).then((response) => {
         console.log(response.data);
       })
-    },
-
-    validarPassword() {
-
-      if (this.password.length < 8 || !/[A-Z]/.test(this.password) || !/\d.*\d/.test(this.password)) {
-        this.passwordError = true;
-        this.passwordErrorMessage = 'La contraseña debe tener al menos 8 caracteres, una mayúscula y dos números';
-      } else {
-        this.passwordError = false;
-        this.passwordErrorMessage = '';
-      }
-    },
-
-    validarUsername() {
-      const regex = /^(?=.*\d)[a-zA-Z\d]{5,}$/;
-      if (!regex.test(this.username)) {
-        this.usernameError = true;
-        this.usernameErrorMessage = 'El nombre de usuario debe tener al menos 5 caracteres y al menos 1 número';
-      } else {
-        this.usernameError = false;
-        this.usernameErrorMessage = '';
-      }
-    },
-
+    }
   }
 }
 </script>

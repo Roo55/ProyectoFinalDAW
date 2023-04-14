@@ -17,7 +17,6 @@ public class User {
 	private Integer id;
 
 	@NotBlank
-	@Size(max = 20)
 	@Column(name = "username")
 	private String username;
 
@@ -25,27 +24,25 @@ public class User {
 	@Column(name = "email")
 	private String email;
 
-	@NotBlank
-	@Size(max = 120)
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "nombre")
 	@NotBlank
 	private String nombre;
-	
-	@Column(name="apellido")
+
+	@Column(name = "apellido")
 	@NotBlank
 	private String apellido;
-	
+
 	@NotBlank
 	@Column(name = "fecha_nacimiento")
 	private String fechaNacimiento;
-	
-	@Column(name="direccion")
+
+	@Column(name = "direccion")
 	@NotBlank
 	private String direccion;
-	
+
 	@NotBlank
 	@Column(name = "numero_telefono")
 	private String numeroTelefono;

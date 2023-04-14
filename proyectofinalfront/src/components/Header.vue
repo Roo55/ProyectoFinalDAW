@@ -27,6 +27,9 @@
           <li class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/sugerencias">Sugerencias</router-link></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="navbarDropdown"><router-link to="/calendario">Calendario Clases</router-link></a>
+          </li>
 
           <div class="navbar-nav ml-auto">
             <li class="nav-item">
