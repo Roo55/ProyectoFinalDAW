@@ -11,7 +11,7 @@ CREATE TABLE Clientes (
   direccion VARCHAR(100) NOT NULL,
   numero_telefono VARCHAR(15) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  password VARCHAR(15) NOT NULL,
+  password VARCHAR(200) NOT NULL,
   username VARCHAR(255) NOT NULL
 );
 
@@ -23,8 +23,7 @@ CREATE TABLE roles (
 CREATE TABLE user_roles (
   user_id INT NOT NULL,
   role_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES Clientes(id_cliente),
-  FOREIGN KEY (role_id) REFERENCES roles(id)
+  PRIMARY KEY (user_id,role_id) 
 );
 
 CREATE TABLE Suscripciones (
@@ -55,6 +54,6 @@ INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
 INSERT INTO roles (name) VALUES ('ROLE_USER');
 
 -- Insertar datos en la tabla user_roles
-INSERT INTO user_roles (user_id, role_id) VALUES (1, 1); -- Asignar el rol 'ROLE_ADMIN' al usuario con id = 1
-INSERT INTO user_roles (user_id, role_id) VALUES (1, 2); -- Asignar el rol 'ROLE_USER' al usuario con id = 1
-INSERT INTO user_roles (user_id, role_id) VALUES (2, 2); -- Asignar el rol 'ROLE_USER' al usuario con id = 2
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 1); 
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 2); 
+INSERT INTO user_roles (user_id, role_id) VALUES (2, 2); 

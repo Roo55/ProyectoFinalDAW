@@ -1,115 +1,83 @@
 <template>
   <main id="mainInscripcion">
-      <div class="col-md-12">
-          <div class="card card-container">
-              <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
-              <form @submit.prevent="enviarRegistro()">
-                  <div v-if="!successful">
-                      <div class="form-group">
-                          <label for="nombre">Nombre:</label>
-                          <input type="text" id="nombre" v-model="nombre">
-                      </div>
-                      <div class="form-group">
-                          <label for="apellido">Apellido:</label>
-                          <input type="text" id="apellido" v-model="apellido">
-                      </div>
-                      <div class="form-group">
-                          <label for="fechaNacimiento">Fecha de nacimiento:</label>
-                          <input type="text" id="fechaNacimiento" v-model="fechaNacimiento">
-                      </div>
-                      <div class="form-group">
-                          <label for="direccion">Direccion:</label>
-                          <input type="text" id="direccion" v-model="direccion">
-                      </div>
-                      <div class="form-group">
-                          <label for="email">Email:</label>
-                          <input type="text" id="email" v-model="email">
-                      </div>
-                      <div class="form-group">
-                          <label for="numeroTelefono">Número de telefono:</label>
-                          <input type="text" id="numeroTelefono" v-model="numeroTelefono">
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Contraseña:</label>
-                          <input type="password" id="password" v-model="password">
-                      </div>
-                      <div class="form-group">
-                          <label for="username">Nombre de usuario:</label>
-                          <input type="text" id="username" v-model="username">
-                      </div>
-
-
-                      <div class="form-group">
-                          <button class="btn btn-primary btn-block" :disabled="loading">
-                              <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                              Sign Up
-                          </button>
-                      </div>
-                  </div>
-              </Form>
-
-              <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-                  {{ message }}
-              </div>
-          </div>
+    <form @submit.prevent="enviarLogin()">
+      <div class="form-group">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" v-model="username" @input="validarUsername">
+        <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
       </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" v-model="password" @input="validarPassword">
+        <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+      </div>
+
+      <!-- ... más campos de formulario ... -->
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" >
+          <span  ></span>
+          Sign U
+        </button>
+      </div>
+    </form>
+    <!-- ... tu código de mensaje de éxito/error ... -->
   </main>
   <footer>
-      <div class="contenedor-footerall">
-          <div class="contenedor-body">
-              <div class="columna1">
-                  <h1>Más información de la compañía</h1>
-                  <p>
-                      DreamGym Salamanca es un proyecto dedicado a las personas residentes
-                      en Salamanca o alrededores las cuales quieran dar un cambio radical
-                      en su vida, para aquellos que quieran sentirse realmente bien
-                      consigo mismos y a la par quieran mantener un estilo de vida
-                      saludable.
-                  </p>
-              </div>
-              <div class="columna2">
-                  <h1>Síguenos en redes para no perderte nada</h1>
-                  <div class="fila1">
-                      <img src="../assets/img/facebook.png" alt="" />
-                      <label> <a href=""> Síguenos en Facebook</a></label>
-                  </div>
-                  <div class="fila1">
-                      <img src="../assets/img/twitter.png" alt="" />
-                      <label> <a href=""> Síguenos en Twitter</a></label>
-                  </div>
-                  <div class="fila1">
-                      <img src="../assets/img/instagram.png" alt="" />
-                      <label> <a href=""> Síguenos en Instagram</a></label>
-                  </div>
-                  <div class="fila1">
-                      <img src="../assets/img/google-plus.png" alt="" />
-                      <label> <a href=""> Síguenos en Google Plus</a></label>
-                  </div>
-                  <div class="fila1">
-                      <img src="../assets/img/pinterest.png" alt="" />
-                      <label> <a href=""> Síguenos en Pinterest</a></label>
-                  </div>
-              </div>
-              <div class="columna3">
-                  <h1>Contacto</h1>
-                  <div class="fila2">
-                      <img src="../assets/img/house.png" />
-                      <label>Salamanca, Calle Los Agradecidos 9 37002, España </label>
-                  </div>
-                  <div class="fila2">
-                      <img src="../assets/img/smartphone.png" />
-                      <label>923608327</label>
-                  </div>
-                  <div class="fila2">
-                      <img src="../assets/img/contact.png" />
-                      <label> <a href="mailto:dreamgymslmnc@dreamgymbussiness.com">Nuestro correo</a> </label>
-                  </div>
-
-
-              </div>
-
+    <div class="contenedor-footerall">
+      <div class="contenedor-body">
+        <div class="columna1">
+          <h1>Más información de la compañía</h1>
+          <p>
+            DreamGym Salamanca es un proyecto dedicado a las personas residentes
+            en Salamanca o alrededores las cuales quieran dar un cambio radical
+            en su vida, para aquellos que quieran sentirse realmente bien
+            consigo mismos y a la par quieran mantener un estilo de vida
+            saludable.
+          </p>
+        </div>
+        <div class="columna2">
+          <h1>Síguenos en redes para no perderte nada</h1>
+          <div class="fila1">
+            <img src="../assets/img/facebook.png" alt="" />
+            <label> <a href=""> Síguenos en Facebook</a></label>
           </div>
+          <div class="fila1">
+            <img src="../assets/img/twitter.png" alt="" />
+            <label> <a href=""> Síguenos en Twitter</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/instagram.png" alt="" />
+            <label> <a href=""> Síguenos en Instagram</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/google-plus.png" alt="" />
+            <label> <a href=""> Síguenos en Google Plus</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/pinterest.png" alt="" />
+            <label> <a href=""> Síguenos en Pinterest</a></label>
+          </div>
+        </div>
+        <div class="columna3">
+          <h1>Contacto</h1>
+          <div class="fila2">
+            <img src="../assets/img/house.png" />
+            <label>Salamanca, Calle Los Agradecidos 9 37002, España </label>
+          </div>
+          <div class="fila2">
+            <img src="../assets/img/smartphone.png" />
+            <label>923608327</label>
+          </div>
+          <div class="fila2">
+            <img src="../assets/img/contact.png" />
+            <label> <a href="mailto:dreamgymslmnc@dreamgymbussiness.com">Nuestro correo</a> </label>
+          </div>
+
+
+        </div>
+
       </div>
+    </div>
   </footer>
 </template>
 <script>
@@ -117,33 +85,50 @@ import axios from 'axios';
 export default {
 
   data() {
-      return {
-          nombre: '',
-          apellido: '',
-          fechaNacimiento: '',
-          direccion: '',
-          email: '',
-          numeroTelefono: '',
-          password: '',
-          username: ''
-      }
+    return {
+      username: '',
+      usernameError: false,
+      usernameErrorMessage: '',
+      password: '',
+      passwordError: false,
+      passwordErrorMessage: '',
+
+    }
   },
   methods: {
-      enviarRegistro() {
-          axios.post('http://localhost:8081/gym/api/auth/signup', {
-              nombre: this.nombre,
-              apellido: this.apellido,
-              fechaNacimiento: this.fechaNacimiento,
-              direccion: this.direccion,
-              email: this.email,
-              numeroTelefono: this.numeroTelefono,
-              password: this.password,
-              username: this.username,
+    enviarLogin() {
+      axios.post('http://localhost:8081/gym/api/auth/signin', {
+        username: this.username,
+        password: this.password,
+        
 
-          }).then((response)=> {
-              console.log(response.data);
-          })
+      }).then((response) => {
+        console.log(response.data);
+      })
+    },
+
+    validarPassword() {
+
+      if (this.password.length < 8 || !/[A-Z]/.test(this.password) || !/\d.*\d/.test(this.password)) {
+        this.passwordError = true;
+        this.passwordErrorMessage = 'La contraseña debe tener al menos 8 caracteres, una mayúscula y dos números';
+      } else {
+        this.passwordError = false;
+        this.passwordErrorMessage = '';
       }
+    },
+
+    validarUsername() {
+      const regex = /^(?=.*\d)[a-zA-Z\d]{5,}$/;
+      if (!regex.test(this.username)) {
+        this.usernameError = true;
+        this.usernameErrorMessage = 'El nombre de usuario debe tener al menos 5 caracteres y al menos 1 número';
+      } else {
+        this.usernameError = false;
+        this.usernameErrorMessage = '';
+      }
+    },
+
   }
 }
 </script>
