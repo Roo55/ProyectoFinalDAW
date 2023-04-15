@@ -1,29 +1,33 @@
 <template>
     <div class="calendar">
-        <h2>{{ currentMonthName }} {{ currentYear }}</h2>
-        <table>
+        <div class="calendar-header">
+            <h1 class="calendar-title">Calendario de Eventos</h1>
+            <h2 class="calendar-subtitle">{{ currentMonthName }} {{ currentYear }}</h2>
+        </div>
+        <div class="navigation">
+            <button class="navigation-button" @click="previousMonth">&lt;</button>
+            <h2 class="navigation-title">{{ currentMonthName }} {{ currentYear }}</h2>
+            <button class="navigation-button" @click="nextMonth">&gt;</button>
+        </div>
+        <table class="calendar-table">
             <thead>
                 <tr>
-                    <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
+                    <th v-for="day in daysOfWeek" :key="day" class="calendar-header">{{ day }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="week in weeks" :key="week">
-                    <td v-for="day in week" :key="day.date" :class="{ 'today': isToday(day) }">
-                        <div class="day-container" v-color-aleatorio>
-                            <div class="day">{{ day.date }}</div>
-                            <div class="class" v-if="day.classIndex >= 0" v-class-color="day.classIndex">{{
-                                classes[day.classIndex] }}</div>
-                            <div class="time" v-if="day.classIndex >= 0" v-class-color="day.classIndex">{{ day.time }}</div>
+                <tr v-for="week in weeks" :key="week" class="calendar-week">
+                    <td v-for="day in week" :key="day.date"
+                        :class="{ 'today': isToday(day), 'event': day.className !== '' }" class="calendar-day">
+                        <div class="calendar-date">{{ day.date }}</div>
+                        <div v-if="day.className" class="event-info">
+                            <p class="event-class">{{ day.className }}</p>
+                            <p class="event-time">{{ day.time }}</p>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="navigation">
-            <button @click="previousMonth">&lt;</button>
-            <button @click="nextMonth">&gt;</button>
-        </div>
     </div>
 </template>
   
@@ -33,57 +37,33 @@ export default {
         return {
             currentMonth: new Date().getMonth(),
             currentYear: new Date().getFullYear(),
-            colorClasses: {},
             daysOfWeek: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-            classes: [
-                'Yoga',
-                'Pilates',
-                'Zumba',
-                'Spinning',
-                'HIIT',
-                'CrossFit',
-                'Boxeo',
-                'Natación',
-            ],
-            times: [
-                '8:00 AM',
-                '9:00 AM',
-                '10:00 AM',
-                '11:00 AM',
-                '12:00 PM',
-                '4:00 PM',
-                '5:00 PM',
-                '6:00 PM',
-                '7:00 PM',
+            events: [
+                { day: Math.floor(Math.random() * 31) + 1, className: 'Zumba', time: '10:00 am' },
+                { day: Math.floor(Math.random() * 31) + 1, className: 'HIIT', time: '4:30 pm' },
+                { day: Math.floor(Math.random() * 31) + 1, className: 'Spinning', time: '4:30 pm' },
+                { day: Math.floor(Math.random() * 31) + 1, className: 'Pilates', time: '4:30 pm' },
+                { day: Math.floor(Math.random() * 31) + 1, className: 'Yoga', time: '4:30 pm' },
+                { day: Math.floor(Math.random() * 31) + 1, className: 'Kickboxing', time: '4:30 pm' },
             ],
         };
     },
-    directives: {
-    'color-aleatorio': {
-        bind: function(el, binding) {
-            // Generar un color aleatorio en formato hexadecimal
-            const color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-            // Asignar el color al fondo del elemento
-            el.style.backgroundColor = color;
-        }
-    }
-},
 
     computed: {
         currentMonthName() {
             const monthNames = [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December',
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'Abril',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre',
             ];
             return monthNames[this.currentMonth];
         },
@@ -97,23 +77,30 @@ export default {
             }
             for (let i = 1; i <= lastDay; i++) {
                 const date = new Date(this.currentYear, this.currentMonth, i);
-                const hasClass = Math.random() < 0.5; // Cambia 0.5 a la probabilidad deseada
-                const classIndex = hasClass ? Math.floor(Math.random() * this.classes.length) : -1;
-                const time = hasClass ? this.times[Math.floor(Math.random() * this.times.length)] : '';
-
-                if (hasClass && !this.colorClasses[classIndex]) {
-                    // Asignar un color aleatorio a la clase si aún no tiene uno
-                    this.colorClasses[classIndex] = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                let event = null; // Inicializa el evento como nulo
+                // Genera un número aleatorio entre 1 y 31 (o el número máximo de días del mes)
+                const randomDay = Math.floor(Math.random() * lastDay) + 1;
+                if (i === randomDay || i % 7 === 0) {
+                    // Si el día actual coincide con el número aleatorio o es un múltiplo de 7, asigna un evento
+                    const classNames = ['Zumba', 'HIIT', 'Spinning', 'Pilates', 'Yoga', 'Kickboxing']; // Arreglo de clases para asignar aleatoriamente
+                    const randomIndex = Math.floor(Math.random() * classNames.length); // Genera un índice aleatorio
+                    const className = classNames[randomIndex]; // Obtiene la clase aleatoria
+                    const time = `${Math.floor(Math.random() * 12) + 1}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'am' : 'pm'}`; // Genera una hora aleatoria
+                    event = { day: i, className, time }; // Asigna el evento al día actual
                 }
-
-                week.push({ date: i, dayOfWeek: date.getDay(), classIndex, time });
+                const eventClassName = event ? event.className : ''; // Obtiene la clase del evento
+                const eventTime = event ? event.time : ''; // Obtiene la hora del evento
+                week.push({ date: i, dayOfWeek: date.getDay(), className: eventClassName, time: eventTime });
                 if (date.getDay() === 6 || i === lastDay) {
                     weeks.push(week);
                     week = [];
                 }
             }
             return weeks;
-        },
+        }
+
+
+
 
     },
     methods: {
@@ -129,8 +116,7 @@ export default {
             if (this.currentMonth === 0) {
                 this.currentMonth = 11;
                 this.currentYear--;
-            }
-            else {
+            } else {
                 this.currentMonth--;
             }
         },
@@ -142,75 +128,89 @@ export default {
                 this.currentMonth++;
             }
         },
-        getRandomClass() {
-            return this.classes[Math.floor(Math.random() * this.classes.length)];
-        },
-        getRandomTime() {
-            return this.times[Math.floor(Math.random() * this.times.length)];
-        },
     },
 };
 </script>
-
+  
 <style scoped>
 .calendar {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
+    font-family: Arial, sans-serif;
 }
 
-h2 {
-    text-align: center;
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-table {
+.navigation-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.navigation-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.calendar-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th,
-td {
+.calendar-header,
+.calendar-day {
+    padding: 5px;
     text-align: center;
-    padding: 8px;
 }
 
-.today {
-    background-color: #eee;
+.calendar-header {
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
 }
 
-.day-container {
+.calendar-day {
+    border: 1px solid #ccc;
+    height: 50px;
+    overflow: hidden;
     position: relative;
 }
 
-.day {
-    font-size: 18px;
+.calendar-date {
+    position: absolute;
+    top: 5px;
+    left: 5px;
 }
 
-.class {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 14px;
+.event-info {
+    background-color: #007bff;
     color: #fff;
-    padding: 4px 8px;
-
-    /* Agregar esta línea para aplicar el color asignado a la clase */
-    background-color: transparent;
-    background-color: var(--class-color);
+    padding: 5px;
 }
 
-.time {
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
+.event-class,
+.event-time {
+    margin: 0;
     font-size: 12px;
 }
 
+.today {
+    background-color: #007bff;
+    color: #fff;
+}
 
-.navigation {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
+.event {
+    background-color: #28a745;
+    color: #fff;
 }
 </style>
