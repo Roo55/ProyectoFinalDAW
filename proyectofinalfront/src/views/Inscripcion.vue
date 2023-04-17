@@ -1,5 +1,6 @@
 <template>
-    <main id="mainInscripcion">
+    <div id="principal" class="d-flex align-items-center">
+        <main id="mainInscripcion" class="mx-auto">
         <form @submit.prevent="enviarRegistro()">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -48,7 +49,9 @@
         </form>
         <!-- ... tu código de mensaje de éxito/error ... -->
     </main>
-    <footer>
+    </div>
+    
+    <footer class="mt-auto">
         <div class="contenedor-footerall">
             <div class="contenedor-body">
                 <div class="columna1">
@@ -203,19 +206,130 @@ export default {
     }
 }
 </script>
-<style>
-* {
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+<style scoped>
+ label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    label a {
+        text-decoration: none;
+        color: #007bff;
+    }
+#principal{
+    background-color: #8c00ff;
 }
+#mainInscripcion {
+  background-color: black;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  width: 50%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.spinner-border {
+  margin-right: 5px;
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.contenedor-footerall {
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.columna1,
+.columna2,
+.columna3 {
+  flex-basis: 30%;
+  color: white;
+}
+
+.columna1 h1,
+.columna2 h1,
+.columna3 h1 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.columna1 p,
+.columna2 .fila1,
+.columna3 .fila2 {
+  margin-bottom: 5px;
+}
+
+.columna2 .fila1 img,
+.columna3 .fila2 img {
+  width: 20px;
+  margin-right: 5px;
+}
+
+.columna2 .fila1 a,
+.columna3 .fila2 label {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.columna2 .fila1 a:hover,
+.columna3 .fila2 label:hover {
+  text-decoration: underline;
+}
+
 
 #mainInscripcion {
     background-image: url(../assets/img/Evening\ Sunshine.jpg);
     margin: 0;
     font-family: "open sans";
     font-size: 15px;
+  
 }
 
 .registro {

@@ -22,9 +22,6 @@
             <a class="nav-link" id="navbarDropdown"><router-link to="/galeria">Nuestro gimnasio</router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="navbarDropdown"><router-link to="/inscripcion">Inscripción</router-link></a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/sugerencias">Sugerencias</router-link></a>
           </li>
           <li class="nav-item">
@@ -34,7 +31,7 @@
           <div class="navbar-nav ml-auto">
             <li class="nav-item">
               <router-link to="/register" class="nav-link">
-                <font-awesome-icon icon="user-plus" /> Sign Up
+                <font-awesome-icon icon="user-plus" /> Registro
               </router-link>
             </li>
             <li class="nav-item">
