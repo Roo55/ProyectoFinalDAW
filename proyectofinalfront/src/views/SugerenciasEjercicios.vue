@@ -1,26 +1,32 @@
 <template>
-    <div>
-      <h2>¿Qué ejercicios puedes realizar hoy?</h2>
-      <div class="botones">
-        <button v-for="(boton, index) in botones" :key="index" @click="mostrarEjercicios(index)">{{ boton.nombre }}</button>
-      </div>
-      <div class="ejercicios-contenedor" v-if="mostrarCuadros">
-        <table>
-          <tbody>
-            <tr>
-              <td class="cuadro cuadro1">{{ ejerciciosMostrados[0] }}</td>
-            </tr>
-            <tr>
-              <td class="cuadro cuadro2">{{ ejerciciosMostrados[1] }}</td>
-            </tr>
-            <tr>
-              <td class="cuadro cuadro3">{{ ejerciciosMostrados[2] }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="container">
+    <h2>¿Qué ejercicios puedes realizar hoy?</h2>
+    <p>Selecciona un grupo muscular:</p>
+    <div class="d-flex flex-wrap justify-content-center mb-3">
+      <button v-for="(boton, index) in botones"
+              :key="index"
+              @click="mostrarEjercicios(index)"
+              class="btn btn-primary mx-2 my-1">
+        {{ boton.nombre }}
+      </button>
     </div>
-  </template>
+    <div class="ejercicios-contenedor" v-if="mostrarCuadros">
+      <table>
+        <tbody>
+          <tr>
+            <td class="cuadro cuadro1">{{ ejerciciosMostrados[0] }}</td>
+          </tr>
+          <tr>
+            <td class="cuadro cuadro2">{{ ejerciciosMostrados[1] }}</td>
+          </tr>
+          <tr>
+            <td class="cuadro cuadro3">{{ ejerciciosMostrados[2] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>
   
   <script>
   export default {
@@ -48,7 +54,45 @@
   };
   </script>
 
-<style>
+<style scoped>
+.container {
+  background-color: white;
+  padding: 2rem;
+}
+
+.ejercicios-contenedor {
+  margin-top: 2rem;
+}
+
+.cuadro {
+  background-color: #F4F4F4;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+@media (min-width: 576px) {
+  .botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    margin: 0.5rem;
+  }
+
+  .ejercicios-contenedor {
+    margin-top: 3rem;
+  }
+
+  .cuadro {
+    font-size: 1.5rem;
+  }
+}
+.container{
+  background-color: white;
+}
 .botones button{
     margin-right: 1rem;
 }

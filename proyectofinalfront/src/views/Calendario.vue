@@ -205,7 +205,7 @@ export default {
 }
 
 .today {
-    background-color: #007bff;
+    background-color: red;
     color: #fff;
 }
 
