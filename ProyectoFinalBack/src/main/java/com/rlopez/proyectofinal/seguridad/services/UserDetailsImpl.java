@@ -31,7 +31,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String numeroTelefono;
 
-	@JsonIgnore
+	
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
