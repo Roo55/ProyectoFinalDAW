@@ -6,7 +6,7 @@ import inscripcion from '../views/Inscripcion.vue'
 import login from '../views/Login.vue'
 import sugerencias from '../views/SugerenciasEjercicios.vue'
 import calendario from '../views/Calendario.vue'
-
+import paywall from '../views/Paywall.vue'
 const routes = [
   {
     path: '/',
@@ -42,6 +42,11 @@ const routes = [
     path:'/calendario',
     name:'calendario',
     component:calendario
+  },
+  {
+    path:'/paywall',
+    name:'paywall',
+    component:paywall
   }
   
  

@@ -1,37 +1,55 @@
 <template>
-            <h1>Nuestras tarifas</h1>
-        <span class="linea"></span>
+    <h1>Nuestras tarifas</h1>
+    <span class="linea"></span>
     <div id="body">
-<main>
-<div class="contenedor-tarifas">
-    <div class="tabla">
-        <h2>Mensual</h2>
-        <img src="../assets/img/dumbbell.png" alt="">
-        <h3>30 <sup>€</sup> </h3>
-        <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-        <a href="" class="compra">¡Lo quiero!</a>
+      <main>
+        <div class="contenedor-tarifas">
+          <div class="tabla">
+            <h2>Mensual</h2>
+            <img src="../assets/img/dumbbell.png" alt="">
+            <h3>30 <sup>€</sup> </h3>
+            <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
+            <button class="compra" @click="seleccionarSuscripcion(30)">¡Lo quiero!</button>
+          </div>
+          <div class="tabla">
+            <h2>Trimestral</h2>
+            <img src="../assets/img/Tarifados.png" alt="">
+            <h3>55 <sup>€</sup> </h3>
+            <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
+            <p>15% de descuento</p>
+            <button class="compra" @click="seleccionarSuscripcion(55)">¡Lo quiero!</button>
+          </div>
+          <div class="tabla">
+            <h2>Anual</h2>
+            <img src="../assets/img/weightlifter.png" alt="">
+            <h3>80 <sup>€</sup> </h3>
+            <p>¡Sólo para valientes!</p>
+            <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
+            <p>20% de descuento</p>
+            <button class="compra" @click="seleccionarSuscripcion(80)">¡Lo quiero!</button>
+          </div>
+        </div>
+      </main>
     </div>
-    <div class="tabla">
-        <h2>Trimestral</h2>
-        <img src="../assets/img/Tarifados.png" alt="">
-        <h3>55 <sup>€</sup> </h3>
-        <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
-        <p>15% de descuento</p>
-        <a href="" class="compra">¡Lo quiero!</a>
-    </div>
-    <div class="tabla">
-        <h2>Anual</h2>
-        <img src="../assets/img/weightlifter.png" alt="">
-        <h3>80 <sup>€</sup> </h3>
-        <p>¡Sólo para valientes!</p>
-        <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
-        <p>20% de descuento</p>
-        <a href="" class="compra">¡Lo quiero!</a>
-    </div>
-</div>
-</main>
-</div>
-</template>
+  </template>
+  <script>
+import { useStore } from 'pinia'
+
+export default {
+  setup() {
+    const store = useStore()
+
+    function seleccionarSuscripcion(precio) {
+      store.suscripcion.setPrecio(precio)
+      router.push('/paywall')
+    }
+
+    return {
+      seleccionarSuscripcion
+    }
+  }
+}
+</script>
 <style>
 *{
     margin: 0;
