@@ -2,6 +2,7 @@ package com.rlopez.proyectofinal.seguridad;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -23,6 +24,7 @@ import com.rlopez.proyectofinal.seguridad.services.UserDetailsServiceImpl;
 
 
 @Configuration
+@ComponentScan("com")
 @EnableGlobalMethodSecurity(
     // securedEnabled = true,
     // jsr250Enabled = true,

@@ -38,15 +38,15 @@ export default {
   data() {
     return {
       tarifas: [
-        { id: 1, nombre: "Principiantes", precio: 10 },
-        { id: 2, nombre: "Intermedios", precio: 20 },
-        { id: 3, nombre: "", precio: 30 },
+        { id: 1, nombre: "Principiantes", precio: 30 },
+        { id: 2, nombre: "Intermedios", precio: 55 },
+        { id: 3, nombre: "Avanzados", precio: 80 },
       ],
     };
   },
   methods: {
     mostrarPaywall(precio) {
-      this.$router.push({ name: "paywall", params: { precio: precio } });
+      this.$router.push({ name: "paywall", state: { precio: precio } });
     },
   },
 };

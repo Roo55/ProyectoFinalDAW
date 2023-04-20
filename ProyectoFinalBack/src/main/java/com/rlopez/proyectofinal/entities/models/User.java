@@ -9,18 +9,18 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "clientes", uniqueConstraints = { @UniqueConstraint(columnNames = "username") })
+@Table(name = "clientes")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cliente")
 	private Integer id;
 
-	@NotBlank
+	
 	@Column(name = "username")
 	private String username;
 
-	@NotBlank
+	
 	@Column(name = "email")
 	private String email;
 
@@ -28,22 +28,19 @@ public class User {
 	private String password;
 
 	@Column(name = "nombre")
-	@NotBlank
 	private String nombre;
 
 	@Column(name = "apellido")
-	@NotBlank
 	private String apellido;
 
-	@NotBlank
+	
 	@Column(name = "fecha_nacimiento")
 	private String fechaNacimiento;
 
 	@Column(name = "direccion")
-	@NotBlank
 	private String direccion;
 
-	@NotBlank
+	
 	@Column(name = "numero_telefono")
 	private String numeroTelefono;
 
