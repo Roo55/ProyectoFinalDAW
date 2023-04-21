@@ -44,7 +44,7 @@ const routes = [
     component:calendario
   },
   {
-    path:'/paywall',
+    path:'/paywall/:precio/:nombre',
     name:'paywall',
     component:paywall
   }

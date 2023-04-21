@@ -1,16 +1,14 @@
 <template>
  
     <Header></Header>
-    <CajaFooter></CajaFooter>
     <router-view/>
 
  
 </template>
 <script>
 import Header from './components/Header.vue'
-import CajaFooter from './components/CajaFooter.vue'
 export default{
-  components:{Header,CajaFooter}
+  components:{Header}
 }
 </script>
 <style>

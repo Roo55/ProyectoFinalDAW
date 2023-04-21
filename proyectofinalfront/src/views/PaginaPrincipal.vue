@@ -1,4 +1,6 @@
 <template>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
   <div>
     <main class="main">
       <section class="textos-principales text-center">
@@ -32,7 +34,7 @@
           </div>
         </div>
       </section>
-      <section class="nuestros-servicios">
+      <section class="nuestros-servicios" id="nuestros-servicios">
         <div class="contenedor">
           <h2 class="titulo2">Te contamos más sobre nosotros</h2>
           <div class="row galeria-servicios ">
@@ -41,7 +43,7 @@
                 <img src="../assets/img/inscripcioncuadro.jpg" alt="" />
                 <div class="hover-galeria">
                   <img src="../assets/img/contrato.png" alt="" />
-                  <p> <a class="idinscripcion"><router-link to="/inscripcion">Inscripción</router-link></a></p>
+                  <p> <a class="idinscripcion"><router-link to="/register">Inscripción</router-link></a></p>
                 </div>
               </div>
             </div>
@@ -172,7 +174,7 @@
 <script>
 
 </script>
-<style>
+<style scoped>
 .card-body {
   background-color: #4d0686;
 }
@@ -527,7 +529,6 @@ body {
 }
 
 .galeria-servicios {
-  display: block;
   justify-content: space-evenly;
   margin-bottom: 1rem;
 }

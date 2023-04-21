@@ -133,6 +133,9 @@ export default {
 </script>
   
 <style scoped>
+.calendar-header{
+    font-size: 1.5rem;
+}
 .calendar {
     max-width: 500px;
     margin: 0 auto;

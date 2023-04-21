@@ -11,7 +11,9 @@
 
 
       <h2>Completa el pago</h2>
-<p>Precio a pagar es {{ precio }}</p>
+      <p>Has seleccionado la suscripción <strong> {{ nombre }}</strong> </p>
+      <p>El precio a pagar es <strong>{{ precio }}</strong>€</p>
+      <br>
       <div class="form">
         <div class="card space icon-relative">
           <label class="label">Titular de la tarjeta:</label>
@@ -49,6 +51,7 @@ export default {
   data() {
     return {
       precio: this.$route.params.precio,
+      nombre: this.$route.params.nombre
     };
   },
 };
@@ -193,4 +196,5 @@ body {
   .btn {
     margin-top: 20px;
   }
-}</style>
+}
+</style>

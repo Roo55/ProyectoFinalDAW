@@ -9,7 +9,7 @@
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
           <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-          <button class="compra" v-on:click="mostrarPaywall(tarifas[0].precio)">Comprar</button>
+          <button class="compra" v-on:click="mostrarPaywall(tarifas[0].precio,tarifas[0].nombre)">Comprar</button>
         </div>
         <div class="tabla">
           <h2>Trimestral</h2>
@@ -17,7 +17,7 @@
           <h3>55 <sup>€</sup> </h3>
           <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
           <p>15% de descuento</p>
-          <button class="compra" v-on:click="mostrarPaywall(tarifas[1].precio)">Comprar</button>
+          <button class="compra" v-on:click="mostrarPaywall(tarifas[1].precio,tarifas[1].nombre)">Comprar</button>
         </div>
         <div class="tabla">
           <h2>Anual</h2>
@@ -26,11 +26,68 @@
           <p>¡Sólo para valientes!</p>
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
           <p>20% de descuento</p>
-          <button class="compra" v-on:click="mostrarPaywall(tarifas[2].precio)">Comprar</button>
+          <button class="compra" v-on:click="mostrarPaywall(tarifas[2].precio,tarifas[2].nombre)">Comprar</button>
         </div>
       </div>
     </main>
   </div>
+  <footer>
+    <div class="contenedor-footerall">
+      <div class="contenedor-body">
+        <div class="columna1">
+          <h1>Más información de la compañía</h1>
+          <p>
+            DreamGym Salamanca es un proyecto dedicado a las personas residentes
+            en Salamanca o alrededores las cuales quieran dar un cambio radical
+            en su vida, para aquellos que quieran sentirse realmente bien
+            consigo mismos y a la par quieran mantener un estilo de vida
+            saludable.
+          </p>
+        </div>
+        <div class="columna2">
+          <h1>Síguenos en redes para no perderte nada</h1>
+          <div class="fila1">
+            <img src="../assets/img/facebook.png" alt="" />
+            <label> <a href=""> Síguenos en Facebook</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/twitter.png" alt="" />
+            <label> <a href=""> Síguenos en Twitter</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/instagram.png" alt="" />
+            <label> <a href=""> Síguenos en Instagram</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/google-plus.png" alt="" />
+            <label> <a href=""> Síguenos en Google Plus</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/pinterest.png" alt="" />
+            <label> <a href=""> Síguenos en Pinterest</a></label>
+          </div>
+        </div>
+        <div class="columna3">
+          <h1>Contacto</h1>
+          <div class="fila2">
+            <img src="../assets/img/house.png" />
+            <label>Salamanca, Calle Los Agradecidos 9 37002, España </label>
+          </div>
+          <div class="fila2">
+            <img src="../assets/img/smartphone.png" />
+            <label>923608327</label>
+          </div>
+          <div class="fila2">
+            <img src="../assets/img/contact.png" />
+            <label> <a href="mailto:dreamgymslmnc@dreamgymbussiness.com">Nuestro correo</a> </label>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script>
@@ -38,24 +95,29 @@ export default {
   data() {
     return {
       tarifas: [
-        { id: 1, nombre: "Principiantes", precio: 30 },
-        { id: 2, nombre: "Intermedios", precio: 55 },
-        { id: 3, nombre: "Avanzados", precio: 80 },
+        { id: 1, nombre: "Mensual", precio: 30 },
+        { id: 2, nombre: "Trimestral", precio: 55 },
+        { id: 3, nombre: "Anual", precio: 80 },
       ],
     };
   },
   methods: {
-    mostrarPaywall(precio) {
-      this.$router.push({ name: "paywall", state: { precio: precio } });
+    mostrarPaywall(precio,nombre) {
+      this.$router.push({ name: "paywall", params: { precio: precio,nombre:nombre } });
     },
   },
+  mounted(){
+        window.scrollTo(0,0);
+    },
 };
 </script>
-<style>
+<style scoped>
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-align: center;
     
 }
 .linea{
@@ -133,5 +195,107 @@ export default {
     font-size: 12px;
     font-weight: 600;
 }
+footer {
+  width: 100%;
+  background: #202020;
+  color: white;
+  padding: 40px;
+  height: 50%;
+}
+
+.contenedor-footerall {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.contenedor-body {
+  display: flex;
+  /* para que los divs se pongan uno al lado del otro*/
+  justify-content: space-between;
+  position: relative;
+  height: 450px;
+}
+
+.columna1,
+.columna2,
+.columna3 {
+  max-width: 400px;
+}
+
+.columna1 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.columna1 p {
+  font-size: 14px;
+  color: #c7c7c7;
+  margin-top: 20px;
+}
+
+.columna2 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila1 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila1 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila1 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  color: #c7c7c7;
+}
+
+.columna3 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila2 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila2 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila2 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 90px;
+}
+
+.contenedor-footer {
+  width: 90%;
+  top: 850px;
+  background: #101010;
+  padding: 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 55px;
+  justify-content: center;
+
+}
+
+.footer {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+
 
 </style>

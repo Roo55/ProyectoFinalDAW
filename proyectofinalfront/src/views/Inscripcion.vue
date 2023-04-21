@@ -135,6 +135,9 @@ export default {
             usernameErrorMessage: '',
         }
     },
+    mounted(){
+        window.scrollTo(0,0);
+    },
     methods: {
         enviarRegistro() {
             axios.post('http://localhost:8081/gym/api/auth/signup', {
