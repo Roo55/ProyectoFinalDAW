@@ -114,6 +114,106 @@ export default {
 }
 </script>
 <style scoped>
+footer {
+  width: 100%;
+  background: #202020;
+  color: white;
+  padding: 40px;
+  height: 50%;
+}
+
+.contenedor-footerall {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.contenedor-body {
+  display: flex;
+ 
+  justify-content: space-between;
+  position: relative;
+  height: 450px;
+}
+
+.columna1,
+.columna2,
+.columna3 {
+  max-width: 400px;
+}
+
+.columna1 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.columna1 p {
+  font-size: 14px;
+  color: #c7c7c7;
+  margin-top: 20px;
+}
+
+.columna2 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila1 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila1 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila1 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  color: #c7c7c7;
+}
+
+.columna3 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila2 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila2 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila2 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 90px;
+}
+
+.contenedor-footer {
+  width: 90%;
+  top: 850px;
+  background: #101010;
+  padding: 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 55px;
+  justify-content: center;
+
+}
+
+.footer {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 * {
   text-align: center;
   margin: 0;

@@ -297,7 +297,7 @@ td {
 
 .contenedor-body {
   display: flex;
-  /* para que los divs se pongan uno al lado del otro*/
+ 
   justify-content: space-between;
   position: relative;
   height: 450px;
