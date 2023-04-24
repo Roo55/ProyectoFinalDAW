@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.rlopez.proyectofinal.entities.models.User;
-
 @Entity
 @Table(name = "compras")
 public class ComprasEntity {
@@ -25,7 +23,7 @@ public class ComprasEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
-    private User cliente;
+    private ClientesEntity cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_suscripcion", referencedColumnName = "id_suscripcion")
@@ -35,7 +33,7 @@ public class ComprasEntity {
 		super();
 	}
 
-	public ComprasEntity(Integer id, String fechaCompra, User cliente, SuscripcionesEntity subscripcion) {
+	public ComprasEntity(Integer id, String fechaCompra, ClientesEntity cliente, SuscripcionesEntity subscripcion) {
 		super();
 		this.id = id;
 		this.fechaCompra = fechaCompra;
@@ -59,11 +57,11 @@ public class ComprasEntity {
 		this.fechaCompra = fechaCompra;
 	}
 
-	public User getCliente() {
+	public ClientesEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(User cliente) {
+	public void setCliente(ClientesEntity cliente) {
 		this.cliente = cliente;
 	}
 

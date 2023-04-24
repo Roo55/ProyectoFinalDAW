@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.rlopez.proyectofinal.dtos.request.LoginRequestDTO;
 import com.rlopez.proyectofinal.dtos.request.SignupRequestDTO;
 import com.rlopez.proyectofinal.dtos.response.JwtResponse;
@@ -49,13 +50,13 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
-	  
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
+	
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-		
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -79,6 +80,7 @@ public class AuthController {
 
 		// Create new user's account
 		User user = new User(signUpRequest.getNombre(),signUpRequest.getApellido(),signUpRequest.getFechaNacimiento(),signUpRequest.getDireccion(),signUpRequest.getEmail(),signUpRequest.getNumeroTelefono(),encoder.encode(signUpRequest.getPassword()),signUpRequest.getUsername());
+
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
