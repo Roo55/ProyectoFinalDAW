@@ -38,17 +38,11 @@
               <router-link to="/login" class="nav-link">
                 <font-awesome-icon icon="sign-in-alt" /> Login
               </router-link>
+              <div class="username">{{ username }}</div>
             </li>
           </div>
 
-          <div class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <router-link to="/profile" class="nav-link">
-              
-              </router-link>
-            </li>
           
-          </div>
 
         </ul>
 
@@ -66,8 +60,23 @@
     </div>
   </nav>
 </template>
+<script>
+import jwt_decode from 'jwt-decode';
 
-
+export default{
+  data(){
+    return{
+      username:''
+    }
+  },
+  created(){
+    var token = localStorage.getItem('token')
+    const decoded = jwt_decode(token);
+    this.username = decoded.sub;
+  }
+  
+}
+</script>
 <style>
 form a {
   text-decoration: none;
