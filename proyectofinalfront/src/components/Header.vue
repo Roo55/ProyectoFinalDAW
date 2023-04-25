@@ -29,16 +29,19 @@
           </li>
 
           <div class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li v-if="sesionIniciada" class="nav-item">
+                <button @click="cerrarSesion">Cerrar sesión</button>
+            </li>
+            <li v-else class="nav-item">
               <router-link to="/register" class="nav-link">
                 <font-awesome-icon icon="user-plus" /> Registro
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/login" class="nav-link">
+              <div v-if="sesionIniciada" class="username">{{ username }}</div>
+              <router-link v-else to="/login" class="nav-link">
                 <font-awesome-icon icon="sign-in-alt" /> Login
               </router-link>
-              <div class="username">{{ username }}</div>
             </li>
           </div>
 
@@ -48,10 +51,6 @@
 
         <hr class="d-md-none text-white-50">
 
-<!--<form class="d-flex">
-          <button class="btn btn-outline-warning d-none d-md-inline-block " id="botonLogin" type="submit"><router-link
-              to="/login">Login</router-link></button>
-        </form>-->
         
 
 
@@ -62,19 +61,36 @@
 </template>
 <script>
 import jwt_decode from 'jwt-decode';
+import {removeToken} from '../auth';
+import {getToken} from '../auth';
 
 export default{
   data(){
     return{
-      username:''
+      username:'',
+      sesionIniciada:false
     }
   },
   created(){
-    var token = localStorage.getItem('token')
-    const decoded = jwt_decode(token);
-    this.username = decoded.sub;
-  }
+    this.sesionIniciada = !!getToken();
+    console.log(this.sesionIniciada)
+    if(this.sesionIniciada){
+       var token = localStorage.getItem('token')
+     const decoded = jwt_decode(token);
+     this.username = decoded.sub;
+    }else{
+      this.sesionIniciada=false;
+    }
   
+
+  },
+  methods:{
+    cerrarSesion(){
+      removeToken();
+      this.sesionIniciada=false
+    },
+    
+  }
 }
 </script>
 <style>
