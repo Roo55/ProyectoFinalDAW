@@ -21,15 +21,21 @@
           <li class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/galeria">Nuestro gimnasio</router-link></a>
           </li>
-          <li class="nav-item">
+          <li v-if="sesionIniciada" class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/sugerencias">Sugerencias</router-link></a>
           </li>
-          <li class="nav-item">
+          <li v-if="sesionIniciada" class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/calendario">Calendario Clases</router-link></a>
           </li>
 
           <div class="navbar-nav ml-auto">
-            <li v-if="sesionIniciada" class="nav-item">
+            <li class="nav-item">
+              <div id="nombreUsuario" v-if="sesionIniciada" class="username">{{ username }}</div>
+              <router-link v-else to="/login" class="nav-link">
+                <font-awesome-icon icon="sign-in-alt" /> Login
+              </router-link>
+            </li>
+            <li id="botonCerrarSesion" v-if="sesionIniciada" class="nav-item">
                 <button @click="cerrarSesion">Cerrar sesión</button>
             </li>
             <li v-else class="nav-item">
@@ -37,12 +43,7 @@
                 <font-awesome-icon icon="user-plus" /> Registro
               </router-link>
             </li>
-            <li class="nav-item">
-              <div v-if="sesionIniciada" class="username">{{ username }}</div>
-              <router-link v-else to="/login" class="nav-link">
-                <font-awesome-icon icon="sign-in-alt" /> Login
-              </router-link>
-            </li>
+            
           </div>
 
           
@@ -88,12 +89,24 @@ export default{
     cerrarSesion(){
       removeToken();
       this.sesionIniciada=false
+      setTimeout(() => {
+          this.$router.push('/');
+        }, 110); 
     },
     
   }
 }
 </script>
 <style>
+#botonCerrarSesion{
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+}
+#nombreUsuario{
+  margin-left: 1rem;
+  margin-top: 0.6rem;
+  color: red;
+}
 form a {
   text-decoration: none;
   color: white;

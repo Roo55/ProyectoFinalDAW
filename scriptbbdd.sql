@@ -31,7 +31,7 @@ id_suscripcion INT AUTO_INCREMENT PRIMARY KEY,
 id_cliente INT NOT NULL,
 tipo_suscripcion VARCHAR(50) NOT NULL,
 precio DECIMAL(10,2) NOT NULL,
-duracion INT NOT NULL,
+duracion VARCHAR(30) NOT NULL,
 FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
 );
 

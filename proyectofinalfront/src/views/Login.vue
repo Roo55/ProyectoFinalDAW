@@ -115,10 +115,10 @@ export default {
         setToken(token);
         localStorage.setItem('user',JSON.stringify(respuestaUsername))
         localStorage.setItem('token',token)
-        this.$router.push('/');
-        setTimeout(() => {
-          window.location.reload()
-        }, 110);        
+         this.$router.push('/');
+         setTimeout(() => {
+           window.location.reload()
+         }, 110);        
         
       }).catch((error) => {
         console.log("Error en el login")

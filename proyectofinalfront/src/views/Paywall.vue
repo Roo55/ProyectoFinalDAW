@@ -14,7 +14,7 @@
       <p>Has seleccionado la suscripción <strong> {{ nombre }}</strong> </p>
       <p>El precio a pagar es <strong>{{ precio }}</strong>€</p>
       <br>
-      <div class="form">
+      <form @submit.prevent="enviarPago()" class="form">
         <div class="card space icon-relative">
           <label class="label">Titular de la tarjeta:</label>
           <input type="text" class="input" placeholder="Nombre titular">
@@ -38,22 +38,68 @@
           </div>
         </div>
 
-        <div class="btn">
+        <button class="btn">
           Pagar
-        </div>
+        </button>
 
-      </div>
+      </form>
     </div>
   </div>
 </template>
 <script>
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
+
 export default {
   data() {
     return {
       precio: this.$route.params.precio,
-      nombre: this.$route.params.nombre
+      nombre: this.$route.params.nombre,
+      id: '',
+      tipo_suscripcion: '',
+      duracion: ''
     };
   },
+  created() {
+    var token = localStorage.getItem('token')
+    const decoded = jwt_decode(token);
+    this.id = String(decoded.id);
+
+    if (this.$route.params.precio == '30') {
+      this.duracion = "1 mes";
+      this.tipo_suscripcion = "Mensual";
+    } else if (this.$route.params.precio == '55') {
+      this.duracion = "3 meses";
+      this.tipo_suscripcion = "Trimestral";
+    } else if (this.$route.params.precio == '80') {
+      this.duracion = "12 meses";
+      this.tipo_suscripcion = "Anual";
+    }
+
+
+
+
+  },
+  methods: {
+    enviarPago() {
+
+
+      axios.post('http://localhost:8081/gym/api/pay/insertarpago', {
+        idCliente: this.id,
+        tipo_suscripcion: this.tipo_suscripcion,
+        precio: this.precio,
+        duracion: this.duracion
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }).then((response) => {
+        console.log(response.data);
+      })
+
+    }
+  },
+
 };
 </script>
 <style scoped>
@@ -69,6 +115,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Ubuntu', sans-serif;
+  text-align: center;
 }
 
 body {
@@ -77,7 +124,7 @@ body {
 }
 
 .payment {
-  background: #f8f8f8;
+  background: #e2e2e2;
   max-width: 360px;
   margin: 80px auto;
   height: auto;
