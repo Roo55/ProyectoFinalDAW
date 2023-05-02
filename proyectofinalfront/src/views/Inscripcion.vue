@@ -1,56 +1,56 @@
 <template>
     <div id="principal" class="d-flex align-items-center">
         <main id="mainInscripcion" class="mx-auto">
-        <form @submit.prevent="enviarRegistro()">
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" v-model="nombre">
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" v-model="apellido">
-            </div>
-            <div class="form-group">
-                <label for="fechaNacimiento">Fecha de nacimiento:</label>
-                <input type="text" id="fechaNacimiento" v-model="fechaNacimiento" @input="validarFechaNacimiento">
-                <div v-if="fechaNacimientoError" class="error-message">{{ fechaNacimientoErrorMessage }}</div>
-            </div>
-            <div class="form-group">
-                <label for="direccion">Direccion:</label>
-                <input type="text" id="direccion" v-model="direccion">
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" id="email" v-model="email" @input="validarEmail">
-                <div v-if="emailError" class="error-message">{{ emailErrorMessage }}</div>
-            </div>
-            <div class="form-group">
-                <label for="numeroTelefono">Número de telefono:</label>
-                <input type="text" id="numeroTelefono" v-model="numeroTelefono" @input="validarNumeroTelefono">
-                <div v-if="numeroTelefonoError" class="error-message">{{ numeroTelefonoErrorMessage }}</div>
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" v-model="password" @input="validarPassword">
-                <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
-            </div>
-            <div class="form-group">
-                <label for="username">Nombre de usuario:</label>
-                <input type="text" id="username" v-model="username" @input="validarUsername">
-                <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
-            </div>
-            <!-- ... más campos de formulario ... -->
-            <div class="form-group">
-                <button class="btn btn-primary btn-block" :disabled="loading">
-                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                    Registrarse
-                </button>
-            </div>
-        </form>
-        <!-- ... tu código de mensaje de éxito/error ... -->
-    </main>
+            <form @submit.prevent="enviarRegistro()">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" v-model="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" v-model="apellido">
+                </div>
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento:</label>
+                    <input type="text" id="fechaNacimiento" v-model="fechaNacimiento" @input="validarFechaNacimiento">
+                    <div v-if="fechaNacimientoError" class="error-message">{{ fechaNacimientoErrorMessage }}</div>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Direccion:</label>
+                    <input type="text" id="direccion" v-model="direccion">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" v-model="email" @input="validarEmail">
+                    <div v-if="emailError" class="error-message">{{ emailErrorMessage }}</div>
+                </div>
+                <div class="form-group">
+                    <label for="numeroTelefono">Número de telefono:</label>
+                    <input type="text" id="numeroTelefono" v-model="numeroTelefono" @input="validarNumeroTelefono">
+                    <div v-if="numeroTelefonoError" class="error-message">{{ numeroTelefonoErrorMessage }}</div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" v-model="password" @input="validarPassword">
+                    <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+                </div>
+                <div class="form-group">
+                    <label for="username">Nombre de usuario:</label>
+                    <input type="text" id="username" v-model="username" @input="validarUsername">
+                    <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
+                </div>
+                <!-- ... más campos de formulario ... -->
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
+                        <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                        Registrarse
+                    </button>
+                </div>
+            </form>
+            <!-- ... tu código de mensaje de éxito/error ... -->
+        </main>
     </div>
-    
+
     <footer class="mt-auto">
         <div class="contenedor-footerall">
             <div class="contenedor-body">
@@ -133,28 +133,34 @@ export default {
             username: '',
             usernameError: false,
             usernameErrorMessage: '',
+            verificarEnvio: false
         }
     },
-    mounted(){
-        window.scrollTo(0,0);
+    mounted() {
+        window.scrollTo(0, 0);
     },
     methods: {
         enviarRegistro() {
-            axios.post('http://localhost:8081/gym/api/auth/signup', {
-                nombre: this.nombre,
-                apellido: this.apellido,
-                fechaNacimiento: this.fechaNacimiento,
-                direccion: this.direccion,
-                email: this.email,
-                numeroTelefono: this.numeroTelefono,
-                password: this.password,
-                username: this.username,
+            if (!this.fechaNacimientoError && !this.emailError && !this.numeroTelefonoError && !this.passwordError && !this.usernameError) {
+                axios.post('http://localhost:8081/gym/api/auth/signup', {
+                    nombre: this.nombre,
+                    apellido: this.apellido,
+                    fechaNacimiento: this.fechaNacimiento,
+                    direccion: this.direccion,
+                    email: this.email,
+                    numeroTelefono: this.numeroTelefono,
+                    password: this.password,
+                    username: this.username,
 
-            }).then((response) => {
-                console.log(response.data);
-            })
-            
+                }).then((response) => {
+                    console.log(response.data);
+                })
+            }
+
+
+
         },
+      
         validarFechaNacimiento() {
 
             if (!this.fechaNacimiento.match(/^(\d{2}\/){2}\d{4}$/)) {
@@ -166,24 +172,30 @@ export default {
             }
         },
         validarEmail() {
-
-            if (!this.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+            if(!this.email){
+                this.emailError = true;
+                this.emailErrorMessage = 'Ingrese el email';
+            }else if(!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(this.email)){
                 this.emailError = true;
                 this.emailErrorMessage = 'Por favor, ingrese un email válido';
-            } else {
+            }else{
                 this.emailError = false;
-                this.emailErrorMessage = '';
+                this.emailErrorMessage = ''
             }
+            this.verificarEnvio = this.emailError
         },
         validarNumeroTelefono() {
-
-            if (!this.numeroTelefono.match(/^\d{9}$/)) {
-                this.numeroTelefonoError = true;
-                this.numeroTelefonoErrorMessage = 'Por favor, ingrese un número de teléfono válido de 9 dígitos';
+            if (!this.numeroTelefono) {
+                this.numeroTelefonoError = true
+                this.numeroTelefonoErrorMessage = 'Por favor, introduce un número de teléfono'
+            } else if (!/^([0-9])*$/.test(this.numeroTelefono)) {
+                this.numeroTelefonoError = true
+                this.numeroTelefonoErrorMessage = 'Solo se permiten números'
             } else {
-                this.numeroTelefonoError = false;
-                this.numeroTelefonoErrorMessage = '';
+                this.numeroTelefonoError = false
+                this.numeroTelefonoErrorMessage = ''
             }
+            this.verificarEnvio = this.numeroTelefonoError 
         },
         validarPassword() {
 
@@ -197,237 +209,244 @@ export default {
         },
 
         validarUsername() {
-            const regex = /^(?=.*\d)[a-zA-Z\d]{5,}$/;
-            if (!regex.test(this.username)) {
+            if(!this.username){
+                this.usernameError = true;
+                this.usernameErrorMessage = 'Nombre de usuario no válido'
+            }else if(!/^(?=.*\d)[a-zA-Z\d]{5,}$/.test(this.username)){
                 this.usernameError = true;
                 this.usernameErrorMessage = 'El nombre de usuario debe tener al menos 5 caracteres y al menos 1 número';
-            } else {
+            }else{
                 this.usernameError = false;
-                this.usernameErrorMessage = '';
+                this.usernameErrorMessage = ''
             }
+            this.verificarEnvio = this.usernameError 
         },
 
     }
 }
 </script>
 <style scoped>
-.form-group{
+.form-group {
     text-align: center;
 }
+
 footer {
-  width: 100%;
-  background: #202020;
-  color: white;
-  padding: 40px;
-  height: 50%;
+    width: 100%;
+    background: #202020;
+    color: white;
+    padding: 40px;
+    height: 50%;
 }
 
 .contenedor-footerall {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
 }
 
 .contenedor-body {
-  display: flex;
- 
-  justify-content: space-between;
-  position: relative;
-  height: 450px;
+    display: flex;
+
+    justify-content: space-between;
+    position: relative;
+    height: 450px;
 }
 
 .columna1,
 .columna2,
 .columna3 {
-  max-width: 400px;
+    max-width: 400px;
 }
 
 .columna1 h1 {
-  font-size: 22px;
-  font-family: "Courier New", Courier, monospace;
+    font-size: 22px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .columna1 p {
-  font-size: 14px;
-  color: #c7c7c7;
-  margin-top: 20px;
+    font-size: 14px;
+    color: #c7c7c7;
+    margin-top: 20px;
 }
 
 .columna2 h1 {
-  font-size: 22px;
-  font-family: "Courier New", Courier, monospace;
+    font-size: 22px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .fila1 {
-  margin-top: 20px;
-  display: flex;
+    margin-top: 20px;
+    display: flex;
 }
 
 .fila1 img {
-  width: 36px;
-  height: 36px;
+    width: 36px;
+    height: 36px;
 }
 
 .fila1 label {
-  margin-top: 10px;
-  margin-left: 20px;
-  color: #c7c7c7;
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #c7c7c7;
 }
 
 .columna3 h1 {
-  font-size: 22px;
-  font-family: "Courier New", Courier, monospace;
+    font-size: 22px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .fila2 {
-  margin-top: 20px;
-  display: flex;
+    margin-top: 20px;
+    display: flex;
 }
 
 .fila2 img {
-  width: 36px;
-  height: 36px;
+    width: 36px;
+    height: 36px;
 }
 
 .fila2 label {
-  margin-top: 10px;
-  margin-left: 20px;
-  max-width: 90px;
+    margin-top: 10px;
+    margin-left: 20px;
+    max-width: 90px;
 }
 
 .contenedor-footer {
-  width: 90%;
-  top: 850px;
-  background: #101010;
-  padding: 20px;
-  position: fixed;
-  bottom: 10px;
-  right: 55px;
-  justify-content: center;
+    width: 90%;
+    top: 850px;
+    background: #101010;
+    padding: 20px;
+    position: fixed;
+    bottom: 10px;
+    right: 55px;
+    justify-content: center;
 
 }
 
 .footer {
-  max-width: 1200px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
- label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-    }
-
-    label a {
-        text-decoration: none;
-        color: #007bff;
-    }
-#principal{
-    background-color: #8c00ff;
-}
-#mainInscripcion {
-  background-color: black;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px;
-  width: 50%;
-}
-
-.form-group {
-  margin-bottom: 15px;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+label a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+#principal {
+    background-color: #8c00ff;
+}
+
+#mainInscripcion {
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 50%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 input[type="text"],
 input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin-top: 5px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 5px;
 }
 
 .error-message {
-  color: red;
-  margin-top: 5px;
+    color: red;
+    margin-top: 5px;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  width: 100%;
-  cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
 }
 
 .spinner-border {
-  margin-right: 5px;
-  display: inline-block;
-  width: 1.5rem;
-  height: 1.5rem;
-  vertical-align: text-bottom;
-  border: 0.25em solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: spinner-border 0.75s linear infinite;
+    margin-right: 5px;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
 }
 
 @keyframes spinner-border {
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .contenedor-footerall {
-  background-color: black;
-  padding: 20px;
-  border-radius: 10px;
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .columna1,
 .columna2,
 .columna3 {
-  flex-basis: 30%;
-  color: white;
+    flex-basis: 30%;
+    color: white;
 }
 
 .columna1 h1,
 .columna2 h1,
 .columna3 h1 {
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .columna1 p,
 .columna2 .fila1,
 .columna3 .fila2 {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .columna2 .fila1 img,
 .columna3 .fila2 img {
-  width: 20px;
-  margin-right: 5px;
+    width: 20px;
+    margin-right: 5px;
 }
 
 .columna2 .fila1 a,
 .columna3 .fila2 label {
-  color: #007bff;
-  text-decoration: none;
+    color: #007bff;
+    text-decoration: none;
 }
 
 .columna2 .fila1 a:hover,
 .columna3 .fila2 label:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 
@@ -436,7 +455,7 @@ input[type="password"] {
     margin: 0;
     font-family: "open sans";
     font-size: 15px;
-  
+
 }
 
 .registro {

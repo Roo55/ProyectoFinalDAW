@@ -27,6 +27,9 @@
           <li v-if="sesionIniciada" class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/calendario">Calendario Clases</router-link></a>
           </li>
+          <li v-if="sesionIniciada" class="nav-item">
+            <a class="nav-link" id="navbarDropdown"><router-link to="/noticias">Noticias</router-link></a>
+          </li>
 
           <div class="navbar-nav ml-auto">
             <li class="nav-item">

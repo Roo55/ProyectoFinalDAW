@@ -5,23 +5,25 @@
         <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
         <form @submit.prevent="enviarRegistro()">
           <div class="form-group">
-              <label for="username">Nombre de usuario:</label>
-              <input type="text" id="username" v-model="username">
-            </div>
-            <div class="form-group">
-              <label for="password">Contraseña:</label>
-              <input type="password" id="password" v-model="password">
-            </div>
-           
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" v-model="username" @input="validarUsername">
+            <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" v-model="password" @input="validarPassword">
+            <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+          </div>
 
 
-            <div class="form-group">
-              <button class="btn btn-primary btn-block" :disabled="loading">
-                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                Sign Up
-              </button>
-            </div>
-         
+
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
+              <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+              Iniciar Sesión
+            </button>
+          </div>
+
         </Form>
 
         <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
@@ -31,73 +33,77 @@
     </div>
   </main>
   <footer class="mt-auto">
-        <div class="contenedor-footerall">
-            <div class="contenedor-body">
-                <div class="columna1">
-                    <h1>Más información de la compañía</h1>
-                    <p>
-                        DreamGym Salamanca es un proyecto dedicado a las personas residentes
-                        en Salamanca o alrededores las cuales quieran dar un cambio radical
-                        en su vida, para aquellos que quieran sentirse realmente bien
-                        consigo mismos y a la par quieran mantener un estilo de vida
-                        saludable.
-                    </p>
-                </div>
-                <div class="columna2">
-                    <h1>Síguenos en redes para no perderte nada</h1>
-                    <div class="fila1">
-                        <img src="../assets/img/facebook.png" alt="" />
-                        <label> <a href=""> Síguenos en Facebook</a></label>
-                    </div>
-                    <div class="fila1">
-                        <img src="../assets/img/twitter.png" alt="" />
-                        <label> <a href=""> Síguenos en Twitter</a></label>
-                    </div>
-                    <div class="fila1">
-                        <img src="../assets/img/instagram.png" alt="" />
-                        <label> <a href=""> Síguenos en Instagram</a></label>
-                    </div>
-                    <div class="fila1">
-                        <img src="../assets/img/google-plus.png" alt="" />
-                        <label> <a href=""> Síguenos en Google Plus</a></label>
-                    </div>
-                    <div class="fila1">
-                        <img src="../assets/img/pinterest.png" alt="" />
-                        <label> <a href=""> Síguenos en Pinterest</a></label>
-                    </div>
-                </div>
-                <div class="columna3">
-                    <h1>Contacto</h1>
-                    <div class="fila2">
-                        <img src="../assets/img/house.png" />
-                        <label>Salamanca, Calle Los Agradecidos 9 37002, España </label>
-                    </div>
-                    <div class="fila2">
-                        <img src="../assets/img/smartphone.png" />
-                        <label>923608327</label>
-                    </div>
-                    <div class="fila2">
-                        <img src="../assets/img/contact.png" />
-                        <label> <a href="mailto:dreamgymslmnc@dreamgymbussiness.com">Nuestro correo</a> </label>
-                    </div>
-
-
-                </div>
-
-            </div>
+    <div class="contenedor-footerall">
+      <div class="contenedor-body">
+        <div class="columna1">
+          <h1>Más información de la compañía</h1>
+          <p>
+            DreamGym Salamanca es un proyecto dedicado a las personas residentes
+            en Salamanca o alrededores las cuales quieran dar un cambio radical
+            en su vida, para aquellos que quieran sentirse realmente bien
+            consigo mismos y a la par quieran mantener un estilo de vida
+            saludable.
+          </p>
         </div>
-    </footer>
+        <div class="columna2">
+          <h1>Síguenos en redes para no perderte nada</h1>
+          <div class="fila1">
+            <img src="../assets/img/facebook.png" alt="" />
+            <label> <a href=""> Síguenos en Facebook</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/twitter.png" alt="" />
+            <label> <a href=""> Síguenos en Twitter</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/instagram.png" alt="" />
+            <label> <a href=""> Síguenos en Instagram</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/google-plus.png" alt="" />
+            <label> <a href=""> Síguenos en Google Plus</a></label>
+          </div>
+          <div class="fila1">
+            <img src="../assets/img/pinterest.png" alt="" />
+            <label> <a href=""> Síguenos en Pinterest</a></label>
+          </div>
+        </div>
+        <div class="columna3">
+          <h1>Contacto</h1>
+          <div class="fila2">
+            <img src="../assets/img/house.png" />
+            <label>Salamanca, Calle Los Agradecidos 9 37002, España </label>
+          </div>
+          <div class="fila2">
+            <img src="../assets/img/smartphone.png" />
+            <label>923608327</label>
+          </div>
+          <div class="fila2">
+            <img src="../assets/img/contact.png" />
+            <label> <a href="mailto:dreamgymslmnc@dreamgymbussiness.com">Nuestro correo</a> </label>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </footer>
 </template>
 <script>
 import axios from 'axios';
-import {setToken} from '../auth'
+import { setToken } from '../auth'
 export default {
 
   data() {
     return {
       username: '',
-      password: ''
-
+      usernameError: false,
+      usernameErrorMessage: '',
+      password: '',
+      passwordError: false,
+      passwordErrorMessage: '',
+      verificarEnvio: false
     }
   },
   methods: {
@@ -113,18 +119,42 @@ export default {
         let respuestaUsername = response.data.username;
         const token = response.data.accessToken;
         setToken(token);
-        localStorage.setItem('user',JSON.stringify(respuestaUsername))
-        localStorage.setItem('token',token)
-         this.$router.push('/');
-         setTimeout(() => {
-           window.location.reload()
-         }, 110);        
-        
+        localStorage.setItem('user', JSON.stringify(respuestaUsername))
+        localStorage.setItem('token', token)
+        this.$router.push('/');
+        setTimeout(() => {
+          window.location.reload()
+        }, 110);
+
       }).catch((error) => {
         console.log("Error en el login")
       })
-      
-    }
+
+    },
+    validarUsername() {
+      if (!this.username) {
+        this.usernameError = true;
+        this.usernameErrorMessage = 'Nombre de usuario no válido'
+      } else if (!/^(?=.*\d)[a-zA-Z\d]{5,}$/.test(this.username)) {
+        this.usernameError = true;
+        this.usernameErrorMessage = 'El nombre de usuario debe tener al menos 5 caracteres y al menos 1 número';
+      } else {
+        this.usernameError = false;
+        this.usernameErrorMessage = ''
+      }
+      this.verificarEnvio = this.usernameError
+    },
+    validarPassword() {
+
+      if (this.password.length < 8 || !/[A-Z]/.test(this.password) || !/\d.*\d/.test(this.password)) {
+        this.passwordError = true;
+        this.passwordErrorMessage = 'La contraseña debe tener al menos 8 caracteres, una mayúscula y dos números';
+      } else {
+        this.passwordError = false;
+        this.passwordErrorMessage = '';
+      }
+    },
+
   }
 }
 </script>
@@ -145,7 +175,7 @@ footer {
 
 .contenedor-body {
   display: flex;
- 
+
   justify-content: space-between;
   position: relative;
   height: 450px;
@@ -229,6 +259,7 @@ footer {
   justify-content: space-between;
   padding: 20px;
 }
+
 * {
   text-align: center;
   margin: 0;
@@ -349,5 +380,10 @@ label {
 
 .error-feedback {
   color: red;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
 }
 </style>

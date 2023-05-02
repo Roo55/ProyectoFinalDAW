@@ -66,16 +66,16 @@ export default {
       tipo_suscripcion: '',
       duracion: '',
       nombreTitular: '',
-      nombreTitularError: '',
+      nombreTitularError: false,
       nombreTitularErrorMensaje: '',
       numeroTarjeta: '',
-      numeroTarjetaError: '',
+      numeroTarjetaError: false,
       numeroTarjetaErrorMensaje: '',
       expiracion: '',
-      expiracionError: '',
+      expiracionError: false,
       expiracionErrorMensaje: '',
       cvc: '',
-      cvcError: '',
+      cvcError: false,
       cvcErrorMensaje: ''
     };
   },
@@ -101,7 +101,9 @@ export default {
   },
   methods: {
     enviarPago() {
-
+      if (this.nombreTitularError || this.numeroTarjetaError || this.expiracionError || this.cvcError) {
+        return;
+      }
 
       axios.post('http://localhost:8081/gym/api/pay/insertarpago', {
         id_cliente: this.id,
@@ -116,8 +118,8 @@ export default {
         console.log(response.data);
         this.$router.push('/');
       })
-
     },
+
     validarTitularTarjeta() {
       if (!this.nombreTitular.match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*[ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/)) {
         this.nombreTitularError = true;
@@ -308,4 +310,5 @@ body {
     color: red;
     margin-top: 5px;
   }
-}</style>
+}
+</style>

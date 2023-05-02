@@ -3,6 +3,7 @@ package com.rlopez.proyectofinal.controllers;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -41,20 +42,35 @@ public class SuscripcionesRestController {
 	  @PostMapping("/insertarpago")
 	  public ResponseEntity<?> createSuscripcionCompra(@RequestBody SuscripcionCompraDTO suscripcion, ComprasEntity compra) {
 
-		  ClientesEntity cliente = clienteRepository.findById(suscripcion.getId_cliente()).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
-		  
-		  SuscripcionesEntity suscripcionNueva = new SuscripcionesEntity(cliente,suscripcion.getTipo_suscripcion(),suscripcion.getPrecio(),suscripcion.getDuracion());
-		  suscripcionRepository.save(suscripcionNueva);
-		  
-			 LocalDate currentDate = LocalDate.now();
-		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		        String fechaHoy = currentDate.format(formatter);
-		  
-		  ComprasEntity compraNueva = new ComprasEntity(cliente,suscripcionNueva,fechaHoy);
-		  compraRepository.save(compraNueva);
+		    ClientesEntity cliente = clienteRepository.findById(suscripcion.getId_cliente()).orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado"));
 
-		return ResponseEntity.ok(new MessageResponse("Pago exitoso!"));
+		    LocalDate fechaNacimiento = LocalDate.parse(cliente.getFechaNacimiento(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		    Integer edad = Period.between(fechaNacimiento, LocalDate.now()).getYears();
 
+		    double descuento = 0;
+		    if (edad >= 16 && edad <= 30) {
+		        descuento = 0.15;
+		    } else if (edad > 30 && edad <= 60) {
+		        descuento = 0.05;
+		    } else if (edad > 60 && edad <= 80) {
+		        descuento = 0.4;
+		    }
+
+		    double precioOriginal = Double.parseDouble(suscripcion.getPrecio());
+		    double precioFinal = precioOriginal - (precioOriginal * descuento);
+
+		    SuscripcionesEntity suscripcionNueva = new SuscripcionesEntity(cliente, suscripcion.getTipo_suscripcion(), String.valueOf(precioFinal), suscripcion.getDuracion());
+		    suscripcionRepository.save(suscripcionNueva);
+
+		    LocalDate currentDate = LocalDate.now();
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    String fechaHoy = currentDate.format(formatter);
+
+		    ComprasEntity compraNueva = new ComprasEntity(cliente, suscripcionNueva, fechaHoy);
+		    compraRepository.save(compraNueva);
+
+			return ResponseEntity.ok(new MessageResponse("Pago exitoso!"));
+		    
 	   
 	  }
 	
