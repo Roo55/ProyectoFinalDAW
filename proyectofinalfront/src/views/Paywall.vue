@@ -17,23 +17,30 @@
       <form @submit.prevent="enviarPago()" class="form">
         <div class="card space icon-relative">
           <label class="label">Titular de la tarjeta:</label>
-          <input type="text" class="input" placeholder="Nombre titular">
+          <input type="text" class="input" placeholder="Nombre titular" v-model="nombreTitular"
+            @input="validarTitularTarjeta">
+          <div v-if="nombreTitularError" class="error-message">{{ nombreTitularErrorMensaje }}</div>
           <i class="fas fa-user"></i>
         </div>
         <div class="card space icon-relative">
           <label class="label">Número de tarjeta:</label>
-          <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Número de tarjeta">
+          <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Número de tarjeta"
+            v-model="numeroTarjeta" @input="validarNumeroTarjeta">
+          <div v-if="numeroTarjetaError" class="error-message">{{ numeroTarjetaErrorMensaje }}</div>
           <i class="far fa-credit-card"></i>
         </div>
         <div class="card-grp space">
           <div class="card-item icon-relative">
             <label class="label">Expiración:</label>
-            <input type="text" name="expiry-data" class="input" placeholder="00 / 00">
+            <input type="text" name="expiry-data" class="input" placeholder="00 / 00" v-model="expiracion"
+              @input="validarExpiracion">
+            <div v-if="expiracionError" class="error-message">{{ expiracionErrorMensaje }}</div>
             <i class="far fa-calendar-alt"></i>
           </div>
           <div class="card-item icon-relative">
             <label class="label">CVC:</label>
-            <input type="text" class="input" data-mask="000" placeholder="000">
+            <input type="text" class="input" data-mask="000" placeholder="000" v-model="cvc" @input="validarCVC">
+            <div v-if="cvcError" class="error-message">{{ cvcErrorMensaje }}</div>
             <i class="fas fa-lock"></i>
           </div>
         </div>
@@ -57,12 +64,23 @@ export default {
       nombre: this.$route.params.nombre,
       id: '',
       tipo_suscripcion: '',
-      duracion: ''
+      duracion: '',
+      nombreTitular: '',
+      nombreTitularError: '',
+      nombreTitularErrorMensaje: '',
+      numeroTarjeta: '',
+      numeroTarjetaError: '',
+      numeroTarjetaErrorMensaje: '',
+      expiracion: '',
+      expiracionError: '',
+      expiracionErrorMensaje: '',
+      cvc: '',
+      cvcError: '',
+      cvcErrorMensaje: ''
     };
   },
   created() {
     var token = localStorage.getItem('token')
-    console.log(token)
     const decoded = jwt_decode(token);
     this.id = String(decoded.id);
 
@@ -96,10 +114,50 @@ export default {
         }
       }).then((response) => {
         console.log(response.data);
-        console.log(localStorage.getItem('token'))
+        this.$router.push('/');
       })
 
-    }
+    },
+    validarTitularTarjeta() {
+      if (!this.nombreTitular.match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*[ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/)) {
+        this.nombreTitularError = true;
+        this.nombreTitularErrorMensaje = 'Por favor, ingrese un nombre y el primer apellido';
+      } else {
+        this.nombreTitularError = false;
+        this.nombreTitularErrorMensaje = '';
+      }
+
+    },
+    validarNumeroTarjeta() {
+      if (!this.numeroTarjeta.match(/^(?:\d{4}[ -]?){3}\d{1,4}$|^\d{13,16}$/)) {
+        this.numeroTarjetaError = true;
+        this.numeroTarjetaErrorMensaje = 'Por favor, ingrese un número de tarjeta de crédito válido';
+      } else {
+        this.numeroTarjetaError = false;
+        this.numeroTarjetaErrorMensaje = '';
+      }
+
+    },
+    validarExpiracion() {
+      if (!this.expiracion.match(/^(0[1-9]|1[0-2])\/(23|(2[4-9]|[3-9][0-9]))$/)) {
+        this.expiracionError = true;
+        this.expiracionErrorMensaje = 'Por favor, ingrese una fecha de expiración válida';
+      } else {
+        this.expiracionError = false;
+        this.expiracionErrorMensaje = '';
+      }
+
+    },
+    validarCVC() {
+      if (!this.cvc.match(/^\d{3,4}$/)) {
+        this.cvcError = true;
+        this.cvcErrorMensaje = 'Por favor, ingrese un CVC válido';
+      } else {
+        this.cvcError = false;
+        this.cvcErrorMensaje = '';
+      }
+
+    },
   },
 
 };
@@ -245,5 +303,9 @@ body {
   .btn {
     margin-top: 20px;
   }
-}
-</style>
+
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
+}</style>
