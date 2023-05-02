@@ -24,7 +24,7 @@ public class SuscripcionesEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
-	private ClientesEntity cliente;
+	private ClientesEntity id_cliente;
 
 	@Column(name = "tipo_suscripcion")
 	private String tipo_suscripcion;
@@ -46,15 +46,15 @@ public class SuscripcionesEntity {
 			List<ComprasEntity> compras) {
 		super();
 		this.id = id;
-		this.cliente = cliente;
+		this.id_cliente = cliente;
 		this.tipo_suscripcion = tipoSuscripcion;
 		this.precio = precio;
 		this.duracion = duracion;
 		this.compras = compras;
 	}
-	public SuscripcionesEntity( ClientesEntity cliente, String tipoSuscripcion, String precio, String duracion) {
+	public SuscripcionesEntity( ClientesEntity id_cliente, String tipoSuscripcion, String precio, String duracion) {
 		super();
-		this.cliente = cliente;
+		this.id_cliente = id_cliente;
 		this.tipo_suscripcion = tipoSuscripcion;
 		this.precio = precio;
 		this.duracion = duracion;
@@ -71,11 +71,11 @@ public class SuscripcionesEntity {
 
 
 	public ClientesEntity getCliente() {
-		return cliente;
+		return id_cliente;
 	}
 
 	public void setCliente(ClientesEntity cliente) {
-		this.cliente = cliente;
+		this.id_cliente = cliente;
 	}
 
 	public String getTipoSuscripcion() {

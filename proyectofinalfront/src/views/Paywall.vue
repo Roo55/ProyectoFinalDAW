@@ -62,6 +62,7 @@ export default {
   },
   created() {
     var token = localStorage.getItem('token')
+    console.log(token)
     const decoded = jwt_decode(token);
     this.id = String(decoded.id);
 
@@ -85,7 +86,7 @@ export default {
 
 
       axios.post('http://localhost:8081/gym/api/pay/insertarpago', {
-        idCliente: this.id,
+        id_cliente: this.id,
         tipo_suscripcion: this.tipo_suscripcion,
         precio: this.precio,
         duracion: this.duracion
@@ -95,6 +96,7 @@ export default {
         }
       }).then((response) => {
         console.log(response.data);
+        console.log(localStorage.getItem('token'))
       })
 
     }

@@ -39,7 +39,7 @@ CREATE TABLE Compras (
 id_compras INT AUTO_INCREMENT PRIMARY KEY,
 id_cliente INT NOT NULL,
 id_suscripcion INT NOT NULL,
-fecha_compra DATE NOT NULL,
+fecha_compra VARCHAR(25) NOT NULL,
 FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
 FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion)
 );

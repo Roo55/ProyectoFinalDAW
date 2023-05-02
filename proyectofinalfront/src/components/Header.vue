@@ -30,7 +30,7 @@
 
           <div class="navbar-nav ml-auto">
             <li class="nav-item">
-              <div id="nombreUsuario" v-if="sesionIniciada" class="username">{{ username }}</div>
+              <div id="nombreUsuario" v-if="sesionIniciada" class="username">Bienvenid@, {{ username }} !</div>
               <router-link v-else to="/login" class="nav-link">
                 <font-awesome-icon icon="sign-in-alt" /> Login
               </router-link>

@@ -6,5 +6,7 @@ import com.rlopez.proyectofinal.entities.SuscripcionesEntity;
 
 @Repository
 public interface SuscripcionesRepository extends JpaRepository<SuscripcionesEntity, Integer> {
-    
+ 
+	
+	
 }
