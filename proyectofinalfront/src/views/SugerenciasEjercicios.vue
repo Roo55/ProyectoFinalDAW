@@ -1,13 +1,12 @@
 <template>
   <div class="container">
     <h2>¿Qué ejercicios puedes realizar hoy?</h2>
-    <p>Nuestro sistema de propondrá una amplia variedad de ejercicios que puedes realizar en función del entrenamiento que elijas</p>
+    <p>Nuestro sistema te propondrá una amplia variedad de ejercicios que puedes realizar en función del entrenamiento que
+      elijas</p>
     <p>Selecciona un grupo muscular:</p>
     <div class="d-flex flex-wrap justify-content-center mb-3">
-      <button v-for="(boton, index) in botones"
-              :key="index"
-              @click="mostrarEjercicios(index)"
-              class="btn btn-primary mx-2 my-1">
+      <button v-for="(boton, index) in botones" :key="index" @click="mostrarEjercicios(index)"
+        class="btn btn-primary mx-2 my-1">
         {{ boton.nombre }}
       </button>
     </div>
@@ -15,9 +14,15 @@
       <table>
         <tbody>
           <tr>
-            <td class="cuadro cuadro1">{{ ejerciciosMostrados[0] }}</td>
-            <td class="cuadro cuadro2">{{ ejerciciosMostrados[1] }}</td>
-            <td class="cuadro cuadro3">{{ ejerciciosMostrados[2] }}</td>
+            <td class="cuadro cuadro1">{{ ejerciciosMostrados[0].nombre }} <iframe width="560" height="315"
+                :src="ejerciciosMostrados[0].video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </td>
+            <td class="cuadro cuadro2">{{ ejerciciosMostrados[1].nombre }} <iframe width="560" height="315"
+                :src="ejerciciosMostrados[1].video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </td>
+            <td class="cuadro cuadro3">{{ ejerciciosMostrados[2].nombre }} <iframe width="560" height="315"
+                :src="ejerciciosMostrados[2].video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -86,67 +91,67 @@ export default {
   data() {
     return {
       botones: [
-    { 
-        nombre: "Full Body (Principiantes)", 
-        ejercicios: [
-            "Sentadillas en multipower", 
-            "Press de banca", 
-            "Remo con barra", 
-            "Peso muerto", 
-            "Flexiones de pecho",
-            "Abdominales",
-            "Press militar",
-            "Elevaciones laterales",
-            "Curl de bíceps con barra",
-            "Fondos de tríceps"
-        ] 
-    },
-    { 
-        nombre: "Espalda/Biceps", 
-        ejercicios: [
-            "Remo con mancuernas", 
-            "Curl de bíceps", 
-            "Dominadas", 
-            "Remo horizontal", 
-            "Curl de bíceps con mancuernas",
-            "Encogimientos de hombros",
-            "Martillo de bíceps",
-            "Jalones de tríceps",
-            "Press francés",
-            "Curl de bíceps alterno"
-        ] 
-    },
-    { 
-        nombre: "Pecho/Triceps", 
-        ejercicios: [
-            "Press de banca", 
-            "Extensiones de tríceps", 
-            "Fondos en paralelas", 
-            "Aperturas con mancuernas", 
-            "Flexiones diamante",
-            "Press inclinado",
-            "Extensiones de tríceps en polea",
-            "Fondos en anillas",
-            "Flexiones con palmada",
-            "Fondos de tríceps en banco"
-        ] 
-    },
-    { 
-        nombre: "Pierna", 
-        ejercicios: [
-            "Sentadillas", 
-            "Prensa de piernas", 
-            "Zancadas", 
-            "Elevaciones de talones", 
-            "Extensiones de piernas",
-            "Curl de piernas",
-            "Peso muerto rumano",
-            "Sentadilla búlgara",
-            "Step-up con mancuernas",
-            "Zancadas laterales"
-        ] 
-    },
-],
+        {
+          nombre: "Full Body (Principiantes)",
+          ejercicios: [
+            { nombre: "Sentadillas en multipower", video: "https://www.youtube.com/embed/uv3jGXxK60U", descripcion: "Coloca la barra en tus hombros, apóyala en la parte posterior de tus deltoides y realiza una flexión de cadera y rodilla..." },
+            { nombre: "Press de banca", video: "https://www.youtube.com/embed/Kpy3Lt5vPDE", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Remo con barra", video: "https://www.youtube.com/embed/ZJXX2fdjgn4", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Peso muerto", video: "https://www.youtube.com/embed/7KL8SgCP4KQ", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Flexiones de pecho", video: "https://www.youtube.com/embed/izNxOxVrUc4", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Abdominales", video: "https://www.youtube.com/embed/CwhxepX7aR8", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Press militar", video: "https://www.youtube.com/embed/f3E1jQFRONs", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Elevaciones laterales", video: "https://www.youtube.com/embed/F1MUzXUR9Nk", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Curl de biceps con barra", video: "https://www.youtube.com/embed/9LwedVKzjk8", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Fondos de tríceps", video: "https://www.youtube.com/embed/CjGPpeM_Kog", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+          ]
+        },
+        {
+          nombre: "Espalda/Biceps",
+          ejercicios: [
+            { nombre: "Remo con mancuernas", video: "https://www.youtube.com/embed/EiGN5ohOYOc", descripcion: "Coloca la barra en tus hombros, apóyala en la parte posterior de tus deltoides y realiza una flexión de cadera y rodilla..." },
+            { nombre: "Curl de bíceps", video: "https://www.youtube.com/embed/uICWtGLd4-I", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Dominadas", video: "https://www.youtube.com/embed/u6zqhOLK-Jg", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Remo horizontal", video: "https://www.youtube.com/embed/zmDATIwNFt0", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Curl de bíceps con mancuernas", video: "https://www.youtube.com/embed/HU2lghjU29Y", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Encogimientos de hombros", video: "https://www.youtube.com/embed/qlIv6nW5kHU", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Martillo de bíceps", video: "https://www.youtube.com/embed/yjP-_KkLwys", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Jalones de tríceps", video: "https://www.youtube.com/embed/FspY_qJBXZc", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Press francés", video: "https://www.youtube.com/embed/VN_QtPv4Ugo", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Curl de bíceps alterno", video: "https://www.youtube.com/embed/ud78b4SsALs", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+          ]
+        },
+        {
+          nombre: "Pecho/Triceps",
+          ejercicios: [
+            { nombre: "Press de banca", video: "https://www.youtube.com/embed/Kpy3Lt5vPDE", descripcion: "Coloca la barra en tus hombros, apóyala en la parte posterior de tus deltoides y realiza una flexión de cadera y rodilla..." },
+            { nombre: "Extensiones de tríceps", video: "https://www.youtube.com/embed/Ez2Tl0mX6SU", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Fondos en paralelas", video: "https://www.youtube.com/embed/CjGPpeM_Kog", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Aperturas con mancuernas", video: "https://www.youtube.com/embed/xyHdY99F640", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Flexiones diamante", video: "https://www.youtube.com/embed/pi07V0zyWIA", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Press inclinado", video: "https://www.youtube.com/embed/swMjJqFzxCQ", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Extensiones de tríceps en polea", video: "https://www.youtube.com/embed/dRkTreltpnc", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Fondos en anillas", video: "https://www.youtube.com/embed/Ql66iRAjyJ8", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Flexiones con palmada", video: "https://www.youtube.com/embed/icdEDFsd0b0", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Fondos de tríceps en banco", video: "https://www.youtube.com/embed/PYapgguXgT8", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+          ]
+        },
+        {
+          nombre: "Pierna",
+          ejercicios: [
+            { nombre: "Sentadillas", video: "https://www.youtube.com/embed/eraNxbPIhWw", descripcion: "Coloca la barra en tus hombros, apóyala en la parte posterior de tus deltoides y realiza una flexión de cadera y rodilla..." },
+            { nombre: "Prensa de piernas", video: "https://www.youtube.com/embed/D1FvjYNX9QI", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Zancadas", video: "https://www.youtube.com/embed/IG3uyG_62D4", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Elevaciones de talones", video: "https://www.youtube.com/embed/CrX3EkodO3Q", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Extensiones de piernas", video: "https://www.youtube.com/embed/EWa4nd7_25Q", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Curl de piernas", video: "https://www.youtube.com/embed/kmtn5RJkvVE", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Peso muerto rumano", video: "https://www.youtube.com/embed/oWGuhuVK7lk", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Sentadilla búlgara", video: "https://www.youtube.com/embed/d3GwjU-NfG8", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Step-up con mancuernas", video: "https://www.youtube.com/embed/SuqhG_qY694", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+            { nombre: "Zancadas laterales", video: "https://www.youtube.com/embed/6mDKhdmTjao", descripcion: "Acuéstate en un banco, coloca los pies en el suelo y levanta la barra con los brazos extendidos. Baja la barra hasta que toque tu pecho y luego vuelve a subirla..." },
+          ]
+        },
+      ],
 
       mostrarCuadros: false,
       ejerciciosMostrados: [],
@@ -166,9 +171,10 @@ export default {
 </script>
 
 <style scoped>
-*{
+* {
   text-align: center;
 }
+
 .container {
   background-color: white;
   padding: 2rem;
@@ -204,27 +210,30 @@ export default {
     font-size: 1.5rem;
   }
 }
-.container{
+
+.container {
   background-color: white;
 }
-.botones button{
-    margin-right: 1rem;
+
+.botones button {
+  margin-right: 1rem;
 }
+
 .botones {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
 
-  .ejercicios-contenedor {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-  }
+.ejercicios-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
 
-  table {
+table {
   width: 100%;
   border-collapse: collapse;
 }
@@ -235,53 +244,56 @@ td {
   text-align: center;
 }
 
-  table {
-    width: 70%;
-    border-collapse: collapse;
-  }
+table {
+  width: 70%;
+  border-collapse: collapse;
+}
 
-  td {
-    padding: 1rem;
-    text-align: center;
-  }
+td {
+  padding: 1rem;
+  text-align: center;
+}
 
-  .cuadro {
-    width: 33%;
-    height: 250px;
-    margin-top: 1rem;
-    background-color: #ccc;
-    border: 2px solid black;
+.cuadro {
+  width: 33%;
+  height: 250px;
+  margin-top: 1rem;
+  background-color: #ccc;
+  border: 2px solid black;
+  opacity: 0;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.cuadro1 {
+  animation-delay: 0.5s;
+}
+
+.cuadro2 {
+  animation-delay: 1s;
+}
+
+.cuadro3 {
+  animation-delay: 1.5s;
+}
+
+@keyframes mostrar-cuadro {
+  from {
     opacity: 0;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-  }
-  .cuadro1 {
-    animation-delay: 0.5s;
+    transform: translateY(100px);
   }
 
-  .cuadro2 {
-    animation-delay: 1s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .cuadro3 {
-    animation-delay: 1.5s;
-  }
+.cuadro {
+  animation-name: mostrar-cuadro;
+}
 
-  @keyframes mostrar-cuadro {
-    from {
-      opacity: 0;
-      transform: translateY(100px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .cuadro {
-    animation-name: mostrar-cuadro;
-  }
-  footer {
+footer {
   width: 100%;
   background: #202020;
   color: white;
@@ -297,7 +309,7 @@ td {
 
 .contenedor-body {
   display: flex;
- 
+
   justify-content: space-between;
   position: relative;
   height: 450px;
@@ -380,5 +392,4 @@ td {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-}
-</style>
+}</style>

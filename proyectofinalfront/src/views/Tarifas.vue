@@ -9,7 +9,7 @@
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
           <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio,tarifas[0].nombre)">Comprar</button>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio,tarifas[0].nombre)">Lo quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
         <div class="tabla">
@@ -18,7 +18,7 @@
           <h3>55 <sup>€</sup> </h3>
           <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
           <p>15% de descuento</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio,tarifas[1].nombre)">Comprar</button>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio,tarifas[1].nombre)">Lo quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
         <div class="tabla">
@@ -28,7 +28,7 @@
           <p>¡Sólo para valientes!</p>
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
           <p>20% de descuento</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio,tarifas[2].nombre)">Comprar</button>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio,tarifas[2].nombre)">Lo quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
       </div>
