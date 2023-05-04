@@ -3,7 +3,7 @@
     <h2>¿Qué ejercicios puedes realizar hoy?</h2>
     <p>Nuestro sistema te propondrá una amplia variedad de ejercicios que puedes realizar en función del entrenamiento que
       elijas</p>
-    <p>Selecciona un grupo muscular:</p>
+    <p>Selecciona un grupo muscular y pulsa de nuevo el botón del grupo muscular que desees para mostrar más ejercicios:</p>
     <div class="d-flex flex-wrap justify-content-center mb-3">
       <button v-for="(boton, index) in botones" :key="index" @click="mostrarEjercicios(index)"
         class="btn btn-primary mx-2 my-1">
@@ -90,6 +90,7 @@
 export default {
   data() {
     return {
+      
       botones: [
         {
           nombre: "Full Body (Principiantes)",
@@ -298,7 +299,7 @@ footer {
   background: #202020;
   color: white;
   padding: 40px;
-  height: 50%;
+  
 }
 
 .contenedor-footerall {
@@ -392,4 +393,5 @@ footer {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  
 }</style>

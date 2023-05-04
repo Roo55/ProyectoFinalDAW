@@ -357,6 +357,9 @@ label a {
 .form-group {
     margin-bottom: 15px;
 }
+.form-group label{
+    color: white;
+}
 
 label {
     display: block;
@@ -451,7 +454,6 @@ input[type="password"] {
 
 
 #mainInscripcion {
-    background-image: url(../assets/img/Evening\ Sunshine.jpg);
     margin: 0;
     font-family: "open sans";
     font-size: 15px;
