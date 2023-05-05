@@ -7,6 +7,7 @@ import login from '../views/Login.vue'
 import sugerencias from '../views/SugerenciasEjercicios.vue'
 import calendario from '../views/Calendario.vue'
 import paywall from '../views/Paywall.vue'
+import noticias from '../views/Noticias.vue'
 const routes = [
   {
     path: '/',
@@ -47,6 +48,11 @@ const routes = [
     path:'/paywall/:precio/:nombre',
     name:'paywall',
     component:paywall
+  },
+  {
+    path:'/noticias',
+    name:'noticias',
+    component:noticias
   }
   
  

@@ -5,23 +5,25 @@
         <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
         <form @submit.prevent="enviarRegistro()">
           <div class="form-group">
-              <label for="username">Nombre de usuario:</label>
-              <input type="text" id="username" v-model="username">
-            </div>
-            <div class="form-group">
-              <label for="password">Contraseña:</label>
-              <input type="password" id="password" v-model="password">
-            </div>
-           
+            <label for="username">Nombre de usuario:</label>
+            <input type="text" id="username" v-model="username" @input="validarUsername">
+            <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" v-model="password" @input="validarPassword">
+            <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+          </div>
 
 
-            <div class="form-group">
-              <button class="btn btn-primary btn-block" :disabled="loading">
-                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                Sign Up
-              </button>
-            </div>
-         
+
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
+              <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+              Iniciar Sesión
+            </button>
+          </div>
+
         </Form>
 
         <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
@@ -30,7 +32,7 @@
       </div>
     </div>
   </main>
-  <footer>
+  <footer class="mt-auto">
     <div class="contenedor-footerall">
       <div class="contenedor-body">
         <div class="columna1">
@@ -90,13 +92,18 @@
 </template>
 <script>
 import axios from 'axios';
+import { setToken } from '../auth'
 export default {
 
   data() {
     return {
       username: '',
-      password: ''
-
+      usernameError: false,
+      usernameErrorMessage: '',
+      password: '',
+      passwordError: false,
+      passwordErrorMessage: '',
+      verificarEnvio: false
     }
   },
   methods: {
@@ -107,13 +114,152 @@ export default {
 
 
       }).then((response) => {
-        console.log(response.data);
+        let respuesta = response.data
+        console.log(respuesta);
+        let respuestaUsername = response.data.username;
+        const token = response.data.accessToken;
+        setToken(token);
+        localStorage.setItem('user', JSON.stringify(respuestaUsername))
+        localStorage.setItem('token', token)
+        this.$router.push('/');
+        setTimeout(() => {
+          window.location.reload()
+        }, 110);
+
+      }).catch((error) => {
+        console.log("Error en el login")
       })
-    }
+
+    },
+    validarUsername() {
+      if (!this.username) {
+        this.usernameError = true;
+        this.usernameErrorMessage = 'Nombre de usuario no válido'
+      } else if (!/^(?=.*\d)[a-zA-Z\d]{5,}$/.test(this.username)) {
+        this.usernameError = true;
+        this.usernameErrorMessage = 'El nombre de usuario debe tener al menos 5 caracteres y al menos 1 número';
+      } else {
+        this.usernameError = false;
+        this.usernameErrorMessage = ''
+      }
+      this.verificarEnvio = this.usernameError
+    },
+    validarPassword() {
+
+      if (this.password.length < 8 || !/[A-Z]/.test(this.password) || !/\d.*\d/.test(this.password)) {
+        this.passwordError = true;
+        this.passwordErrorMessage = 'La contraseña debe tener al menos 8 caracteres, una mayúscula y dos números';
+      } else {
+        this.passwordError = false;
+        this.passwordErrorMessage = '';
+      }
+    },
+
   }
 }
 </script>
 <style scoped>
+footer {
+  width: 100%;
+  background: #202020;
+  color: white;
+  padding: 40px;
+  height: 50%;
+}
+
+.contenedor-footerall {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.contenedor-body {
+  display: flex;
+
+  justify-content: space-between;
+  position: relative;
+  height: 450px;
+}
+
+.columna1,
+.columna2,
+.columna3 {
+  max-width: 400px;
+}
+
+.columna1 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.columna1 p {
+  font-size: 14px;
+  color: #c7c7c7;
+  margin-top: 20px;
+}
+
+.columna2 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila1 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila1 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila1 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  color: #c7c7c7;
+}
+
+.columna3 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila2 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila2 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila2 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 90px;
+}
+
+.contenedor-footer {
+  width: 90%;
+  top: 850px;
+  background: #101010;
+  padding: 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 55px;
+  justify-content: center;
+
+}
+
+.footer {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
 * {
   text-align: center;
   margin: 0;
@@ -234,5 +380,10 @@ label {
 
 .error-feedback {
   color: red;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
 }
 </style>

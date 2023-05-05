@@ -9,7 +9,8 @@
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
           <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-          <button class="compra" v-on:click="mostrarPaywall(tarifas[0].precio,tarifas[0].nombre)">Comprar</button>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio,tarifas[0].nombre)">Lo quiero!</button>
+          <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
         <div class="tabla">
           <h2>Trimestral</h2>
@@ -17,7 +18,8 @@
           <h3>55 <sup>€</sup> </h3>
           <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
           <p>15% de descuento</p>
-          <button class="compra" v-on:click="mostrarPaywall(tarifas[1].precio,tarifas[1].nombre)">Comprar</button>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio,tarifas[1].nombre)">Lo quiero!</button>
+          <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
         <div class="tabla">
           <h2>Anual</h2>
@@ -26,7 +28,8 @@
           <p>¡Sólo para valientes!</p>
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
           <p>20% de descuento</p>
-          <button class="compra" v-on:click="mostrarPaywall(tarifas[2].precio,tarifas[2].nombre)">Comprar</button>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio,tarifas[2].nombre)">Lo quiero!</button>
+          <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
       </div>
     </main>
@@ -91,15 +94,31 @@
 </template>
 
 <script>
+import jwt_decode from 'jwt-decode';
+import {getToken} from '../auth';
 export default {
   data() {
     return {
+      sesionIniciada: false,
       tarifas: [
         { id: 1, nombre: "Mensual", precio: 30 },
         { id: 2, nombre: "Trimestral", precio: 55 },
         { id: 3, nombre: "Anual", precio: 80 },
       ],
     };
+  },
+  created(){
+    this.sesionIniciada = !!getToken();
+    console.log(this.sesionIniciada)
+    if(this.sesionIniciada){
+       var token = localStorage.getItem('token')
+     const decoded = jwt_decode(token);
+     this.username = decoded.sub;
+    }else{
+      this.sesionIniciada=false;
+    }
+  
+
   },
   methods: {
     mostrarPaywall(precio,nombre) {
@@ -133,6 +152,9 @@ export default {
     font-size: 15px;
 }
 /* Tablas */
+.obligatorioRegistrarse{
+  color: red;
+}
 .contenedor-tarifas{
     width: 90%;
     max-width: 900px;

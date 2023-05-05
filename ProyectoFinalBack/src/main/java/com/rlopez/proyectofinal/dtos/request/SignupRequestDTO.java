@@ -5,20 +5,33 @@ import javax.validation.constraints.*;
 
 public class SignupRequestDTO {
 	@NotBlank
+	@Size(min = 3, max = 20)
 	private String username;
 
 	@NotBlank
-	private String email;
+	private String nombre;
 	
-    private String nombre;
-    private String apellido;
-    private String fechaNacimiento;
-    private String direccion;
-    private String numeroTelefono;
-    
 	@NotBlank
-	private String password;
+	private String apellido;
 	
+	@NotBlank
+	private String fechaNacimiento;
+	
+	@NotBlank
+	private String direccion;
+	
+
+	@NotBlank
+    private String numeroTelefono;
+	
+	public String getNumeroTelefono() {
+		return numeroTelefono;
+	}
+
+	public void setNumeroTelefono(String numeroTelefono) {
+		this.numeroTelefono = numeroTelefono;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -34,6 +47,9 @@ public class SignupRequestDTO {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
+
+
 
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
@@ -53,17 +69,16 @@ public class SignupRequestDTO {
 
 
 
-	public String getNumeroTelefono() {
-		return numeroTelefono;
-	}
-
-	public void setNumeroTelefono(String numeroTelefono) {
-		this.numeroTelefono = numeroTelefono;
-	}
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	private String email;
 
 	private Set<String> role;
 
-
+	@NotBlank
+	@Size(min = 6, max = 40)
+	private String password;
 
 	public String getUsername() {
 		return username;

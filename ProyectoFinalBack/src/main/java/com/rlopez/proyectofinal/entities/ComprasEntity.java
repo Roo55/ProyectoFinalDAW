@@ -9,39 +9,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.rlopez.proyectofinal.entities.models.User;
-
 @Entity
 @Table(name = "compras")
 public class ComprasEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_compra")
+    @Column(name = "id_compras")
     private Integer id;
-
-    @Column(name = "fecha_compra")
-    private String fechaCompra;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
-    private User cliente;
+    private ClientesEntity cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_suscripcion", referencedColumnName = "id_suscripcion")
     private SuscripcionesEntity subscripcion;
+    
+    @Column(name = "fecha_compra")
+    private String fechaCompra;
+
+
 
 	public ComprasEntity() {
 		super();
 	}
 
-	public ComprasEntity(Integer id, String fechaCompra, User cliente, SuscripcionesEntity subscripcion) {
+	
+
+	public ComprasEntity(Integer id, ClientesEntity cliente, SuscripcionesEntity subscripcion, String fechaCompra) {
 		super();
 		this.id = id;
-		this.fechaCompra = fechaCompra;
 		this.cliente = cliente;
 		this.subscripcion = subscripcion;
+		this.fechaCompra = fechaCompra;
 	}
+
+
+
+	public ComprasEntity(ClientesEntity cliente, SuscripcionesEntity subscripcion, String fechaCompra) {
+		super();
+		this.cliente = cliente;
+		this.subscripcion = subscripcion;
+		this.fechaCompra = fechaCompra;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -59,11 +72,11 @@ public class ComprasEntity {
 		this.fechaCompra = fechaCompra;
 	}
 
-	public User getCliente() {
+	public ClientesEntity getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(User cliente) {
+	public void setCliente(ClientesEntity cliente) {
 		this.cliente = cliente;
 	}
 

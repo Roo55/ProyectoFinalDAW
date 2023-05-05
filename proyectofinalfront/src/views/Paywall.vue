@@ -14,46 +14,154 @@
       <p>Has seleccionado la suscripción <strong> {{ nombre }}</strong> </p>
       <p>El precio a pagar es <strong>{{ precio }}</strong>€</p>
       <br>
-      <div class="form">
+      <form @submit.prevent="enviarPago()" class="form">
         <div class="card space icon-relative">
           <label class="label">Titular de la tarjeta:</label>
-          <input type="text" class="input" placeholder="Nombre titular">
+          <input type="text" class="input" placeholder="Nombre titular" v-model="nombreTitular"
+            @input="validarTitularTarjeta">
+          <div v-if="nombreTitularError" class="error-message">{{ nombreTitularErrorMensaje }}</div>
           <i class="fas fa-user"></i>
         </div>
         <div class="card space icon-relative">
           <label class="label">Número de tarjeta:</label>
-          <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Número de tarjeta">
+          <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Número de tarjeta"
+            v-model="numeroTarjeta" @input="validarNumeroTarjeta">
+          <div v-if="numeroTarjetaError" class="error-message">{{ numeroTarjetaErrorMensaje }}</div>
           <i class="far fa-credit-card"></i>
         </div>
         <div class="card-grp space">
           <div class="card-item icon-relative">
             <label class="label">Expiración:</label>
-            <input type="text" name="expiry-data" class="input" placeholder="00 / 00">
+            <input type="text" name="expiry-data" class="input" placeholder="00 / 00" v-model="expiracion"
+              @input="validarExpiracion">
+            <div v-if="expiracionError" class="error-message">{{ expiracionErrorMensaje }}</div>
             <i class="far fa-calendar-alt"></i>
           </div>
           <div class="card-item icon-relative">
             <label class="label">CVC:</label>
-            <input type="text" class="input" data-mask="000" placeholder="000">
+            <input type="text" class="input" data-mask="000" placeholder="000" v-model="cvc" @input="validarCVC">
+            <div v-if="cvcError" class="error-message">{{ cvcErrorMensaje }}</div>
             <i class="fas fa-lock"></i>
           </div>
         </div>
 
-        <div class="btn">
+        <button class="btn">
           Pagar
-        </div>
+        </button>
 
-      </div>
+      </form>
     </div>
   </div>
 </template>
 <script>
+import jwt_decode from 'jwt-decode';
+import axios from 'axios';
+
 export default {
   data() {
     return {
       precio: this.$route.params.precio,
-      nombre: this.$route.params.nombre
+      nombre: this.$route.params.nombre,
+      id: '',
+      tipo_suscripcion: '',
+      duracion: '',
+      nombreTitular: '',
+      nombreTitularError: false,
+      nombreTitularErrorMensaje: '',
+      numeroTarjeta: '',
+      numeroTarjetaError: false,
+      numeroTarjetaErrorMensaje: '',
+      expiracion: '',
+      expiracionError: false,
+      expiracionErrorMensaje: '',
+      cvc: '',
+      cvcError: false,
+      cvcErrorMensaje: ''
     };
   },
+  created() {
+    var token = localStorage.getItem('token')
+    const decoded = jwt_decode(token);
+    this.id = String(decoded.id);
+
+    if (this.$route.params.precio == '30') {
+      this.duracion = "1 mes";
+      this.tipo_suscripcion = "Mensual";
+    } else if (this.$route.params.precio == '55') {
+      this.duracion = "3 meses";
+      this.tipo_suscripcion = "Trimestral";
+    } else if (this.$route.params.precio == '80') {
+      this.duracion = "12 meses";
+      this.tipo_suscripcion = "Anual";
+    }
+
+
+
+
+  },
+  methods: {
+    enviarPago() {
+      if (this.nombreTitularError || this.numeroTarjetaError || this.expiracionError || this.cvcError) {
+        return;
+      }
+
+      axios.post('http://localhost:8081/gym/api/pay/insertarpago', {
+        id_cliente: this.id,
+        tipo_suscripcion: this.tipo_suscripcion,
+        precio: this.precio,
+        duracion: this.duracion
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      }).then((response) => {
+        console.log(response.data);
+        this.$router.push('/');
+      })
+    },
+
+    validarTitularTarjeta() {
+      if (!this.nombreTitular.match(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*[ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/)) {
+        this.nombreTitularError = true;
+        this.nombreTitularErrorMensaje = 'Por favor, ingrese un nombre y el primer apellido';
+      } else {
+        this.nombreTitularError = false;
+        this.nombreTitularErrorMensaje = '';
+      }
+
+    },
+    validarNumeroTarjeta() {
+      if (!this.numeroTarjeta.match(/^(?:\d{4}[ -]?){3}\d{1,4}$|^\d{13,16}$/)) {
+        this.numeroTarjetaError = true;
+        this.numeroTarjetaErrorMensaje = 'Por favor, ingrese un número de tarjeta de crédito válido';
+      } else {
+        this.numeroTarjetaError = false;
+        this.numeroTarjetaErrorMensaje = '';
+      }
+
+    },
+    validarExpiracion() {
+      if (!this.expiracion.match(/^(0[1-9]|1[0-2])\/(23|(2[4-9]|[3-9][0-9]))$/)) {
+        this.expiracionError = true;
+        this.expiracionErrorMensaje = 'Por favor, ingrese una fecha de expiración válida';
+      } else {
+        this.expiracionError = false;
+        this.expiracionErrorMensaje = '';
+      }
+
+    },
+    validarCVC() {
+      if (!this.cvc.match(/^\d{3,4}$/)) {
+        this.cvcError = true;
+        this.cvcErrorMensaje = 'Por favor, ingrese un CVC válido';
+      } else {
+        this.cvcError = false;
+        this.cvcErrorMensaje = '';
+      }
+
+    },
+  },
+
 };
 </script>
 <style scoped>
@@ -69,6 +177,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Ubuntu', sans-serif;
+  text-align: center;
 }
 
 body {
@@ -77,7 +186,7 @@ body {
 }
 
 .payment {
-  background: #f8f8f8;
+  background: #e2e2e2;
   max-width: 360px;
   margin: 80px auto;
   height: auto;
@@ -195,6 +304,11 @@ body {
 
   .btn {
     margin-top: 20px;
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 5px;
   }
 }
 </style>

@@ -21,43 +21,40 @@
           <li class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/galeria">Nuestro gimnasio</router-link></a>
           </li>
-          <li class="nav-item">
+          <li v-if="sesionIniciada" class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/sugerencias">Sugerencias</router-link></a>
           </li>
-          <li class="nav-item">
+          <li v-if="sesionIniciada" class="nav-item">
             <a class="nav-link" id="navbarDropdown"><router-link to="/calendario">Calendario Clases</router-link></a>
+          </li>
+          <li v-if="sesionIniciada" class="nav-item">
+            <a class="nav-link" id="navbarDropdown"><router-link to="/noticias">Noticias</router-link></a>
           </li>
 
           <div class="navbar-nav ml-auto">
             <li class="nav-item">
+              <div id="nombreUsuario" v-if="sesionIniciada" class="username">Bienvenid@, {{ username }} !</div>
+              <router-link v-else to="/login" class="nav-link">
+                <font-awesome-icon icon="sign-in-alt" /> Login
+              </router-link>
+            </li>
+            <li id="botonCerrarSesion" v-if="sesionIniciada" class="nav-item">
+                <button @click="cerrarSesion">Cerrar sesión</button>
+            </li>
+            <li v-else class="nav-item">
               <router-link to="/register" class="nav-link">
                 <font-awesome-icon icon="user-plus" /> Registro
               </router-link>
             </li>
-            <li class="nav-item">
-              <router-link to="/login" class="nav-link">
-                <font-awesome-icon icon="sign-in-alt" /> Login
-              </router-link>
-            </li>
+            
           </div>
 
-          <div class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <router-link to="/profile" class="nav-link">
-              
-              </router-link>
-            </li>
           
-          </div>
 
         </ul>
 
         <hr class="d-md-none text-white-50">
 
-<!--<form class="d-flex">
-          <button class="btn btn-outline-warning d-none d-md-inline-block " id="botonLogin" type="submit"><router-link
-              to="/login">Login</router-link></button>
-        </form>-->
         
 
 
@@ -66,9 +63,53 @@
     </div>
   </nav>
 </template>
+<script>
+import jwt_decode from 'jwt-decode';
+import {removeToken} from '../auth';
+import {getToken} from '../auth';
 
+export default{
+  data(){
+    return{
+      username:'',
+      sesionIniciada:false
+    }
+  },
+  created(){
+    this.sesionIniciada = !!getToken();
+    console.log(this.sesionIniciada)
+    if(this.sesionIniciada){
+       var token = localStorage.getItem('token')
+     const decoded = jwt_decode(token);
+     this.username = decoded.sub;
+    }else{
+      this.sesionIniciada=false;
+    }
+  
 
+  },
+  methods:{
+    cerrarSesion(){
+      removeToken();
+      this.sesionIniciada=false
+      setTimeout(() => {
+          this.$router.push('/');
+        }, 110); 
+    },
+    
+  }
+}
+</script>
 <style>
+#botonCerrarSesion{
+  margin-left: 2rem;
+  margin-top: 0.5rem;
+}
+#nombreUsuario{
+  margin-left: 1rem;
+  margin-top: 0.6rem;
+  color: red;
+}
 form a {
   text-decoration: none;
   color: white;
