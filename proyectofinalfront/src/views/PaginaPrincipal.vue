@@ -171,9 +171,6 @@
 
   </div>
 </template>
-<script>
-
-</script>
 <style scoped>
 .card-body {
   background-color: #4d0686;
