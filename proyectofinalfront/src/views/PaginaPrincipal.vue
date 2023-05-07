@@ -105,6 +105,22 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-5 col-md-6 col-sm-12">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h4 class="card-title">Roberto</h4>
+                <p class="card-text">Este gimnasio destaca por ofrecer una experiencia de entrenamiento excepcional. Los instructores son expertos en su campo y están dispuestos a brindar asesoramiento y orientación personalizados para ayudarte a alcanzar tus objetivos de fitness.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-6 col-sm-12">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h4 class="card-title">Cristina</h4>
+                <p class="card-text">Los entrenadores son verdaderos profesionales que se toman el tiempo para conocer tus necesidades y trabajar contigo en un plan de entrenamiento personalizado. Ambiente acogedor y una amplia variedad de clases y servicios.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <footer>

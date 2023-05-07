@@ -132,6 +132,7 @@ export default {
 </script>
 <style scoped>
 
+
 *{
     margin: 0;
     padding: 0;
@@ -164,7 +165,16 @@ export default {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    
+}
+@media screen and (min-width: 1029px) {
+  .contenedor-tarifas {
+    margin-bottom: 250px;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .contenedor-tarifas {
+    margin-bottom: 0;
+  }
 }
 .tabla{
     width: 33%;
