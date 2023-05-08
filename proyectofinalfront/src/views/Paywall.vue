@@ -12,10 +12,8 @@
 
       <h2>Completa el pago</h2>
       <p>Has seleccionado la suscripción <strong> {{ nombre }}</strong> </p>
-      <p>El precio de la tarifa seleccionada son <strong>{{ precio }}</strong>€</p>
-      <p>Tienes <strong>{{ edadCliente}}</strong> años, por lo que vamos a aplicarte un descuento</p>
-      <p>El precio final a pagar son <strong>{{ precioFinal }}€</strong></p>
-      <p></p>
+      <p id="fadeEfecto">Aplicando tu descuento del {{ descuento * 100 }}%, el precio final a pagar son <strong class="rainbow">{{ precioFinal }}€</strong>
+      </p>
       <br>
       <form @submit.prevent="enviarPago()" class="form">
         <div class="card space icon-relative">
@@ -47,7 +45,8 @@
             <i class="fas fa-lock"></i>
           </div>
         </div>
-
+        <p class="cumplimentarValores" v-if="inputsVacios">Rellene todos los campos para continuar</p>
+        <p v-else></p>
         <button class="btn">
           Pagar
         </button>
@@ -60,13 +59,15 @@
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import { differenceInYears } from 'date-fns'
+import { parse, format } from 'date-fns';
 
 export default {
   data() {
     return {
       precio: this.$route.params.precio,
-      precioFinal:'',
-      edadCliente:'',
+      precioFinal: '',
+      edadCliente: '',
+      descuento: 0,
       nombre: this.$route.params.nombre,
       id: '',
       fechaNacimiento: '',
@@ -83,7 +84,9 @@ export default {
       expiracionErrorMensaje: '',
       cvc: '',
       cvcError: false,
-      cvcErrorMensaje: ''
+      cvcErrorMensaje: '',
+      inputsVacios:false,
+      mensajeAvisoEnvio:''
     };
   },
   created() {
@@ -92,23 +95,26 @@ export default {
     this.id = String(decoded.id);
     this.fechaNacimiento = String(decoded.fechaNacimiento);
 
-    const fechaNacimientoCliente = new Date(this.fechaNacimiento);
-    this.edadCliente = differenceInYears(new Date(), fechaNacimientoCliente);
+    const fechaNacimientoISO = parse(decoded.fechaNacimiento, 'dd/MM/yyyy', new Date());
+    const fechaNacimientoCliente = format(fechaNacimientoISO, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+    const fechaNacimientoClienteObj = new Date(fechaNacimientoCliente);
 
-    let descuento = 0;
+
+    this.edadCliente = differenceInYears(new Date(), fechaNacimientoClienteObj);
 
     if (this.edadCliente >= 16 && this.edadCliente <= 30) {
-      descuento = 0.15
+      this.descuento = 0.15
     } else if (this.edadCliente > 30 && this.edadCliente <= 60) {
-      descuento = 0.05
+      this.descuento = 0.05
     } else if (this.edadCliente > 60 && this.edadCliente <= 80) {
-      descuento = 0.4
+      this.descuento = 0.4
     }
 
-    const precioOriginal = parseFloat(this.precio)
-     this.precioFinal = precioOriginal - (precioOriginal * descuento);
 
-    
+    const precioOriginal = parseFloat(this.precio)
+    this.precioFinal = precioOriginal - (precioOriginal * this.descuento);
+
+
 
     if (this.$route.params.precio == '30') {
       this.duracion = "1 mes";
@@ -127,11 +133,10 @@ export default {
   },
   methods: {
     enviarPago() {
-      if (this.nombreTitularError || this.numeroTarjetaError || this.expiracionError || this.cvcError) {
-        return;
-      }
-
-      axios.post('http://localhost:8081/gym/api/pay/insertarpago', {
+      if (this.nombreTitular == "" || this.numeroTarjeta == "" || this.expiracion == "" || this.cvc == "") {
+        this.inputsVacios = true;
+      }else{
+          axios.post('http://localhost:8081/gym/api/pay/insertarpago', {
         id_cliente: this.id,
         tipo_suscripcion: this.tipo_suscripcion,
         precio: this.precio,
@@ -144,6 +149,9 @@ export default {
         console.log(response.data);
         this.$router.push('/');
       })
+      }
+
+    
     },
 
     validarTitularTarjeta() {
@@ -315,7 +323,25 @@ body {
   font-family: 'Baloo Bhaijaan', cursive;
   font-size: 58px;
 }
-
+.rainbow {
+  background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+  background-size: 200%;
+  background-clip: padding-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 3s linear infinite;
+}
+.cumplimentarValores{
+  color: red;
+}
+@keyframes rainbow {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
 
 @media screen and (max-width: 420px) {
   .card-grp {

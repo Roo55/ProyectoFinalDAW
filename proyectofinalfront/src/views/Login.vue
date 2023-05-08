@@ -19,16 +19,14 @@
 
           <div class="form-group">
             <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
-              <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+              <span ></span>
               Iniciar Sesión
             </button>
           </div>
+          <p v-if="loginFallido" class="error-feedback">Error en el login. Verifique su contraseña y/o su nombre de usuario.</p>
+        </form>
 
-        </Form>
-
-        <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
-          {{ message }}
-        </div>
+       
       </div>
     </div>
   </main>
@@ -103,7 +101,8 @@ export default {
       password: '',
       passwordError: false,
       passwordErrorMessage: '',
-      verificarEnvio: false
+      verificarEnvio: false,
+      loginFallido: false
     }
   },
   methods: {
@@ -127,6 +126,7 @@ export default {
         }, 110);
 
       }).catch((error) => {
+        this.loginFallido = true;
         console.log("Error en el login")
       })
 

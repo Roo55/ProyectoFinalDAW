@@ -9,7 +9,11 @@
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
           <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio,tarifas[0].nombre)">Lo quiero!</button>
+          <p class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+            descuento del {{ descuento * 100 }}%</p>
+
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio, tarifas[0].nombre)">Lo
+            quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
         <div class="tabla">
@@ -17,18 +21,21 @@
           <img src="../assets/img/Tarifados.png" alt="">
           <h3>55 <sup>€</sup> </h3>
           <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
-          <p>15% de descuento</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio,tarifas[1].nombre)">Lo quiero!</button>
+          <p class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+            descuento del {{ descuento * 100 }}%</p>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio, tarifas[1].nombre)">Lo
+            quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
         <div class="tabla">
           <h2>Anual</h2>
           <img src="../assets/img/weightlifter.png" alt="">
           <h3>80 <sup>€</sup> </h3>
-          <p>¡Sólo para valientes!</p>
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
-          <p>20% de descuento</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio,tarifas[2].nombre)">Lo quiero!</button>
+          <p class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+            descuento del {{ descuento * 100 }}%</p>
+          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio, tarifas[2].nombre)">Lo
+            quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
       </div>
@@ -95,10 +102,16 @@
 
 <script>
 import jwt_decode from 'jwt-decode';
-import {getToken} from '../auth';
+import { getToken } from '../auth';
+import { differenceInYears } from 'date-fns'
+import { parse, format } from 'date-fns';
+
 export default {
   data() {
     return {
+      edadCliente: '',
+      fechaNacimiento: '',
+      descuento: '',
       sesionIniciada: false,
       tarifas: [
         { id: 1, nombre: "Mensual", precio: 30 },
@@ -107,126 +120,177 @@ export default {
       ],
     };
   },
-  created(){
-    this.sesionIniciada = !!getToken();
-    console.log(this.sesionIniciada)
-    if(this.sesionIniciada){
-       var token = localStorage.getItem('token')
-     const decoded = jwt_decode(token);
-     this.username = decoded.sub;
-    }else{
-      this.sesionIniciada=false;
+  created() {
+    var token = localStorage.getItem('token')
+
+    const decoded = jwt_decode(localStorage.getItem('token'));
+
+    const fechaNacimientoISO = parse(decoded.fechaNacimiento, 'dd/MM/yyyy', new Date());
+    const fechaNacimientoCliente = format(fechaNacimientoISO, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+    const fechaNacimientoClienteObj = new Date(fechaNacimientoCliente);
+
+ 
+    this.edadCliente = differenceInYears(new Date(), fechaNacimientoClienteObj);
+
+    if (this.edadCliente >= 16 && this.edadCliente <= 30) {
+      this.descuento = 0.15
+    } else if (this.edadCliente > 30 && this.edadCliente <= 60) {
+      this.descuento = 0.05
+    } else if (this.edadCliente > 60 && this.edadCliente <= 80) {
+      this.descuento = 0.4
     }
-  
+
+ 
+    const precioOriginal = parseFloat(this.precio)
+    this.precioFinal = precioOriginal - (precioOriginal * this.descuento);
+
+
+
+    this.sesionIniciada = !!getToken();
+    if (this.sesionIniciada) {
+      var token = localStorage.getItem('token')
+      const decoded = jwt_decode(token);
+      this.username = decoded.sub;
+    } else {
+      this.sesionIniciada = false;
+    }
+
 
   },
   methods: {
-    mostrarPaywall(precio,nombre) {
-      this.$router.push({ name: "paywall", params: { precio: precio,nombre:nombre } });
+    mostrarPaywall(precio, nombre) {
+      this.$router.push({ name: "paywall", params: { precio: precio, nombre: nombre } });
     },
   },
-  mounted(){
-        window.scrollTo(0,0);
-    },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
 
+}
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-align: center;
-    
+.linea {
+  background: #550b51;
+  height: 5px;
+  width: 100%;
+  display: block;
+  margin-bottom: 2rem;
 }
-.linea{
-    background: #550b51;
-    height: 5px;
-    width: 100%;
-    display: block;
-    margin-bottom: 2rem;
+
+#body {
+  background: white;
+  font-family: 'open sans';
+  font-size: 15px;
 }
-#body{
-    background:white ;
-    font-family: 'open sans';
-    font-size: 15px;
-}
+
 /* Tablas */
-.obligatorioRegistrarse{
+.obligatorioRegistrarse {
   color: red;
 }
-.contenedor-tarifas{
-    width: 90%;
-    max-width: 900px;
-    margin: auto;
-    height: 68vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+
+.contenedor-tarifas {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  height: 68vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
+
 @media screen and (min-width: 1029px) {
   .contenedor-tarifas {
     margin-bottom: 250px;
   }
 }
+
 @media screen and (min-width: 1600px) {
   .contenedor-tarifas {
     margin-bottom: 0;
   }
 }
-.tabla{
-    width: 33%;
-    height: 600px;
-    margin: auto;
-    padding: 60px;
-    border: 1px solid #3a3e6b;
-    border-radius: 4px;
-    box-shadow: 0px 0px 4px 0px #3a3e6b;
-    text-align: center;
-    flex-grow: 1;
-    color: #40436b;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+.tabla {
+  width: 33%;
+  height: 600px;
+  margin: auto;
+  padding: 60px;
+  border: 1px solid #3a3e6b;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px 0px #3a3e6b;
+  text-align: center;
+  flex-grow: 1;
+  color: #40436b;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.tabla>h2{
-    margin-bottom: 35px;
-    font-size: 30px;
+
+.tabla>h2 {
+  margin-bottom: 35px;
+  font-size: 30px;
 }
-.tabla>h3{
-    font-size: 30px;
-    margin-bottom: 20px;
+
+.tabla>h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
 }
-.tabla>p{
-    display: block;
-    margin-bottom: 20px;
+
+.tabla>p {
+  display: block;
+  margin-bottom: 20px;
 }
-.tabla img{
-    width: 64%;
-    margin-bottom: 30px;
+
+.tabla img {
+  width: 64%;
+  margin-bottom: 30px;
 }
-.tabla:hover{
-    background: #2b2e4d;
-    color: #f1f1f2;
-    transform: scale(1.1);
-    transition: 0.8s all;
-    cursor: pointer;
+
+.tabla:hover {
+  background: #2b2e4d;
+  color: #f1f1f2;
+  transform: scale(1.1);
+  transition: 0.8s all;
+  cursor: pointer;
+}
+.descuentoAviso {
+animation: parpadeo 2s infinite;
+color: red;
+}
+
+@keyframes parpadeo {
+0% {
+opacity: 1;
+}
+50% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
 }
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* BOTON LO QUIERO */
-.compra{
-    width: 150px;
-    display: inline-block;
-    margin: auto;
-    padding: 12px;
-    background: #9be94d;
-    text-decoration: none;
-    text-align: center;
-    color: #2b2e4d;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
+.compra {
+  width: 150px;
+  display: inline-block;
+  margin: auto;
+  padding: 12px;
+  background: #9be94d;
+  text-decoration: none;
+  text-align: center;
+  color: #2b2e4d;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
 }
+
 footer {
   width: 100%;
   background: #202020;
@@ -326,8 +390,4 @@ footer {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-}
-
-
-
-</style>
+}</style>
