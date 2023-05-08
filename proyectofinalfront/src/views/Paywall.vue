@@ -214,10 +214,9 @@ body {
 .payment {
   background: #e2e2e2;
   max-width: 360px;
-  margin: 80px auto;
+  margin: 40px auto;
   height: auto;
-  padding: 35px;
-  padding-top: 70px;
+  padding: 25px;
   border-radius: 5px;
   position: relative;
 }
@@ -275,7 +274,7 @@ body {
 }
 
 .btn {
-  margin-top: 40px;
+  margin-top: 10px;
   background: #2196F3;
   padding: 12px;
   text-align: center;
