@@ -12,7 +12,10 @@
 
       <h2>Completa el pago</h2>
       <p>Has seleccionado la suscripción <strong> {{ nombre }}</strong> </p>
-      <p>El precio a pagar es <strong>{{ precio }}</strong>€</p>
+      <p>El precio de la tarifa seleccionada son <strong>{{ precio }}</strong>€</p>
+      <p>Tienes <strong>{{ edadCliente}}</strong> años, por lo que vamos a aplicarte un descuento</p>
+      <p>El precio final a pagar son <strong>{{ precioFinal }}€</strong></p>
+      <p></p>
       <br>
       <form @submit.prevent="enviarPago()" class="form">
         <div class="card space icon-relative">
@@ -56,13 +59,17 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import { differenceInYears } from 'date-fns'
 
 export default {
   data() {
     return {
       precio: this.$route.params.precio,
+      precioFinal:'',
+      edadCliente:'',
       nombre: this.$route.params.nombre,
       id: '',
+      fechaNacimiento: '',
       tipo_suscripcion: '',
       duracion: '',
       nombreTitular: '',
@@ -83,6 +90,25 @@ export default {
     var token = localStorage.getItem('token')
     const decoded = jwt_decode(token);
     this.id = String(decoded.id);
+    this.fechaNacimiento = String(decoded.fechaNacimiento);
+
+    const fechaNacimientoCliente = new Date(this.fechaNacimiento);
+    this.edadCliente = differenceInYears(new Date(), fechaNacimientoCliente);
+
+    let descuento = 0;
+
+    if (this.edadCliente >= 16 && this.edadCliente <= 30) {
+      descuento = 0.15
+    } else if (this.edadCliente > 30 && this.edadCliente <= 60) {
+      descuento = 0.05
+    } else if (this.edadCliente > 60 && this.edadCliente <= 80) {
+      descuento = 0.4
+    }
+
+    const precioOriginal = parseFloat(this.precio)
+     this.precioFinal = precioOriginal - (precioOriginal * descuento);
+
+    
 
     if (this.$route.params.precio == '30') {
       this.duracion = "1 mes";
