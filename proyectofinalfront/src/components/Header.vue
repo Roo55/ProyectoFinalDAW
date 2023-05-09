@@ -77,6 +77,7 @@ export default{
   },
   created(){
     this.sesionIniciada = !!getToken();
+    console.log(this.sesionIniciada)
     if(this.sesionIniciada){
        var token = localStorage.getItem('token')
      const decoded = jwt_decode(token);

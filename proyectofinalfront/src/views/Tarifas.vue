@@ -9,7 +9,7 @@
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
           <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-          <p class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
             descuento del {{ descuento * 100 }}%</p>
 
           <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio, tarifas[0].nombre)">Lo
@@ -21,7 +21,7 @@
           <img src="../assets/img/Tarifados.png" alt="">
           <h3>55 <sup>€</sup> </h3>
           <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
-          <p class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
             descuento del {{ descuento * 100 }}%</p>
           <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio, tarifas[1].nombre)">Lo
             quiero!</button>
@@ -32,8 +32,9 @@
           <img src="../assets/img/weightlifter.png" alt="">
           <h3>80 <sup>€</sup> </h3>
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
-          <p class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
             descuento del {{ descuento * 100 }}%</p>
+            <p v-else>Prueba</p>
           <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio, tarifas[2].nombre)">Lo
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>

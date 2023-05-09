@@ -4,41 +4,42 @@
             <form @submit.prevent="enviarRegistro()">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" v-model="nombre">
+                    <input type="text" placeholder="Ingresa tu nombre..." id="nombre" v-model="nombre">
                 </div>
                 <div class="form-group">
                     <label for="apellido">Apellido:</label>
-                    <input type="text" id="apellido" v-model="apellido">
+                    <input type="text" placeholder="Ingresa tus apellidos..." id="apellido" v-model="apellido">
                 </div>
                 <div class="form-group">
                     <label for="fechaNacimiento">Fecha de nacimiento:</label>
-                    <input type="text" id="fechaNacimiento" v-model="fechaNacimiento" @input="validarFechaNacimiento">
+                    <input type="text" placeholder="Ingresa tu fecha de nacimiento..." id="fechaNacimiento" v-model="fechaNacimiento" @input="validarFechaNacimiento">
                     <div v-if="fechaNacimientoError" class="error-message">{{ fechaNacimientoErrorMessage }}</div>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Direccion:</label>
-                    <input type="text" id="direccion" v-model="direccion">
+                    <input type="text" placeholder="Ingresa tu dirección..." id="direccion" v-model="direccion">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" v-model="email" @input="validarEmail">
+                    <input type="text" placeholder="Ingresa tu correo electrónico..." id="email" v-model="email" @input="validarEmail">
                     <div v-if="emailError" class="error-message">{{ emailErrorMessage }}</div>
                 </div>
                 <div class="form-group">
                     <label for="numeroTelefono">Número de telefono:</label>
-                    <input type="text" id="numeroTelefono" v-model="numeroTelefono" @input="validarNumeroTelefono">
+                    <input type="text" placeholder="Ingresa tu número de teléfono..." id="numeroTelefono" v-model="numeroTelefono" @input="validarNumeroTelefono">
                     <div v-if="numeroTelefonoError" class="error-message">{{ numeroTelefonoErrorMessage }}</div>
                 </div>
                 <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" v-model="password" @input="validarPassword">
-                    <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
-                </div>
-                <div class="form-group">
                     <label for="username">Nombre de usuario:</label>
-                    <input type="text" id="username" v-model="username" @input="validarUsername">
+                    <input type="text" placeholder="Ingresa tu nombre de usuario..." id="username" v-model="username" @input="validarUsername">
                     <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
                 </div>
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" placeholder="Ingresa tu contraseña..." id="password" v-model="password" @input="validarPassword">
+                    <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+                </div>
+              
                 <!-- ... más campos de formulario ... -->
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
@@ -164,7 +165,7 @@ export default {
 
             if (!this.fechaNacimiento.match(/^(\d{2}\/){2}\d{4}$/)) {
                 this.fechaNacimientoError = true;
-                this.fechaNacimientoErrorMessage = 'Por favor, ingrese una fecha de nacimiento válida en el formato DD-MM-YYYY';
+                this.fechaNacimientoErrorMessage = 'Por favor, ingrese una fecha de nacimiento válida en el formato DD/MM/YYYY';
             } else {
                 this.fechaNacimientoError = false;
                 this.fechaNacimientoErrorMessage = '';
@@ -229,106 +230,7 @@ export default {
     text-align: center;
 }
 
-footer {
-  width: 100%;
-  background: #202020;
-  color: white;
-  padding: 40px;
-  height: 50%;
-}
 
-.contenedor-footerall {
-  width: 100%;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.contenedor-body {
-  display: flex;
-  /* para que los divs se pongan uno al lado del otro*/
-  justify-content: space-between;
-  position: relative;
-  height: 450px;
-}
-
-.columna1,
-.columna2,
-.columna3 {
-  max-width: 400px;
-}
-
-.columna1 h1 {
-  font-size: 22px;
-  font-family: "Courier New", Courier, monospace;
-}
-
-.columna1 p {
-  font-size: 14px;
-  color: #c7c7c7;
-  margin-top: 20px;
-}
-
-.columna2 h1 {
-  font-size: 22px;
-  font-family: "Courier New", Courier, monospace;
-}
-
-.fila1 {
-  margin-top: 20px;
-  display: flex;
-}
-
-.fila1 img {
-  width: 36px;
-  height: 36px;
-}
-
-.fila1 label {
-  margin-top: 10px;
-  margin-left: 20px;
-  color: #c7c7c7;
-}
-
-.columna3 h1 {
-  font-size: 22px;
-  font-family: "Courier New", Courier, monospace;
-}
-
-.fila2 {
-  margin-top: 20px;
-  display: flex;
-}
-
-.fila2 img {
-  width: 36px;
-  height: 36px;
-}
-
-.fila2 label {
-  margin-top: 10px;
-  margin-left: 20px;
-  max-width: 90px;
-}
-
-.contenedor-footer {
-  width: 90%;
-  top: 850px;
-  background: #101010;
-  padding: 20px;
-  position: fixed;
-  bottom: 10px;
-  right: 55px;
-  justify-content: center;
-
-}
-
-.footer {
-  max-width: 1200px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
 
 
 label {
@@ -343,11 +245,12 @@ label a {
 }
 
 #principal {
-    background-color: #8c00ff;
+    background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
 }
 
 #mainInscripcion {
-    background-color: black;
+    background-color: white;
     border-radius: 10px;
     padding: 20px;
     margin: 20px;
@@ -358,7 +261,7 @@ label a {
     margin-bottom: 15px;
 }
 .form-group label{
-    color: white;
+    color: black;
 }
 
 label {
@@ -366,7 +269,9 @@ label {
     font-weight: bold;
     margin-bottom: 5px;
 }
-
+input{
+    background-color: #c7c7c7;
+}
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -409,53 +314,12 @@ input[type="password"] {
     }
 }
 
-.contenedor-footerall {
-    background-color: black;
-    padding: 20px;
-    border-radius: 10px;
-}
 
-.columna1,
-.columna2,
-.columna3 {
-    flex-basis: 30%;
-    color: white;
-}
 
-.columna1 h1,
-.columna2 h1,
-.columna3 h1 {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.columna1 p,
-.columna2 .fila1,
-.columna3 .fila2 {
-    margin-bottom: 5px;
-}
-
-.columna2 .fila1 img,
-.columna3 .fila2 img {
-    width: 20px;
-    margin-right: 5px;
-}
-
-.columna2 .fila1 a,
-.columna3 .fila2 label {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.columna2 .fila1 a:hover,
-.columna3 .fila2 label:hover {
-    text-decoration: underline;
-}
 
 
 #mainInscripcion {
-    margin: 0;
-    font-family: "open sans";
+    margin: 1rem 1rem 1rem 1rem;
     font-size: 15px;
 
 }
@@ -566,5 +430,105 @@ label {
 
 .error-feedback {
     color: red;
+}
+footer {
+  width: 100%;
+  background: #202020;
+  color: white;
+  padding: 40px;
+  height: 50%;
+}
+
+.contenedor-footerall {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.contenedor-body {
+  display: flex;
+  /* para que los divs se pongan uno al lado del otro*/
+  justify-content: space-between;
+  position: relative;
+  height: 450px;
+}
+
+.columna1,
+.columna2,
+.columna3 {
+  max-width: 400px;
+}
+
+.columna1 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.columna1 p {
+  font-size: 14px;
+  color: #c7c7c7;
+  margin-top: 20px;
+}
+
+.columna2 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila1 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila1 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila1 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  color: #c7c7c7;
+}
+
+.columna3 h1 {
+  font-size: 22px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.fila2 {
+  margin-top: 20px;
+  display: flex;
+}
+
+.fila2 img {
+  width: 36px;
+  height: 36px;
+}
+
+.fila2 label {
+  margin-top: 10px;
+  margin-left: 20px;
+  max-width: 90px;
+}
+
+.contenedor-footer {
+  width: 90%;
+  top: 850px;
+  background: #101010;
+  padding: 20px;
+  position: fixed;
+  bottom: 10px;
+  right: 55px;
+  justify-content: center;
+
+}
+
+.footer {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 </style>

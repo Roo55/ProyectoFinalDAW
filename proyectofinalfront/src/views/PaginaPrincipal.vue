@@ -199,10 +199,11 @@ h4 {
 
 * {
   text-align: center;
-
   box-sizing: border-box;
 }
-
+.row{
+  --bs-gutter-x:0
+}
 .cabecera {
   text-align: center;
 }
@@ -390,9 +391,7 @@ header {
   flex-wrap: wrap;
 }
 
-body {
-  margin: 0;
-}
+
 
 .navegacion ul {
   margin: 0;

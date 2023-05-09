@@ -1,32 +1,37 @@
 <template>
   <main id="mainInscripcion">
+    <div id="contenedorTarjeta">
     <div class="col-md-12">
       <div class="card card-container">
-        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
-        <form @submit.prevent="enviarRegistro()">
-          <div class="form-group">
-            <label for="username">Nombre de usuario:</label>
-            <input type="text" id="username" v-model="username" @input="validarUsername">
-            <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
-          </div>
-          <div class="form-group">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" v-model="password" @input="validarPassword">
-            <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
-          </div>
+        
+
+          <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+          <form @submit.prevent="enviarRegistro()">
+            <div class="form-group">
+              <label for="username">Nombre de usuario:</label>
+              <input type="text" id="username" v-model="username" @input="validarUsername">
+              <div v-if="usernameError" class="error-message">{{ usernameErrorMessage }}</div>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña:</label>
+              <input type="password" id="password" v-model="password" @input="validarPassword">
+              <div v-if="passwordError" class="error-message">{{ passwordErrorMessage }}</div>
+            </div>
 
 
 
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
-              <span ></span>
-              Iniciar Sesión
-            </button>
-          </div>
-          <p v-if="loginFallido" class="error-feedback">Error en el login. Verifique su contraseña y/o su nombre de usuario.</p>
-        </form>
+            <div class="form-group">
+              <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
+                <span></span>
+                Iniciar Sesión
+              </button>
+            </div>
+            <p v-if="loginFallido" class="error-feedback">Error en el login. Verifique su contraseña y/o su nombre de
+              usuario.</p>
+          </form>
 
-       
+        </div>
+
       </div>
     </div>
   </main>
@@ -181,6 +186,10 @@ footer {
   height: 450px;
 }
 
+.form-group {
+  margin-top: 1rem;
+}
+
 .columna1,
 .columna2,
 .columna3 {
@@ -270,7 +279,6 @@ footer {
 #mainInscripcion {
   background-image: url(../assets/img/Evening\ Sunshine.jpg);
   margin: 0;
-  font-family: "open sans";
   font-size: 15px;
 }
 
@@ -358,8 +366,7 @@ label {
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
+  margin: 0 auto;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -385,5 +392,4 @@ label {
 .error-message {
   color: red;
   margin-top: 5px;
-}
-</style>
+}</style>
