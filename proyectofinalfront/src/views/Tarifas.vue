@@ -34,7 +34,6 @@
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
           <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
             descuento del {{ descuento * 100 }}%</p>
-            <p v-else>Prueba</p>
           <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio, tarifas[2].nombre)">Lo
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
