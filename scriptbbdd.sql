@@ -32,7 +32,7 @@ id_cliente INT NOT NULL,
 tipo_suscripcion VARCHAR(50) NOT NULL,
 precio DECIMAL(10,2) NOT NULL,
 duracion VARCHAR(30) NOT NULL,
-FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente) ON DELETE CASCADE
 );
 
 CREATE TABLE Compras (
@@ -40,8 +40,8 @@ id_compras INT AUTO_INCREMENT PRIMARY KEY,
 id_cliente INT NOT NULL,
 id_suscripcion INT NOT NULL,
 fecha_compra VARCHAR(25) NOT NULL,
-FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
-FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion)
+FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente) ON DELETE CASCADE,
+FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion) ON DELETE CASCADE
 );
 
 -- Insertar datos en la tabla roles
