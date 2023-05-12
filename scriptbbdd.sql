@@ -44,18 +44,18 @@ FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
 FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion)
 );
 
--- Generar datos para probar(clientes)
--- Insertar datos en la tabla clientes
-/*
-INSERT INTO Clientes (nombre, apellido, fecha_nacimiento, direccion, numero_telefono, email, password, username)
-VALUES
-('Sofía', 'García', '1985-07-12', 'Calle 123', '555-1234', 'sofia.garcia@example.com', '123456', 'sofiagarcia'),
-('Pedro', 'López', '1990-03-22', 'Avenida 456', '555-5678', 'pedro.lopez@example.com', 'password', 'pedrol'),
-('Ana', 'Martínez', '1988-11-05', 'Calle 789', '555-9012', 'ana.martinez@example.com', 'abc123', 'anamartinez');
-*/
--- Generar datos para probar(roles)
 -- Insertar datos en la tabla roles
 INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
 INSERT INTO roles (name) VALUES ('ROLE_USER');
+-- Insertar datos (admin)
+INSERT INTO Clientes (nombre, apellido, fecha_nacimiento, direccion, numero_telefono, email, password, username)
+VALUES
+('Sofía', 'García', '12/10/1985', 'Calle 123', '688495782', 'sofiagarcia@gmail.com', '$2a$12$xgWecMc0ma14/L7Kt6hDaOJ7re3idc.2CAnTi.TEk3Bce6/zWWgx2', 'sofiagarcia20');
+-- Pass sofía Pruebapr15
+-- Asignarle rol al cliente
+INSERT INTO user_roles (user_id, role_id) VALUES ((SELECT id_cliente FROM clientes WHERE email = 'sofiagarcia@gmail.com'), 1);
+
+
+
 
 

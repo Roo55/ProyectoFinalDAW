@@ -8,6 +8,7 @@
         <span class="text-warning"><img
             src="../assets/img/kisspng-fitness-centre-logo-wall-decal-physical-fitness-cropped-jays-home-gym-png-logo-2-png-jayampapos-5c4f52c6431402.2105774115487024062748.png"
             alt=""></span>
+        <a v-if="usuarioAdmin && sesionIniciada" class="adminButton"><router-link to="/admin">Panel admin</router-link></a>
       </a>
 
       <div class="collapse navbar-collapse" id="menu">
@@ -72,7 +73,9 @@ export default{
   data(){
     return{
       username:'',
-      sesionIniciada:false
+      sesionIniciada:false,
+      rol:'',
+      usuarioAdmin:false
     }
   },
   created(){
@@ -82,6 +85,12 @@ export default{
        var token = localStorage.getItem('token')
      const decoded = jwt_decode(token);
      this.username = decoded.sub;
+     this.rol = decoded.autorizacion[0].authority;
+
+     if(this.rol == "ROLE_ADMIN"){
+      this.usuarioAdmin = true;
+     }
+    
     }else{
       this.sesionIniciada=false;
     }
@@ -109,6 +118,14 @@ export default{
   margin-left: 1rem;
   margin-top: 0.6rem;
   color: red;
+}
+.adminButton a{
+  color: white;
+  text-decoration: none;
+}
+.adminButton{
+  text-decoration: none;
+  margin-left: 0.5rem;
 }
 form a {
   text-decoration: none;

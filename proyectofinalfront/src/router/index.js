@@ -8,6 +8,7 @@ import sugerencias from '../views/SugerenciasEjercicios.vue'
 import calendario from '../views/Calendario.vue'
 import paywall from '../views/Paywall.vue'
 import noticias from '../views/Noticias.vue'
+import admin from '../views/PanelAdmin.vue'
 const routes = [
   {
     path: '/',
@@ -53,6 +54,11 @@ const routes = [
     path:'/noticias',
     name:'noticias',
     component:noticias
+  },
+  {
+    path:'/admin',
+    name:'admin',
+    component:admin
   }
   
  

@@ -36,6 +36,7 @@ public class JwtUtils {
         .setSubject((userPrincipal.getUsername()))
         .claim("id", userPrincipal.getId())
         .claim("fechaNacimiento", userPrincipal.getFechaNacimiento())
+        .claim("autorizacion", userPrincipal.getAuthorities())
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
