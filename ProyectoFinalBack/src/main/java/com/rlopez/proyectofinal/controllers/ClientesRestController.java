@@ -1,5 +1,6 @@
 package com.rlopez.proyectofinal.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.rlopez.proyectofinal.daos.ClientesDAO;
+import com.rlopez.proyectofinal.dtos.ClientesDTO;
 import com.rlopez.proyectofinal.entities.ClientesEntity;
 import com.rlopez.proyectofinal.entities.ComprasEntity;
 import com.rlopez.proyectofinal.entities.SuscripcionesEntity;
@@ -51,21 +53,38 @@ public class ClientesRestController {
 	}
 	
 	@GetMapping("/clientes")
-	public List<ClientesEntity> obtenerTodosClientes(){
-		return clientesRepository.findAll();
+	public List<ClientesDTO> obtenerTodosClientes() {
+	    List<ClientesEntity> clientesEntityList = clientesRepository.findAll();
+	    List<ClientesDTO> clientesDTOList = new ArrayList<>();
+	    for (ClientesEntity clientesEntity : clientesEntityList) {
+	        ClientesDTO clientesDTO = new ClientesDTO(
+	                clientesEntity.getId(),
+	                clientesEntity.getNombre(),
+	                clientesEntity.getApellido(),
+	                clientesEntity.getFechaNacimiento(),
+	                clientesEntity.getDireccion(),
+	                clientesEntity.getCorreoElectronico(),
+	                clientesEntity.getNumeroTelefono(),
+	                clientesEntity.getContrasena()
+	        );
+	        clientesDTOList.add(clientesDTO);
+	    }
+	    return clientesDTOList;
+	}
+
+	
+	@DeleteMapping("/clientes/{id}")
+	public String deleteCliente(@PathVariable Integer id) {
+		ClientesEntity cliente = clientesRepository.findById(id).orElse(null);
+		if (cliente != null) {
+	        clientesRepository.delete(cliente);
+	        
+	        return "El cliente y todas sus compras han sido eliminados correctamente";
+	    } else {
+	        return "No se ha encontrado el cliente con el id proporcionado";
+	    }
 	}
 	
-
-	       
-
-	   @DeleteMapping("/clientes/{id}")
-	    public void borrarCliente(Integer id) {
-	    
-	        ClientesEntity cliente = clientesRepository.findById(id).orElse(null);
-	      
-	            clientesRepository.delete(cliente);
-	        
-	    }
 	  @GetMapping("/all")
 	  public String allAccess() {
 	    return "Public Content.";

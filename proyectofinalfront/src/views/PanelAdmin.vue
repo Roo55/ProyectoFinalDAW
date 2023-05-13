@@ -35,8 +35,9 @@
     </div>
 </template>
 <script>
+import router from '@/router'
 import axios from 'axios'
-
+import {removeToken} from '../auth';
 export default {
     data() {
         return {
@@ -58,12 +59,28 @@ export default {
             axios.delete(`http://localhost:8081/gym/api/test/clientes/${id}`)
                 .then(response => {
                     console.log(response);
-                    window.location.reload()
+                    if (id == 1) {
+                        this.cerrarSesion();
+                        
+                        
+                    }
+
                 })
                 .catch(error => {
                     console.log(error);
                 });
-        }
+        },
+        cerrarSesion() {
+            removeToken();
+            this.sesionIniciada = false
+            setTimeout(() => {
+                this.$router.push('/');
+                
+            }, 110);
+            setTimeout(() => {
+                window.location.reload();
+            },110)
+        },
     }
 
 }

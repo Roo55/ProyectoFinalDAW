@@ -23,7 +23,8 @@ name VARCHAR(50) NOT NULL
 CREATE TABLE user_roles (
 user_id INT NOT NULL,
 role_id INT NOT NULL,
-PRIMARY KEY (user_id,role_id)
+PRIMARY KEY (user_id,role_id),
+FOREIGN KEY (user_id) REFERENCES Clientes(id_cliente) ON DELETE CASCADE
 );
 
 CREATE TABLE Suscripciones (
@@ -40,20 +41,22 @@ id_compras INT AUTO_INCREMENT PRIMARY KEY,
 id_cliente INT NOT NULL,
 id_suscripcion INT NOT NULL,
 fecha_compra VARCHAR(25) NOT NULL,
-FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente) ON DELETE CASCADE,
-FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion) ON DELETE CASCADE
+FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente),
+FOREIGN KEY (id_suscripcion) REFERENCES Suscripciones(id_suscripcion) 
 );
 
 -- Insertar datos en la tabla roles
 INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
 INSERT INTO roles (name) VALUES ('ROLE_USER');
 -- Insertar datos (admin)
+ALTER TABLE Clientes AUTO_INCREMENT = 1;
 INSERT INTO Clientes (nombre, apellido, fecha_nacimiento, direccion, numero_telefono, email, password, username)
 VALUES
 ('Sofía', 'García', '12/10/1985', 'Calle 123', '688495782', 'sofiagarcia@gmail.com', '$2a$12$xgWecMc0ma14/L7Kt6hDaOJ7re3idc.2CAnTi.TEk3Bce6/zWWgx2', 'sofiagarcia20');
--- Pass sofía Pruebapr15
--- Asignarle rol al cliente
 INSERT INTO user_roles (user_id, role_id) VALUES ((SELECT id_cliente FROM clientes WHERE email = 'sofiagarcia@gmail.com'), 1);
+-- Pass sofía Pruebapr15
+
+
 
 
 
