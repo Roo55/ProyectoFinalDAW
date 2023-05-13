@@ -58,6 +58,8 @@ export default {
         borrarCliente(id) {
             axios.delete(`http://localhost:8081/gym/api/test/clientes/${id}`)
                 .then(response => {
+                    window.location.reload();
+
                     console.log(response);
                     if (id == 1) {
                         this.cerrarSesion();

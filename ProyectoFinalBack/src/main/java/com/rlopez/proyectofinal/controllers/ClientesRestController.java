@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rlopez.proyectofinal.daos.ClientesDAO;
 import com.rlopez.proyectofinal.dtos.ClientesDTO;
+import com.rlopez.proyectofinal.dtos.ComprasDTO;
 import com.rlopez.proyectofinal.entities.ClientesEntity;
 import com.rlopez.proyectofinal.entities.ComprasEntity;
 import com.rlopez.proyectofinal.entities.SuscripcionesEntity;
@@ -70,6 +71,10 @@ public class ClientesRestController {
 	        clientesDTOList.add(clientesDTO);
 	    }
 	    return clientesDTOList;
+	}
+	@GetMapping("/compras")
+	public List<ComprasEntity> obtenerTodasCompras() {
+	   return comprasRepository.findAll();
 	}
 
 	

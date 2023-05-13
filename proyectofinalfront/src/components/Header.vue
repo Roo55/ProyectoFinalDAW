@@ -119,7 +119,7 @@ export default{
   color: red;
 }
 .adminButton a{
-  color: white;
+  color: black;
   text-decoration: none;
 }
 .adminButton{

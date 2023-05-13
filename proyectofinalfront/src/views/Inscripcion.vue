@@ -43,7 +43,6 @@
                 <!-- ... más campos de formulario ... -->
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" :disabled="verificarEnvio">
-                        <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                         Registrarse
                     </button>
                 </div>
