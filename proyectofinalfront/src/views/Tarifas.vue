@@ -9,10 +9,12 @@
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
           <p>Si acabas de empezar tu cambio y deseas probarnos, esta tarifa es la tuya.</p>
-          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te
+            aplicaría un
             descuento del {{ descuento * 100 }}%</p>
 
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[0].precio, tarifas[0].nombre)">Lo
+          <button v-if="sesionIniciada" class="compra"
+            v-on:click="mostrarPaywall(tarifas[0].precio, tarifas[0].nombre)">Lo
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
@@ -21,9 +23,11 @@
           <img src="../assets/img/Tarifados.png" alt="">
           <h3>55 <sup>€</sup> </h3>
           <p>Si ya eres un iniciado y/o has probado ya nuestro gimnasio, esta tarifa es la tuya.</p>
-          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te
+            aplicaría un
             descuento del {{ descuento * 100 }}%</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[1].precio, tarifas[1].nombre)">Lo
+          <button v-if="sesionIniciada" class="compra"
+            v-on:click="mostrarPaywall(tarifas[1].precio, tarifas[1].nombre)">Lo
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
@@ -32,9 +36,11 @@
           <img src="../assets/img/weightlifter.png" alt="">
           <h3>80 <sup>€</sup> </h3>
           <p>Muestra tu lealtad ante nosotros, te otorgamos una camiseta del club, incluída en el precio final.</p>
-          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te aplicaría un
+          <p v-if="sesionIniciada" class="descuentoAviso">Tienes <strong>{{ edadCliente }}</strong> años, por lo que se te
+            aplicaría un
             descuento del {{ descuento * 100 }}%</p>
-          <button v-if="sesionIniciada" class="compra" v-on:click="mostrarPaywall(tarifas[2].precio, tarifas[2].nombre)">Lo
+          <button v-if="sesionIniciada" class="compra"
+            v-on:click="mostrarPaywall(tarifas[2].precio, tarifas[2].nombre)">Lo
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
@@ -103,6 +109,7 @@
 <script>
 import jwt_decode from 'jwt-decode';
 import { getToken } from '../auth';
+import {removeToken} from '../auth';
 import { differenceInYears } from 'date-fns'
 import { parse, format } from 'date-fns';
 
@@ -121,28 +128,34 @@ export default {
     };
   },
   created() {
-    var token = localStorage.getItem('token')
 
-    const decoded = jwt_decode(localStorage.getItem('token'));
+    this.sesionIniciada = !!getToken();
+    if (this.sesionIniciada) {
+      var token = localStorage.getItem('token')
+      const decoded = jwt_decode(localStorage.getItem('token'));
 
-    const fechaNacimientoISO = parse(decoded.fechaNacimiento, 'dd/MM/yyyy', new Date());
-    const fechaNacimientoCliente = format(fechaNacimientoISO, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
-    const fechaNacimientoClienteObj = new Date(fechaNacimientoCliente);
+      const fechaNacimientoISO = parse(decoded.fechaNacimiento, 'dd/MM/yyyy', new Date());
+      const fechaNacimientoCliente = format(fechaNacimientoISO, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+      const fechaNacimientoClienteObj = new Date(fechaNacimientoCliente);
 
- 
-    this.edadCliente = differenceInYears(new Date(), fechaNacimientoClienteObj);
 
-    if (this.edadCliente >= 16 && this.edadCliente <= 30) {
-      this.descuento = 0.15
-    } else if (this.edadCliente > 30 && this.edadCliente <= 60) {
-      this.descuento = 0.05
-    } else if (this.edadCliente > 60 && this.edadCliente <= 80) {
-      this.descuento = 0.4
+      this.edadCliente = differenceInYears(new Date(), fechaNacimientoClienteObj);
+
+      if (this.edadCliente >= 16 && this.edadCliente <= 30) {
+        this.descuento = 0.15
+      } else if (this.edadCliente > 30 && this.edadCliente <= 60) {
+        this.descuento = 0.05
+      } else if (this.edadCliente > 60 && this.edadCliente <= 80) {
+        this.descuento = 0.4
+      } else if(this.edadCliente > 80 && this.edadCliente <= 100){
+        this.descuento = 0.6
+      }
+
+
+      const precioOriginal = parseFloat(this.precio)
+      this.precioFinal = precioOriginal - (precioOriginal * this.descuento);
     }
 
- 
-    const precioOriginal = parseFloat(this.precio)
-    this.precioFinal = precioOriginal - (precioOriginal * this.descuento);
 
 
 
@@ -259,22 +272,26 @@ export default {
   transition: 0.8s all;
   cursor: pointer;
 }
+
 .descuentoAviso {
-animation: parpadeo 2s infinite;
-color: red;
+  animation: parpadeo 2s infinite;
+  color: red;
 }
 
 @keyframes parpadeo {
-0% {
-opacity: 1;
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
-50% {
-opacity: 0;
-}
-100% {
-opacity: 1;
-}
-}
+
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* BOTON LO QUIERO */
 .compra {

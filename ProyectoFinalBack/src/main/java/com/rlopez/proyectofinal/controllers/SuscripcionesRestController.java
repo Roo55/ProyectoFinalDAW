@@ -54,6 +54,8 @@ public class SuscripcionesRestController {
 		        descuento = 0.05;
 		    } else if (edad > 60 && edad <= 80) {
 		        descuento = 0.4;
+		    } else if(edad > 80 && edad <= 100) {
+		    	descuento = 0.6;
 		    }
 
 		    double precioOriginal = Double.parseDouble(suscripcion.getPrecio());

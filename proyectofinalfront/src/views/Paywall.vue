@@ -165,7 +165,7 @@ export default {
 
     },
     validarNumeroTarjeta() {
-      if (!this.numeroTarjeta.match(/^(?:\d{4}[ -]?){3}\d{1,4}$|^\d{13,16}$/)) {
+      if (!this.numeroTarjeta.match(/^([3456]\d{3}\s?\d{4}\s?\d{4}\s?\d{4}|[3456]\d{15})$/)) {
         this.numeroTarjetaError = true;
         this.numeroTarjetaErrorMensaje = 'Por favor, ingrese un número de tarjeta de crédito válido';
       } else {
