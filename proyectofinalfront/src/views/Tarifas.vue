@@ -3,8 +3,8 @@
   <span class="linea"></span>
   <div id="body">
     <main>
-      <div class="contenedor-tarifas">
-        <div class="tabla">
+      <div class="contenedor-tarifas row">
+        <div class="tabla col-8 col-lg-4 mb-md-2 mb-2">
           <h2>Mensual</h2>
           <img src="../assets/img/dumbbell.png" alt="">
           <h3>30 <sup>€</sup> </h3>
@@ -18,7 +18,7 @@
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
-        <div class="tabla">
+        <div class="tabla col-8 col-lg-4 mb-md-2 mb-2">
           <h2>Trimestral</h2>
           <img src="../assets/img/Tarifados.png" alt="">
           <h3>55 <sup>€</sup> </h3>
@@ -31,7 +31,7 @@
             quiero!</button>
           <p class="obligatorioRegistrarse" v-else>Debes registrarte e iniciar sesión para adquirir una tarifa</p>
         </div>
-        <div class="tabla">
+        <div class="tabla col-8 col-lg-4 mb-md-2 mb-2">
           <h2>Anual</h2>
           <img src="../assets/img/weightlifter.png" alt="">
           <h3>80 <sup>€</sup> </h3>
@@ -212,7 +212,6 @@ export default {
   width: 90%;
   max-width: 900px;
   margin: auto;
-  height: 68vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -230,10 +229,14 @@ export default {
     margin-bottom: 0;
   }
 }
-
+@media screen and (max-width: 1000px) {
+  .contenedor-tarifas {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+}
 .tabla {
-  width: 33%;
-  height: 600px;
   margin: auto;
   padding: 60px;
   border: 1px solid #3a3e6b;

@@ -151,7 +151,6 @@ export default {
                     username: this.username,
 
                 }).then((response) => {
-                    console.log(response.data);
                     this.$router.push("/")
                 })
             }

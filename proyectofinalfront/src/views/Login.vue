@@ -119,20 +119,18 @@ export default {
 
       }).then((response) => {
         let respuesta = response.data
-        console.log(respuesta);
         let respuestaUsername = response.data.username;
         const token = response.data.accessToken;
         setToken(token);
         localStorage.setItem('user', JSON.stringify(respuestaUsername))
         localStorage.setItem('token', token)
         this.$router.push('/');
-        setTimeout(() => {
-          window.location.reload()
+       setTimeout(() => {
+        window.location.reload()
         }, 110);
 
       }).catch((error) => {
         this.loginFallido = true;
-        console.log("Error en el login")
       })
 
     },

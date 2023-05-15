@@ -395,4 +395,19 @@ footer {
   padding: 20px;
   
 }
+@media screen and (max-width: 1200px) {
+  .ejercicios-contenedor table tr{
+    display:flex;
+    flex-direction: column;
+  }
+  .cuadro{
+    width: 100%;
+  }
+  .cuadro iframe{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 </style>

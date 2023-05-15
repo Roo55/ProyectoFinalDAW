@@ -48,10 +48,8 @@ export default {
         axios.get('http://localhost:8081/gym/api/test/clientes')
             .then(response => {
                 this.clientes = response.data
-                console.log(response.data)
             })
             .catch(error => {
-                console.log(error)
             })
     },
     methods: {
@@ -59,7 +57,6 @@ export default {
             axios.delete(`http://localhost:8081/gym/api/test/clientes/${id}`)
                 .then(response => {
 
-                    console.log(response);
                     if (id == 1) {
                         this.cerrarSesion();
                         setTimeout(() => {
@@ -70,7 +67,6 @@ export default {
 
                 })
                 .catch(error => {
-                    console.log(error);
                 });
         },
         cerrarSesion() {

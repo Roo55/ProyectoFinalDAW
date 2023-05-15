@@ -326,10 +326,6 @@ footer {
   color: #c7c7c7;
 }
 
-@media screen and (max-width: 1100px) {
-  .contenedor-body {
-    flex-wrap: wrap;
-  }
 
   .columna1 {
     max-width: 100%;
@@ -339,7 +335,7 @@ footer {
   .columna3 {
     margin-top: 40px;
   }
-}
+
 
 /* Anuncios */
 
@@ -643,44 +639,5 @@ body {
   padding-bottom: 10px;
 }
 
-/* Haciendo la cabecera responsive */
 
-@media only screen and (max-width: 889px) {
-  .main {
-    padding-top: 12rem;
-  }
-
-  .navegacion {
-    width: 100%;
-  }
-
-  .navegacion ul li {
-    display: block;
-  }
-
-  .navegacion ul li a {
-    display: block;
-    padding: 0.5rem 0;
-    transition: all 0.4s linear;
-    border-radius: 5px;
-  }
-
-  .navegacion ul li a:hover {
-    background: #4a4a4a;
-  }
-
-  .menu-icono {
-    display: block;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-  }
-
-  .navegacion ul {
-    display: none;
-  }
-
-  .navegacion ul.show {
-    display: block;
-  }
-}
 </style>

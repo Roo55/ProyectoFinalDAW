@@ -12,7 +12,7 @@
       </a>
 
       <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav mx-auto" id="contenedorLis">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page"><router-link to="/">Inicio</router-link></a>
           </li>
@@ -85,7 +85,6 @@ export default{
      const decoded = jwt_decode(token);
      this.username = decoded.sub;
      this.rol = decoded.autorizacion[0].authority;
-
      if(this.rol == "ROLE_ADMIN"){
       this.usuarioAdmin = true;
      }
@@ -109,6 +108,7 @@ export default{
 }
 </script>
 <style>
+
 #botonCerrarSesion{
   margin-left: 2rem;
   margin-top: 0.5rem;
@@ -174,5 +174,11 @@ li {
 
 .navbar-nav .nav-link:hover {
   color: #ffc107;
+}
+@media screen and(max-width: 768px){
+  #contenedorLis li{
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

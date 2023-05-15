@@ -146,7 +146,6 @@ export default {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
       }).then((response) => {
-        console.log(response.data);
         this.$router.push('/');
       })
       }

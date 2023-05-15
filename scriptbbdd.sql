@@ -1,3 +1,4 @@
+-- REALIZAR CADA LÍNEA POR SEPARADO
 DROP DATABASE IF EXISTS Gym;
 CREATE DATABASE Gym;
 
@@ -52,9 +53,13 @@ INSERT INTO roles (name) VALUES ('ROLE_USER');
 ALTER TABLE Clientes AUTO_INCREMENT = 1;
 INSERT INTO Clientes (nombre, apellido, fecha_nacimiento, direccion, numero_telefono, email, password, username)
 VALUES
-('Sofía', 'García', '12/10/1985', 'Calle 123', '688495782', 'sofiagarcia@gmail.com', '$2a$12$xgWecMc0ma14/L7Kt6hDaOJ7re3idc.2CAnTi.TEk3Bce6/zWWgx2', 'sofiagarcia20');
-INSERT INTO user_roles (user_id, role_id) VALUES ((SELECT id_cliente FROM clientes WHERE email = 'sofiagarcia@gmail.com'), 1);
--- Pass sofía Pruebapr15
+('Sofía', 'RolADmin', '12/10/1985', 'Calle 123', '688495782', 'sofiagarcia@gmail.com', '$2a$12$xgWecMc0ma14/L7Kt6hDaOJ7re3idc.2CAnTi.TEk3Bce6/zWWgx2', 'sofiagarcia20');
+INSERT INTO user_roles (user_id, role_id) VALUES ((SELECT id_cliente FROM clientes WHERE nombre = 'Sofía'), 1);
+INSERT INTO Clientes (nombre, apellido, fecha_nacimiento, direccion, numero_telefono, email, password, username)
+VALUES
+('Pablo', 'RolUser', '12/10/1985', 'Calle 123', '688495782', 'pablo@gmail.com', '$2a$12$xgWecMc0ma14/L7Kt6hDaOJ7re3idc.2CAnTi.TEk3Bce6/zWWgx2', 'pablo20');
+INSERT INTO user_roles (user_id, role_id) VALUES ((SELECT id_cliente FROM clientes WHERE email = 'pablo@gmail.com'), 2);
+-- Pass usuarios prueba Pruebapr15
 
 
 
