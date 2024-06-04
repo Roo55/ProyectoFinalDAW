@@ -12,7 +12,7 @@ El objetivo del proyecto es crear una aplicación web lo más atractiva e intuit
 
 ### Base de datos
 1. Instalar MySQL Workbench [Link](https://dev.mysql.com/downloads/workbench/)
-2. Abrir el script `scriptbbdd.sql` el cual se encuentra en la raíz del proyecto.
+2. Abrir el script `scriptbbdd.sql` el cual se encuentra en la carpeta `ScriptBBDD`.
 3. Ejecutar línea a línea para evitar fallos
 
 ### Frontend
