@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    <img width="100%" src="./proyectofinalfront/public/img/kisspng-fitness-centre-logo-wall-decal-physical-fitness-cropped-jays-home-gym-png-logo-2-png-jayampapos-5c4f52c6431402.2105774115487024062748.png">
+    <img width="60%" src="./proyectofinalfront/public/img/kisspng-fitness-centre-logo-wall-decal-physical-fitness-cropped-jays-home-gym-png-logo-2-png-jayampapos-5c4f52c6431402.2105774115487024062748.png">
 </div>
 
 # Descripción del proyecto
