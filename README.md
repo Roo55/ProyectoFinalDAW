@@ -2,18 +2,18 @@
     <img width="100%" src="./proyectofinalfront/public/img/kisspng-fitness-centre-logo-wall-decal-physical-fitness-cropped-jays-home-gym-png-logo-2-png-jayampapos-5c4f52c6431402.2105774115487024062748.png">
 </div>
 
-# Descripción del proyecto
+# Contexto de la aplicación
+
+La aplicación web "DREAMGYM" fue una aplicación creada para satisfacer el trabajo de fin de grado(TFG), de mis estudios en Desarrollo de Aplicaciones Web (DAW). 
+Fue calificada con un 9 sobre 10 puntos, obteniendo un sobresaliente y siendo el TFG mejor valorado de mi promoción.
+
+## Descripción del proyecto
 
 La aplicación web “DREAMGYM” es una aplicación creada para poder informatizar la inscripción a un gimnasio, dado que hoy en día muchos gimnasios no ofrecen inscribirse en los mismos a través de internet, y/o, peor aún, no ofrecer contenido fotográfico para así mostrar como es el gimnasio ni los servicios que ofrece el mismo.
 
 Una aplicación web como DREAMGYM puede renovar la imagen de un gimnasio en su totalidad y atraer a más clientes gracias a un aspecto profesional y competente con el resto de gimnasios.
 
 El objetivo del proyecto es crear una aplicación web lo más atractiva e intuitiva posible, a la par que ofrecer una herramienta valiosa y diferenciadora para los clientes del mismo. 
-
-## Contexto de la aplicación
-
-La aplicación web "DREAMGYM" fue una aplicación creada para satisfacer el trabajo de fin de grado(TFG), de mis estudios en Desarrollo de Aplicaciones Web (DAW). 
-Fue calificada con un 9 sobre 10 puntos, obteniendo un sobresaliente y siendo el TFG mejor valorado de mi promoción.
 
 ## Como arrancar el proyecto
 
