@@ -12,7 +12,8 @@ El objetivo del proyecto es crear una aplicación web lo más atractiva e intuit
 
 ## Contexto de la aplicación
 
-La aplicación web "DREAMGYM" fue una aplicación creada para satisfacer el trabajo de fin de grado(TFG) de mis estudios en Desarrollo de Aplicaciones Web (DAW). Fue calificada con un 9 sobre 10 puntos, obteniendo un sobresaliente y siendo el segundo TFG mejor valorado de mi promoción.
+La aplicación web "DREAMGYM" fue una aplicación creada para satisfacer el trabajo de fin de grado(TFG), de mis estudios en Desarrollo de Aplicaciones Web (DAW). 
+Fue calificada con un 9 sobre 10 puntos, obteniendo un sobresaliente y siendo el TFG mejor valorado de mi promoción.
 
 ## Como arrancar el proyecto
 
