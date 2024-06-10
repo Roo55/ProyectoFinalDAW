@@ -10,6 +10,10 @@ Una aplicación web como DREAMGYM puede renovar la imagen de un gimnasio en su t
 
 El objetivo del proyecto es crear una aplicación web lo más atractiva e intuitiva posible, a la par que ofrecer una herramienta valiosa y diferenciadora para los clientes del mismo. 
 
+## Contexto de la aplicación
+
+La aplicación web "DREAMGYM" fue una aplicación creada para satisfacer el trabajo de fin de grado(TFG) de mis estudios en Desarrollo de Aplicaciones Web (DAW). Fue calificada con un 9 sobre 10 puntos, obteniendo un sobresaliente y siendo el segundo TFG mejor valorado de mi promoción.
+
 ## Como arrancar el proyecto
 
 ### Base de datos
